@@ -1,0 +1,6 @@
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.dependencymanager
+Bundle-Version: 1.0.0.${tstamp}
+Export-Package: it.hash.osgi.application.service
+Bundle-Activator: it.hash.osgi.application.service.Activator
