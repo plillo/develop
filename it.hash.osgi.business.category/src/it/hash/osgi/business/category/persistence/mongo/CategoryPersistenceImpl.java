@@ -34,9 +34,7 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
  
 	@Override
 	public Map<String, Object> createCategory(Category category) {
-
-		JacksonDBCollection<Category, Object> categoryMap = JacksonDBCollection.wrap(categoriesCollection,
-				Category.class);
+		JacksonDBCollection<Category, Object> categoryMap = JacksonDBCollection.wrap(categoriesCollection, Category.class);
 
 		Map<String, Object> response = new TreeMap<String, Object>();
 

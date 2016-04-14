@@ -1,0 +1,15 @@
+-buildpath: \
+	net.vz.mongodb.jackson.mongo-jackson-mapper,\
+	com.mongodb,\
+	org.amdatu.mongo,\
+	org.apache.felix.dependencymanager,\
+	osgi.core,\
+	org.apache.felix.fileinstall,\
+	it.hash.osgi.utilities,\
+	it.hash.osgi.resource.uuid.api,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	it.hash.osgi.user.user.attribute.service,\
+	it.hash.osgi.user.attribute,\
+	jackson-mapper-asl,\
+	org.mongodb.mongo-java-driver,\
+	org.apache.felix.gogo.runtime
