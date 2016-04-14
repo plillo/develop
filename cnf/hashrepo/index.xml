@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1460639240742" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1460639866040" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.resource.uuid.api"/>
@@ -238,6 +238,694 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.cm)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.attribute"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="1314ae59ea1635d9aa8a931bacae2790881a6859c7545a787f25b325ae837e6d"/>
+      <attribute name="url" value="it.hash.osgi.user.attribute/it.hash.osgi.user.attribute-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="6989"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.attribute"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.attribute"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.attribute"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="javax.xml.bind.annotation"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.bind.annotation)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.vz.mongodb.jackson)(version&gt;=1.4.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.attribute.persistence"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="b5e6f6300d891b75eaa01ea119342abbbe2bfacf2d1c3606bf8d8253d8cfa9a8"/>
+      <attribute name="url" value="it.hash.osgi.user.user.attribute.persistence/it.hash.osgi.user.user.attribute.persistence-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="15885"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.attribute.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.attribute.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute.persistence.mongo"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.attribute.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute,it.hash.osgi.user.attribute.persistence.api,org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute.persistence.api"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.attribute.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.mongodb)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.amdatu.mongo)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.attribute.rest"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="40d23865f35fd6ef669ebc434c4dad36e2c6063b5ec445129681a95d5dd6f235"/>
+      <attribute name="url" value="it.hash.osgi.user.user.attribute.rest/it.hash.osgi.user.user.attribute.rest-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="7286"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.attribute.rest"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.attribute.rest"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute.rest"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.attribute.rest"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="io.swagger.annotations,it.hash.osgi.user.attribute,javax.ws.rs,javax.ws.rs.core,org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.swagger.annotations)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs.core)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.attribute.service"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="431bc505463777ebfa72d99f22d42d065f9e2d2149c7d3608b91177699db9d76"/>
+      <attribute name="url" value="it.hash.osgi.user.user.attribute.service/it.hash.osgi.user.user.attribute.service-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="7952"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.attribute.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.attribute.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute.service"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.attribute.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute,org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.resource.uuid.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.attribute.shell"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="b05fdc3eea523dcf72ffe0e6efec5deedce59f271326f9fe528859404bd62e69"/>
+      <attribute name="url" value="it.hash.osgi.user.user.attribute.shell/it.hash.osgi.user.user.attribute.shell-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="6476"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.attribute.shell"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.attribute.shell"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.map)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.password"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="7df662702db29f10b9554313e3d352d48aeecb318fe60f1d4260b2c490b1ddfa"/>
+      <attribute name="url" value="it.hash.osgi.user.user.password/it.hash.osgi.user.user.password-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="7127"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.password"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.password"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.password"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.password"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.crypto)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.crypto.spec)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.commons.codec.binary)(version&gt;=1.7.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.persistence.mock"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="4831d04db7fde1040c53f797ac456af3791d21b6cc32778981d8ec704af2cb4f"/>
+      <attribute name="url" value="it.hash.osgi.user.user.persistence.mock/it.hash.osgi.user.user.persistence.mock-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="7588"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.persistence.mock"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.persistence.mock"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.password)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.persistence.mongo"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="549c97cb99e810a6229a1fec0aad535d06f2d43e67847da9a0c971a7923f5c0e"/>
+      <attribute name="url" value="it.hash.osgi.user.user.persistence.mongo/it.hash.osgi.user.user.persistence.mongo-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="28483"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.persistence.mongo"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.persistence.mongo"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute.persistence.mongo"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.persistence.mongo"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute,it.hash.osgi.user.attribute.persistence.api,org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.mongodb)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.mongodb.util)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.password)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.vz.mongodb.jackson)(version&gt;=1.4.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.amdatu.mongo)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.bson.types)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.map)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.persistence"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="2761dd63097c45463691facee50f6bae9a7d0b281f0975555b1609a09b6861bf"/>
+      <attribute name="url" value="it.hash.osgi.user.user.persistence/it.hash.osgi.user.user.persistence-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="10281"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.persistence.api"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.persistence.shell"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.persistence"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.rest"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="8732a2a7457480dc298d4ab3f2e562143998328c86f436db7434802944a41956"/>
+      <attribute name="url" value="it.hash.osgi.user.user.rest/it.hash.osgi.user.user.rest-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="9199"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.rest"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.rest"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.rest"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.rest"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="io.swagger.annotations,it.hash.osgi.user,javax.ws.rs,javax.ws.rs.core,org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.swagger.annotations)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs.core)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.service"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="e2f4f3ecde5a0593817117c52971740ce31a9004ea9619ac00387a6d622b5612"/>
+      <attribute name="url" value="it.hash.osgi.user.user.service/it.hash.osgi.user.user.service-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="26061"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.service.api"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.service.impl"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user.service"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="it.hash.osgi.user,it.hash.osgi.user.service.api,org.apache.felix.dm,org.osgi.framework,org.osgi.service.cm"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.resource.uuid.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.security.jwt.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.password)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.json.simple)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.cm)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.event)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user.shell"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="7c5730d7442c24a763d1ded34430e29aa471b9793309c19c516cfa0a856cfe7c"/>
+      <attribute name="url" value="it.hash.osgi.user.user.shell/it.hash.osgi.user.user.shell-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="8212"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user.shell"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user.shell"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.codehaus.jackson.map)(version&gt;=1.9.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.user.user"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="81a8cdb7ae8b354c1ff2f650aeea67ad0987ed12996950666b395e4960ae92cd"/>
+      <attribute name="url" value="it.hash.osgi.user.user/it.hash.osgi.user.user-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="9606"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.user.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201604141317"/>
+      <directive name="uses" value="javax.xml.bind.annotation"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.bind.annotation)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.vz.mongodb.jackson)(version&gt;=1.4.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>

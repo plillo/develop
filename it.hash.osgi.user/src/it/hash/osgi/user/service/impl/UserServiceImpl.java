@@ -18,7 +18,7 @@ import org.osgi.service.cm.ManagedService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
-import it.hash.osgi.application.service.ApplicationManager;
+////import it.hash.osgi.application.service.ApplicationManager;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 import it.hash.osgi.security.jwt.service.JWTService;
 import it.hash.osgi.user.User;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 	private volatile JWTService _jwtService;
 	private volatile UUIDService _UUIDService;
 	private volatile AttributeService _attributeService;
-	private volatile ApplicationManager _applicationManagerService;
+	////private volatile ApplicationManager _applicationManagerService;
 
 	private Validator validator = new Validator();
 
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 				List<Attribute> application_attributes = _attributeService.getApplicationAttributes(appcode);
 				
 				// Filtering of application user attributes
-				_applicationManagerService.filterAttributes(appcode, application_attributes);
+				////_applicationManagerService.filterAttributes(appcode, application_attributes);
 
 				// merge user attributes
 				attributes.addAll(application_attributes);
