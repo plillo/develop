@@ -1,7 +1,5 @@
 package it.hash.osgi.business.rest;
 
-import static it.hash.osgi.utils.ListTools.mergeList;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,12 +21,12 @@ import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
 import it.hash.osgi.business.Business;
-import it.hash.osgi.business.service.api.BusinessService;
-import it.hash.osgi.geoJson.Coordinates;
-import it.hash.osgi.geoJson.Point;
+import it.hash.osgi.business.service.BusinessService;
+import it.hash.osgi.geojson.Coordinates;
+import it.hash.osgi.geojson.Point;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
-import it.hash.osgi.user.service.UserService;
+import it.hash.osgi.user.service.api.UserService;
 
 @Path("businesses/1.0/businesses")
 public class Resources {
@@ -281,7 +279,7 @@ public class Resources {
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "unchecked" })
 	private Map<String, Object> extractToForm(MultivaluedMap<String, String> form) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
@@ -381,5 +379,15 @@ public class Resources {
 			response.put("business", business);
 		}
 		return response;
+	}
+	
+	public static List<Attribute> mergeList(List<Attribute> attributes, List<Attribute> attributesUser) {
+		for (Attribute elem : attributes) {
+			if (attributesUser.contains(elem)) {
+				attributes.remove(elem);
+				attributes.add(elem);
+			}
+		}
+		return attributes;
 	}
 }

@@ -7,14 +7,13 @@ import java.util.Map;
 
 import org.osgi.service.event.EventAdmin;
 
-import com.amazonaws.util.StringUtils;
-
 import it.hash.osgi.business.Business;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
-import it.hash.osgi.business.service.api.BusinessService;
-import it.hash.osgi.geoJson.Coordinates;
+import it.hash.osgi.business.service.BusinessService;
+import it.hash.osgi.geojson.Coordinates;
 import it.hash.osgi.resource.uuid.api.UUIDService;
-import it.hash.osgi.user.service.UserService;
+import it.hash.osgi.user.service.api.UserService;
+import it.hash.osgi.utils.StringUtils;
 
 public class BusinessServiceImpl implements BusinessService {
 	private volatile BusinessServicePersistence _businessPersistenceService;
@@ -38,7 +37,7 @@ public class BusinessServiceImpl implements BusinessService {
 		// TABELLE!!!!
 		Map<String, Object> response = new HashMap<String, Object>();
 		String u = _uuid.createUUID("app/business");
-		if (!StringUtils.isNullOrEmpty(u)) {
+		if (!StringUtils.isEmptyOrNull(u)) {
 			business.setUuid(u);
 
 			response = _businessPersistenceService.addBusiness(business);
@@ -63,7 +62,7 @@ public class BusinessServiceImpl implements BusinessService {
 		String u = _uuid.createUUID("app/business");
 		Map<String, Object> response = new HashMap<String, Object>();
 
-		if (!StringUtils.isNullOrEmpty(u)) {
+		if (!StringUtils.isEmptyOrNull(u)) {
 			pars.put("uuid", u);
 			response = _businessPersistenceService.addBusiness(pars);
 
@@ -86,7 +85,7 @@ public class BusinessServiceImpl implements BusinessService {
 	public Map<String, Object> deleteBusiness(String uuid) {
 		Map<String, Object> response = new HashMap<String, Object>();
 
-		if (!StringUtils.isNullOrEmpty(uuid)) {
+		if (!StringUtils.isEmptyOrNull(uuid)) {
 			response = _uuid.removeUUID(uuid);
 
 			return _businessPersistenceService.deleteBusiness(uuid);

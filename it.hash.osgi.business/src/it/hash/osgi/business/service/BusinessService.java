@@ -1,10 +1,10 @@
-package it.hash.osgi.business.service.api;
+package it.hash.osgi.business.service;
 
 import java.util.List;
 import java.util.Map;
 
 import it.hash.osgi.business.Business;
-import it.hash.osgi.geoJson.Coordinates;
+import it.hash.osgi.geojson.Coordinates;
 
 public interface BusinessService {
 	Map<String, Object> getBusiness(Map<String, Object> pars);

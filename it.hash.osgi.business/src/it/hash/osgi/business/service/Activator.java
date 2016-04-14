@@ -8,9 +8,9 @@ import org.osgi.framework.BundleContext;
 import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
-import it.hash.osgi.business.service.api.BusinessService;
+import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.resource.uuid.api.UUIDService;
-import it.hash.osgi.user.service.UserService;
+import it.hash.osgi.user.service.api.UserService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override

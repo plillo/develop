@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import it.hash.osgi.geoJson.Point;
+import it.hash.osgi.geojson.Point;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
 /**
- * Pojo attivit√† Commerciale
+ * Pojo attivit‡†Commerciale
  * 
  * @author Montinari Antonella
  * 
@@ -26,11 +26,11 @@ public class Business implements Comparable<Business> {
 	@Id
 	private String _id;
 	private String uuid;
-	// Campo Obbligatorio
+	// Mandatory
 	private String name;
-	// Campo obbligatorio
+	// Mandatory
 	private String pIva;
-	// Campo obbligatorio
+	// Mandatory
 	private String fiscalCode;
 	private String address;
 	private String city;

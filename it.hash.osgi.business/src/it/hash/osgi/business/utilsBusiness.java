@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import it.hash.osgi.geoJson.Point;
+import it.hash.osgi.geojson.Point;
 import it.hash.osgi.utils.StringUtils;
 
 public class utilsBusiness {

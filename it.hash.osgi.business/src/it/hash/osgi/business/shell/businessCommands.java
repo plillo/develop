@@ -8,7 +8,7 @@ import java.util.Map;
 
 import it.hash.osgi.business.Business;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
-import it.hash.osgi.business.service.api.BusinessService;
+import it.hash.osgi.business.service.BusinessService;
 
 public class businessCommands {
 	private volatile BusinessService _businessService;

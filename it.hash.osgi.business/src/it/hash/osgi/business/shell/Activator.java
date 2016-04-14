@@ -8,7 +8,7 @@ import org.apache.felix.service.command.CommandProcessor;
 import org.osgi.framework.BundleContext;
 
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
-import it.hash.osgi.business.service.api.BusinessService;
+import it.hash.osgi.business.service.BusinessService;
 
 public class Activator extends DependencyActivatorBase {
 
