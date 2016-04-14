@@ -1,0 +1,12 @@
+Bundle-Version: 1.0.0.${tstamp}
+Private-Package: it.hash.osgi.broker
+Export-Package: it.hash.osgi.broker
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.dependencymanager,\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.configadmin,\
+	it.hash.osgi.security.service,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	org.eclipse.paho.client.mqttv3,\
+	it.hash.osgi.utilities

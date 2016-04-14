@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.service.cm.ManagedService;
 
-import it.hash.osgi.jwt.service.JWTService;
+import it.hash.osgi.security.jwt.service.JWTService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override
