@@ -1,0 +1,12 @@
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.dependencymanager,\
+	org.apache.servicemix.bundles.aws-java-sdk,\
+	org.apache.felix.log,\
+	it.hash.osgi.user.user.persistence,\
+	it.hash.osgi.user.user.password,\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.configadmin,\
+	it.hash.osgi.utilities,\
+	it.hash.osgi.user.user
+-sub: *.bnd
