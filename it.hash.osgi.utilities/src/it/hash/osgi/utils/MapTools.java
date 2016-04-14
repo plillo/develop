@@ -7,7 +7,7 @@ public class MapTools {
 	public static boolean containsKeyAndNotNullValue(Map<String, Object> map, String key, String value){
 		if(!map.containsKey(key))
 			return false;
-
+   
 		return map.get(key) != null;
 	}
 	
