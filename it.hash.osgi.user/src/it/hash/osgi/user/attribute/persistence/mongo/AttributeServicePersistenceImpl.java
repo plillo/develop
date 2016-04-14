@@ -21,6 +21,7 @@ import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence;
 import it.hash.osgi.utils.StringUtils;
 
+@SuppressWarnings({"unchecked","rawtypes"})
 public class AttributeServicePersistenceImpl implements AttributeServicePersistence {
 	private volatile MongoDBService m_mongoDBService;
 	private static final String COLLECTION = "attributes";
@@ -31,7 +32,6 @@ public class AttributeServicePersistenceImpl implements AttributeServicePersiste
 		attributesCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Attribute getAttribute(String uuid) {
 		DBObject found = attributesCollection.findOne(new BasicDBObject("uuid", uuid));
