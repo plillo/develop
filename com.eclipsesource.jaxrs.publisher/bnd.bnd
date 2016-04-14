@@ -1,0 +1,11 @@
+-buildpath: \
+	osgi.core,\
+	osgi.cmpn,\
+	javax.ws.rs-api,\
+	javax.servlet,\
+	com.eclipsesource.jaxrs.jersey-all
+Bundle-Version: 10.0.0.byhash
+Export-Package: \
+	com.eclipsesource.jaxrs.publisher,\
+	com.eclipsesource.jaxrs.publisher.internal
+Bundle-Activator: com.eclipsesource.jaxrs.publisher.internal.Activator
