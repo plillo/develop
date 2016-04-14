@@ -1,0 +1,5 @@
+Bundle-Version: 1.0.0.${tstamp}
+Export-Package: \
+	it.hash.osgi.user.service.api,\
+	it.hash.osgi.user.service.impl
+Bundle-Activator: it.hash.osgi.user.service.impl.Activator

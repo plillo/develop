@@ -1,0 +1,6 @@
+Bundle-Version: 1.0.0.${tstamp}
+Bundle-Activator: it.hash.osgi.security.service.Activator
+Export-Package: \
+	it.hash.osgi.security.jwt.service,\
+	it.hash.osgi.security.jwt.shell,\
+	it.hash.osgi.security.service
