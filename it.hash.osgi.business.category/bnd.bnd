@@ -12,4 +12,6 @@
 	it.hash.osgi.user.attribute,\
 	jackson-mapper-asl,\
 	org.mongodb.mongo-java-driver,\
-	org.apache.felix.gogo.runtime
+	org.apache.felix.gogo.runtime,\
+	com.eclipsesource.jaxrs.swagger-all
+-sub: *.bnd

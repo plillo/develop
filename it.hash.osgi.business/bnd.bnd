@@ -16,4 +16,5 @@
 	it.hash.osgi.user.user.service,\
 	com.eclipsesource.jaxrs.jersey-all,\
 	org.apache.felix.eventadmin,\
-	org.apache.felix.gogo.runtime
+	org.apache.felix.gogo.runtime,\
+	com.eclipsesource.jaxrs.swagger-all

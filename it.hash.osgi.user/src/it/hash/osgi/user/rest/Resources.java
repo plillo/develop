@@ -31,8 +31,8 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	// @RolesAllowed("root")
 	public Response list() {
-		GenericEntity<List<User>> entity = new GenericEntity<List<User>>(_userService.getUsers()) {};
-		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(entity).build();
+		//GenericEntity<List<User>> entity = new GenericEntity<List<User>>(_userService.getUsers()) {};
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(_userService.getUsers()).build();
 	}
 	
 	@POST

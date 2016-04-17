@@ -20,6 +20,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
+import io.swagger.annotations.Api;
 import it.hash.osgi.business.Business;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.geojson.Coordinates;
@@ -28,6 +29,7 @@ import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 import it.hash.osgi.user.service.api.UserService;
 
+@Api
 @Path("businesses/1.0/businesses")
 public class Resources {
 

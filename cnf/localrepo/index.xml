@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1460646008682" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1460840010066" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.eclipsesource.jaxrs.consumer"/>
@@ -14219,6 +14219,46 @@
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.simple"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" type="Version" value="1.7.21"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="a20179cc3ded2d7e2f5def4ccb34b2d0836e2f8c9e79352a6babd6a6559cc8e0"/>
+      <attribute name="url" value="slf4j.simple/slf4j.simple-1.7.21.jar"/>
+      <attribute name="size" type="Long" value="10905"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+      <attribute name="version" type="Version" value="1.7.21"/>
+      <attribute name="bundle-symbolic-name" value="slf4j.simple"/>
+      <attribute name="bundle-version" type="Version" value="1.7.21"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.helpers)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.event)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.bundle">
+      <directive name="filter" value="(osgi.wiring.bundle=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(&amp;(osgi.wiring.host=slf4j.api)(bundle-version&gt;=0.0.0))"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
