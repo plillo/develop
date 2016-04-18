@@ -17,7 +17,7 @@ public class Activator extends DependencyActivatorBase {
 		Properties props = new Properties();
 		props.put(CommandProcessor.COMMAND_SCOPE, "business");
 		props.put(CommandProcessor.COMMAND_FUNCTION, new String[] { "addBusiness", "deleteBusiness", "listBusiness",
-				"updateBusiness", "getBusiness", "getByCodiceFiscale", "notFollowed"});
+				"updateBusiness", "getBusiness", "getByCodiceFiscale", "notFollowed", "updateBusinessLogo"});
 		manager.add(
 				createComponent().setInterface(Object.class.getName(), props).setImplementation(businessCommands.class)
 						.add(createServiceDependency().setService(BusinessService.class).setRequired(true))

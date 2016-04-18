@@ -29,38 +29,55 @@ public class utilsBusiness {
 				case "uuid":
 					business.setUuid((String) mapBusiness.get(attribute));
 					break;
+					
 				case "name":
 					business.setName((String) mapBusiness.get(attribute));
 					break;
+					
 				case "pIva":
 					business.setPIva((String) mapBusiness.get(attribute));
 					break;
+					
 				case "fiscalCode":
 					business.setFiscalCode((String) mapBusiness.get(attribute));
 					break;
+					
 				case "address":
 					business.setAddress((String) mapBusiness.get(attribute));
 					break;
+					
 				case "city":
 					business.setCity((String) mapBusiness.get(attribute));
 					break;
+					
 				case "cap":
 					business.setCap((String) mapBusiness.get(attribute));
 					break;
+					
 				case "nation":
 					business.setNation((String) mapBusiness.get(attribute));
 					break;
+					
+				case "logoType":
+					business.setLogoType((String) mapBusiness.get(attribute));
+					break;
+					
+				case "logo":
+					business.setLogo((byte[]) mapBusiness.get(attribute));
+					break;
+					
 				case "_description":
 					business.set__Description((String) mapBusiness.get(elem));
 					break;
+					
 				case "_longDescription":
 					business.set__longDescription((String) mapBusiness.get(elem));
 					break;
-		
-				
+						
 				case "category":
 					   business.addCategory((String) mapBusiness.get(elem));
 					break;
+					
 				case "categories":
 					business.setCategories((List<String>) mapBusiness.get(elem));
 					break;
@@ -78,9 +95,11 @@ public class utilsBusiness {
 				case "email":
 					business.setEmail((String) mapBusiness.get(elem));
 					break;
+					
 				case "owner":
 					business.setOwner((String) mapBusiness.get(elem));
 					break;
+					
 				case "mobile":
 					business.setMobile((String) mapBusiness.get(elem));
 					break;

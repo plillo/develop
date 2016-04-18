@@ -21,26 +21,28 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
 import it.hash.osgi.content.service.Content;
-import it.hash.osgi.content.service.ContentServiceImpl;
+import it.hash.osgi.content.service.ContentService;
 
 import static it.hash.osgi.utils.StringUtils.*;
 
 @Path("/contents")
 public class ContentResources {
-	private volatile ContentServiceImpl _contentService;
+	private volatile ContentService _contentService;
 
 	@GET
 	@Path("{content:.*}")
 	@Produces(MediaType.WILDCARD)
+    @io.swagger.annotations.ApiOperation(value = "getContent", notes = "get default-lang content from repo")
 	public Response getContent(@PathParam("content") String content) throws Exception {
 		Content cnt = (Content)_contentService.getContent(content, "IT").get("content");
 		
 		return Response.ok(new ByteArrayInputStream(Base64.decodeBase64(cnt.getContent()))).type(cnt.getType()).build();
 	}
-	
+/*	
 	@GET
 	@Path("{content:.*}")
 	@Produces(MediaType.WILDCARD)
+    @io.swagger.annotations.ApiOperation(value = "getContent[lang]", notes = "get specific-lang content from repo")
 	public Response getContent(@PathParam("content") String content, @QueryParam("lang") String lang) throws Exception {
 		Content cnt = (Content)_contentService.getContent(content, lang).get("content");
 		
@@ -50,14 +52,16 @@ public class ContentResources {
 	@GET
 	@Path("{content:.*}")
 	@Produces(MediaType.WILDCARD)
+    @io.swagger.annotations.ApiOperation(value = "getContent[lang,type]", notes = "get specific-lang&type content from repo")
 	public Response getContent(@PathParam("content") String content, @QueryParam("lang") String lang, @QueryParam("type") String type) throws Exception {
 		Content cnt = (Content)_contentService.getContent(content, lang, type).get("content");
 		
 		return Response.ok(new ByteArrayInputStream(Base64.decodeBase64(cnt.getContent()))).type(cnt.getType()).build();
 	}
-
+*/
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "setContent[name,lang,type,content]", notes = "set content to repo")
 	public Map<String, Object> setContent(
 			@QueryParam("name") String name,
 			@QueryParam("lang") String lang,

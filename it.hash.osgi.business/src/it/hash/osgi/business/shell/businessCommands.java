@@ -1,10 +1,16 @@
 package it.hash.osgi.business.shell;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 
 import it.hash.osgi.business.Business;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
@@ -82,7 +88,6 @@ public void addBusiness(String name, String fiscalCode, String partitaIva) {
 				}
 			}
 		}
-		
 	}
 
 	public void listBusiness() {
@@ -107,6 +112,33 @@ public void addBusiness(String name, String fiscalCode, String partitaIva) {
 		for(Business business:_businessService.retrieveNotFollowedByUser(uuid, search)){
 			System.out.println(String.format("%-20s%-20s", business.getName(), business.getUuid()));
 		}
+	}
+	
+	public void updateBusinessLogo(String uuid, String urlLogo) throws Exception {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		
+		// GET content from HTTP connection
+		if(urlLogo.startsWith("http")) {
+	        URL url = new URL(urlLogo);
+	        
+			HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+			if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				// Get MIME-TYPE
+				Map<String, List<String>> map = httpURLConnection.getHeaderFields();
+				List<String> content_type = map.get("Content-Type");
+		        byte[] bytes = IOUtils.toByteArray(url.openConnection().getInputStream());
+
+		        // PUT Base64 encoded content
+		        response = _businessService.updateBusinessLogo(uuid, content_type.get(0), Base64.encodeBase64(bytes));
+			}
+			else
+				response.put("returnCode", "KO");
+		}
+		else
+			response.put("returnCode", "TODO");
+
+		System.out.println("ReturnCode " + response.get("returnCode"));
 	}
 }
 	

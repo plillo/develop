@@ -23,6 +23,8 @@ public class Activator extends DependencyActivatorBase {
 				.add(createServiceDependency()
 						.setService(ContentService.class)
 						.setRequired(true)));
+	
+			System.out.println("Content SHELL resources actived");
 		}
 
 		@Override

@@ -301,6 +301,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		return list;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public synchronized Map<String, Object> updateBusiness(String uuid, Business business) {
 		Map<String, Object> response = new TreeMap<String, Object>();
@@ -312,7 +313,6 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			BasicDBObject updateDocument = new BasicDBObject().append("$set", businessToDBObject(business));
 			BasicDBObject searchQuery = new BasicDBObject().append("uuid", uuid);
 	       
-			@SuppressWarnings("unused")
 			WriteResult wr = businessCollection.update(searchQuery, updateDocument);
 			
 			DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
@@ -350,6 +350,37 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			response.put("returnCode", 610);
 		}
 
+		return response;
+	}
+	
+	@SuppressWarnings("unused")
+	@Override
+	public Map<String, Object> updateBusinessLogo(String uuid, String type, byte[] encodeBase64) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("logoType", type);
+		map.put("logo", encodeBase64);
+		BasicDBObject updateDocument = new BasicDBObject().append("$set", new BasicDBObject(map));
+		BasicDBObject searchQuery = new BasicDBObject().append("uuid", uuid);
+		
+		// update
+		WriteResult wr = businessCollection.update(searchQuery, updateDocument);
+		
+		// retrieve
+		DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
+		
+		// response
+		Business updateBusiness = utilsBusiness.toBusiness(updated.toMap());
+		if (updateBusiness != null) {
+			response.put("business", updateBusiness);
+			response.put("update", "OK");
+			response.put("returnCode", 200);
+
+		} else {
+			response.put("update", "ERROR");
+			response.put("returnCode", 610);
+		}
+		
 		return response;
 	}
 
@@ -551,5 +582,4 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 		return pars;
 	}
-
 }

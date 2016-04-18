@@ -1,5 +1,6 @@
 package it.hash.osgi.business.rest;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
+
+import org.apache.commons.codec.binary.Base64;
 
 import io.swagger.annotations.Api;
 import it.hash.osgi.business.Business;
@@ -53,6 +56,16 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getPosition(@PathParam("uuid") String businessUuid) {
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(_businessService.getPosition(businessUuid)).build();
+	}
+	
+	@GET
+	@Path("/{uuid}/logo")
+	@Produces(MediaType.WILDCARD)
+    @io.swagger.annotations.ApiOperation(value = "getLogo", notes = "get business logo")
+	public Response getLogo(@PathParam("uuid") String uuid) throws Exception {
+		Business business = _businessService.getBusiness(uuid);
+	
+		return Response.ok(new ByteArrayInputStream(Base64.decodeBase64(business.getLogo()))).type(business.getLogoType()).build();
 	}
 	
 	// GET businesses/1.0/businesses/by_selfOwned/positions

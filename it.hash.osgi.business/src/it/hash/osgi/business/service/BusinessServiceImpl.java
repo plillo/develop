@@ -106,6 +106,11 @@ public class BusinessServiceImpl implements BusinessService {
 	public Map<String, Object> updateBusiness(String uuid, Map<String, Object> pars) {
 		return _businessPersistenceService.updateBusiness(uuid, pars);
 	}
+	
+	@Override
+	public Map<String, Object> updateBusinessLogo(String uuid, String type, byte[] encodeBase64) {
+		return _businessPersistenceService.updateBusinessLogo(uuid, type, encodeBase64);
+	}
 
 	@Override
 	public List<Business> retrieveBusinesses(String criterion, String search) {

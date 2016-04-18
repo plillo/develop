@@ -345,6 +345,12 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 		return updateBusiness(uuid, business);
 	}
+	
+	@Override
+	public Map<String, Object> updateBusinessLogo(String uuid, String type, byte[] encodeBase64) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public String getImplementation() {
