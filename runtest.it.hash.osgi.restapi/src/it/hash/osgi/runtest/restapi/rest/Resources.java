@@ -12,15 +12,14 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import io.swagger.annotations.Api;
-
-@Api
-@Path("restapi")
+@io.swagger.annotations.Api(description = "the estimates API")
+@Path("/restapi")
 public class Resources {
 	// GET restapi/sayhello
 	@GET
-	@Path("sayhello")
+	@Path("/sayhello")
     @Produces(MediaType.TEXT_PLAIN)
+    @io.swagger.annotations.ApiOperation(value = "sayHello", notes = "The Price Estimates endpoint returns.\n")
 	public Response sayHello() {
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
 				.entity("Hello OSGi world!")
@@ -28,15 +27,17 @@ public class Resources {
 	}
 	
 	@GET
-	@Path("sayhello2")
+	@Path("/sayhello2")
     @Produces(MediaType.TEXT_PLAIN)
+    @io.swagger.annotations.ApiOperation(value = "sayHello", notes = "The Price Estimates endpoint returns.\n")
 	public String sayHello2() {
 		return "Hello OSGi world!";
 	}
 	
 	@GET
-	@Path("sayjsonhello")
+	@Path("/sayjsonhello")
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "atsayjsonhello", notes = "actors in this multiplier.\n")
 	public Response sayjsonhello(@QueryParam("test") String test) {
 		Map<String, Object> map = new TreeMap<String, Object>();
 		map.put("test", test);

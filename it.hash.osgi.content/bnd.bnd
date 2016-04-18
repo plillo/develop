@@ -1,0 +1,16 @@
+Bundle-Version: 1.0.0.${tstamp}
+-sub: *.bnd
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.dependencymanager,\
+	org.apache.felix.gogo.runtime,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	com.eclipsesource.jaxrs.swagger-all,\
+	org.apache.commons.codec,\
+	org.amdatu.mongo,\
+	net.vz.mongodb.jackson.mongo-jackson-mapper,\
+	com.mongodb,\
+	it.hash.osgi.utilities,\
+	jackson-mapper-asl,\
+	org.mongodb.mongo-java-driver,\
+	org.apache.commons.io
