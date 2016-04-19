@@ -4,7 +4,7 @@ public class AttValue {
 	String definition;
 	String text;
 	Integer code;
-	
+	 
 	public String getDefinition() {
 		return definition;
 	}
