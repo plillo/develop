@@ -14,6 +14,7 @@ public interface BusinessService {
 	Map<String, Object> updateBusiness(String uuid, Business business);
 	Map<String, Object> updateBusiness(String uuid, Map<String, Object> pars);
 	Map<String, Object> deleteBusiness(String uuid);
+	Map<String, Object> updateBusinessLogo(String uuid, String type, byte[] encodeBase64);
 	
 	Map<String, Object> updateFollowersToBusiness(Map<String, Object> pars);
 	List<Business> retrieveBusinesses(String criterion, String search);

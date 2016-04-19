@@ -1,0 +1,10 @@
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.dependencymanager,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	com.eclipsesource.jaxrs.swagger-all,\
+	javax.servlet,\
+	org.apache.servicemix.bundles.zxing
+Private-Package: it.hash.osgi.qrcode
+Bundle-Version: 1.0.0.${tstamp}
+Bundle-Activator: it.hash.osgi.qrcode.Activator

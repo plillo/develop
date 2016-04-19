@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1460646008682" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1460962500825" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.eclipsesource.jaxrs.consumer"/>
@@ -8844,6 +8844,277 @@
   </resource>
   <resource>
     <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="3.0.1.1"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="4ef3cb3f8b45c7a4824e7827690668f6783c6715431fd84cc736b85d91c9743d"/>
+      <attribute name="url" value="org.apache.servicemix.bundles.zxing/org.apache.servicemix.bundles.zxing-3.0.1.jar"/>
+      <attribute name="size" type="Long" value="587612"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.datamatrix.detector"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.common,com.google.zxing.common.detector"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.datamatrix"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.datamatrix.detector,com.google.zxing.common,com.google.zxing.datamatrix.decoder,com.google.zxing,com.google.zxing.qrcode.encoder,com.google.zxing.datamatrix.encoder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.aztec.encoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing.common.reedsolomon"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.qrcode.decoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing,com.google.zxing.common.reedsolomon"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.pdf417.detector"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.multi.qrcode"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.qrcode,com.google.zxing.common,com.google.zxing.multi.qrcode.detector,com.google.zxing.qrcode.decoder,com.google.zxing.multi"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.common"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.pdf417.decoder.ec"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.qrcode.detector"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.common,com.google.zxing.common.detector,com.google.zxing.qrcode.decoder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.maxicode"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing.maxicode.decoder,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.multi"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.oned.rss"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.oned,com.google.zxing,com.google.zxing.common"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.oned"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing,com.google.zxing.oned.rss,com.google.zxing.oned.rss.expanded"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.pdf417.encoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.common"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.multi.qrcode.detector"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing.qrcode.detector,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.client.result"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.oned"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.common.detector"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.aztec"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing,com.google.zxing.aztec.decoder,com.google.zxing.aztec.detector,com.google.zxing.aztec.encoder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.datamatrix.encoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,org.w3c.dom.ls,javax.xml.parsers,org.w3c.dom,org.xml.sax,org.w3c.dom.bootstrap,com.google.zxing.qrcode,com.google.zxing.pdf417,com.google.zxing.oned,com.google.zxing.datamatrix,com.google.zxing.maxicode,com.google.zxing.aztec,com.google.zxing.common.detector"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.datamatrix.decoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing,com.google.zxing.common.reedsolomon"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.qrcode"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing.qrcode.detector,com.google.zxing.qrcode.decoder,com.google.zxing,com.google.zxing.qrcode.encoder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.pdf417"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.pdf417.detector,com.google.zxing.common,com.google.zxing.multi,com.google.zxing,com.google.zxing.pdf417.decoder,com.google.zxing.pdf417.encoder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.client.j2se"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.common,javax.imageio,com.google.zxing.client.result,com.google.zxing.multi,javax.swing.text,javax.swing,javax.xml.bind"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.oned.rss.expanded"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.oned.rss,com.google.zxing.common,com.google.zxing.oned.rss.expanded.decoders,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.aztec.decoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing.aztec,com.google.zxing.common.reedsolomon,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.aztec.detector"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing,com.google.zxing.common,com.google.zxing.common.detector,com.google.zxing.aztec,com.google.zxing.common.reedsolomon"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.qrcode.encoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.qrcode.decoder,com.google.zxing.common,com.google.zxing.common.reedsolomon,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.common.reedsolomon"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.oned.rss.expanded.decoders"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.maxicode.decoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.common,com.google.zxing.common.reedsolomon,com.google.zxing"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="com.google.zxing.pdf417.decoder"/>
+      <attribute name="version" type="Version" value="3.0.1"/>
+      <attribute name="bundle-symbolic-name" value="org.apache.servicemix.bundles.zxing"/>
+      <attribute name="bundle-version" type="Version" value="3.0.1.1"/>
+      <directive name="uses" value="com.google.zxing.pdf417,com.google.zxing.common,com.google.zxing,com.google.zxing.pdf417.decoder.ec"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.imageio)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.swing)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.swing.text)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.bind)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.bootstrap)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom.ls)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.bitbucket.b_c.jose4j"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" type="Version" value="0.4.4"/>
@@ -9044,6 +9315,90 @@
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.4))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="org.eclipse.persistence.asm"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="bb5add3afeeb88be7a5580417baca2a49045e436b785a9999d5e044ffba9cb7f"/>
+      <attribute name="url" value="org.eclipse.persistence.asm/org.eclipse.persistence.asm-3.3.1.jar"/>
+      <attribute name="size" type="Long" value="271208"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm.commons"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm.signature"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm.tree"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm.tree.analysis"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm.util"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.eclipse.persistence.internal.libraries.asm.xml"/>
+      <attribute name="version" type="Version" value="3.3.1"/>
+      <attribute name="bundle-symbolic-name" value="org.eclipse.persistence.asm"/>
+      <attribute name="bundle-version" type="Version" value="3.3.1.v201302191223"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.sax)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=javax.xml.transform.stream)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.ext)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
     </requirement>
   </resource>
   <resource>
@@ -14219,6 +14574,46 @@
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.impl)(version&gt;=1.6.0))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="slf4j.simple"/>
+      <attribute name="type" value="osgi.fragment"/>
+      <attribute name="version" type="Version" value="1.7.21"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="a20179cc3ded2d7e2f5def4ccb34b2d0836e2f8c9e79352a6babd6a6559cc8e0"/>
+      <attribute name="url" value="slf4j.simple/slf4j.simple-1.7.21.jar"/>
+      <attribute name="size" type="Long" value="10905"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.slf4j.impl"/>
+      <attribute name="version" type="Version" value="1.7.21"/>
+      <attribute name="bundle-symbolic-name" value="slf4j.simple"/>
+      <attribute name="bundle-version" type="Version" value="1.7.21"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.spi)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.helpers)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j.event)(version&gt;=1.7.21))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.bundle">
+      <directive name="filter" value="(osgi.wiring.bundle=slf4j.api)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.host">
+      <directive name="filter" value="(&amp;(osgi.wiring.host=slf4j.api)(bundle-version&gt;=0.0.0))"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>

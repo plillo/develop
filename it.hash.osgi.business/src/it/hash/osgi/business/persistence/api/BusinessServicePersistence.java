@@ -42,14 +42,11 @@ public interface BusinessServicePersistence {
 	Map<String, Object> updateBusiness(String uuid, Map<String, Object> business);
 	Map<String, Object> follow(String businessUuid, String userUuid);
 	Map<String, Object> unFollow(String businessUuid, String userUuid);
+	Map<String, Object> updateBusinessLogo(String uuid, String type, byte[] encodeBase64);
 
 	// DELETE
 	Map<String, Object> deleteBusiness(String uuid);
 	
 	// IMPLEMENTATION
 	String getImplementation();
-	
-	
-
-
 }

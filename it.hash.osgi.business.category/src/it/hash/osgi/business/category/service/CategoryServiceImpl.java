@@ -1,12 +1,8 @@
 package it.hash.osgi.business.category.service;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -14,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
 
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
@@ -23,13 +17,13 @@ import it.hash.osgi.resource.uuid.api.UUIDService;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 
+@SuppressWarnings("unchecked")
 public class CategoryServiceImpl implements CategoryService {
 	// Injected services
 	private volatile CategoryPersistence _persistenceSrv;
 	private volatile UUIDService _uuidSrv;
 	private volatile AttributeService _attributeSrv;
 
- 
 	@Override
 	public List<Category> getCategory(String search) {
 		Map<String, Object> response = new HashMap<String,Object>();
@@ -155,25 +149,25 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public boolean createCollectionByCsv(String url, String fileName) {
 		URL path = null;
-		fileName=url+"\\"+fileName;
+		fileName = url + "\\" + fileName;
 		boolean response = true;
 		try {
 			path = new URL(fileName);
 			URLConnection urlConn = path.openConnection();
 
-			String outputString = null;
-			
+			//String outputString = null;
+
 			String line;
 
-			outputString = "";
-			BufferedReader readerFile = new BufferedReader(new InputStreamReader(urlConn.getInputStream(),"UTF8"));
+			//outputString = "";
+			BufferedReader readerFile = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF8"));
 
 			Map<String, Object> createC;
 
 			String[] doc;
 
 			line = readerFile.readLine();
-int i=1;
+			int i = 1;
 			while (line != null) {
 
 				doc = line.split(";");
@@ -186,9 +180,9 @@ int i=1;
 				if (createC.get("created").equals(false))
 					response = false;
 				line = readerFile.readLine();
-i++;
-if (i==1987)
-	System.out.println(" trovato");
+				i++;
+				if (i == 1987)
+					System.out.println(" trovato");
 			}
 			readerFile.close();
 		} catch (MalformedURLException e1) {
@@ -197,13 +191,13 @@ if (i==1987)
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 
 		return response;
 	}
 
 
-
+	@SuppressWarnings("unused")
 	private String is(String search) {
 		// TODO Auto-generated method stub
 

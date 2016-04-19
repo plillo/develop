@@ -42,6 +42,8 @@ public class Business implements Comparable<Business> {
 	private List<String> categories;
 	private List<String> followers;
 	private Point position;
+	private String logoType;
+	private byte[] logo;
 
 	private String email;
 	private String mobile;
@@ -222,6 +224,22 @@ public class Business implements Comparable<Business> {
 	
 	public void setPosition(Double longitude, Double latitude) {
 		this.position = new Point(longitude, latitude);
+	}
+	
+	public String getLogoType() {
+		return logoType;
+	}
+
+	public void setLogoType(String logoType) {
+		this.logoType = logoType;
+	}
+	
+	public byte[] getLogo() {
+		return logo;
+	}
+	
+	public void setLogo(byte[] logo) {
+		this.logo = logo;
 	}
 	
 	public String getFiscalCode() {

@@ -15,7 +15,6 @@ import com.mongodb.DBObject;
 
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
-import it.hash.osgi.resource.uuid.api.UUIDService;
 import it.hash.osgi.utils.StringUtils;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.JacksonDBCollection;
@@ -181,7 +180,6 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Category> retrieveCategories(String criterion, String search) {
 

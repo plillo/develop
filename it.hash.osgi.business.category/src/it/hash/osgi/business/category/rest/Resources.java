@@ -11,9 +11,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
+import io.swagger.annotations.Api;
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.service.CategoryService;
 
+@Api
 @Path("businesses/1.0/categories")
 public class Resources {
 
