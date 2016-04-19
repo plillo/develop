@@ -1,0 +1,10 @@
+-sub: *.bnd
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.gogo.runtime,\
+	org.apache.felix.configadmin,\
+	org.apache.felix.fileinstall,\
+	org.apache.felix.log,\
+	com.sun.mail.javax.mail,\
+	it.hash.osgi.utilities,\
+	org.apache.felix.dependencymanager;version=4.3
