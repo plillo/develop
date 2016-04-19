@@ -4,13 +4,14 @@ import java.util.Map;
 
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
-
+ 
 public class Category implements Comparable<Category>{
 	 
 	@ObjectId @Id
 	private String _id;
 	private String uuid;
 	private String parentUuid;
+	private Segment segment;
 	private String name;
 	private String code;
 	private String _locDescription;
@@ -38,7 +39,13 @@ public class Category implements Comparable<Category>{
 	public void setParentUuid(String parentUuid) {
 		this.parentUuid = parentUuid;
 	}
-	
+	public Segment getSegment() {
+		return segment;
+	}
+
+	public void setSegment(Segment segment) {
+		this.segment = segment;
+	}
 	public String getName() {
 		return name;
 	}
