@@ -20,7 +20,7 @@ import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 
 import it.hash.osgi.business.Business;
-import it.hash.osgi.business.utilsBusiness;
+import it.hash.osgi.business.BusinessTools;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
 
 /**
@@ -48,14 +48,14 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	@Override
 	public Map<String, Object> addBusiness(Map<String, Object> business) {
 
-		Business business_obj = utilsBusiness.toBusiness(business);
+		Business business_obj = BusinessTools.toBusiness(business);
 
 		return addBusiness(business_obj);
 
 	}
 
 	private DBObject dbObjectBusiness(Business business) {
-		Map<String, Object> map = utilsBusiness.createPars(business);
+		Map<String, Object> map = BusinessTools.createPars(business);
 		
 		DBObject db = new BasicDBObject(map);
 		System.out.println(db.toString());
@@ -77,7 +77,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			DBObject created = businessCollection.findOne(dbObjectBusiness(business));
 
 			if (created != null) {
-				Business created_business = utilsBusiness.toBusiness(created.toMap());
+				Business created_business = BusinessTools.toBusiness(created.toMap());
 				response.put("business", created_business);
 				response.put("created", true);
 				response.put("returnCode", 200);
@@ -131,7 +131,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			listB= new ArrayList<Business>();
 		Business b;
 		for (DBObject elem : list) {
-			b = utilsBusiness.toBusiness(elem.toMap());
+			b = BusinessTools.toBusiness(elem.toMap());
 			listB.add(b);
 		}
 		}
@@ -150,7 +150,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("uuid", business.get("uuid")));
 
 			if (found != null) {
-				found_business = utilsBusiness.toBusiness(found.toMap());
+				found_business = BusinessTools.toBusiness(found.toMap());
 
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
@@ -165,7 +165,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")));
 
 			if (found != null) {
-				found_business = utilsBusiness.toBusiness(found.toMap());
+				found_business = BusinessTools.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
 					list = new TreeSet<String>();
@@ -177,7 +177,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		if (business.containsKey("fiscalCode") && business.get("fiscalCode") != null) {
 			found = businessCollection.findOne(new BasicDBObject("fiscalCode", business.get("fiscalCode")));
 			if (found != null) {
-				found_business = utilsBusiness.toBusiness(found.toMap());
+				found_business = BusinessTools.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
 					list = new TreeSet<String>();
@@ -192,7 +192,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("name", business.get("name")));
 
 			if (found != null) {
-				found_business = utilsBusiness.toBusiness(found.toMap());
+				found_business = BusinessTools.toBusiness(found.toMap());
 
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
@@ -206,7 +206,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("pIva", business.get("pIva")));
 
 			if (found != null) {
-				found_business = utilsBusiness.toBusiness(found.toMap());
+				found_business = BusinessTools.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
 					list = new TreeSet<String>();
@@ -282,7 +282,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		DBCursor cursor = businessCollection.find();
 		List<Business> list = new ArrayList<>();
 		while (cursor.hasNext()) {
-			list.add(utilsBusiness.toBusiness(cursor.next().toMap()));
+			list.add(BusinessTools.toBusiness(cursor.next().toMap()));
 		}
 
 		return list;
@@ -295,7 +295,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 		List<Business> list = new ArrayList<>();
 		while (cursor.hasNext()) {
-			list.add(utilsBusiness.toBusiness(cursor.next().toMap()));
+			list.add(BusinessTools.toBusiness(cursor.next().toMap()));
 		}
 
 		return list;
@@ -317,7 +317,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			
 			DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
 			
-			Business updateBusiness = utilsBusiness.toBusiness(updated.toMap());
+			Business updateBusiness = BusinessTools.toBusiness(updated.toMap());
 			if (updateBusiness != null) {
 				responseUpdate.put("business", updateBusiness);
 				responseUpdate.put("update", "OK");
@@ -370,7 +370,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
 		
 		// response
-		Business updateBusiness = utilsBusiness.toBusiness(updated.toMap());
+		Business updateBusiness = BusinessTools.toBusiness(updated.toMap());
 		if (updateBusiness != null) {
 			response.put("business", updateBusiness);
 			response.put("update", "OK");
@@ -462,7 +462,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			List<Business> list = new ArrayList<Business>();
 
 			while (cursor.hasNext()) {
-				list.add(utilsBusiness.toBusiness(cursor.next().toMap()));
+				list.add(BusinessTools.toBusiness(cursor.next().toMap()));
 			}
 			return list;
 		}
@@ -476,7 +476,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 			List<Business> list = new ArrayList<Business>();
 			while (cursor.hasNext()) {
-				list.add(utilsBusiness.toBusiness(cursor.next().toMap()));
+				list.add(BusinessTools.toBusiness(cursor.next().toMap()));
 			}
 			return list;
 		}
@@ -505,7 +505,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		List<Business> list = new ArrayList<Business>();
 		if (dbc!=null){
 			while (dbc.hasNext()) {
-				list.add(utilsBusiness.toBusiness(dbc.next().toMap()));
+				list.add(BusinessTools.toBusiness(dbc.next().toMap()));
 			}
 			response.put("notFollowedBusinesses", list);
 		}

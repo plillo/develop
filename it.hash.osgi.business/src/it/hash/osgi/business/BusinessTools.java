@@ -1,5 +1,7 @@
 package it.hash.osgi.business;
 
+import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +10,69 @@ import java.util.Set;
 import it.hash.osgi.geojson.Point;
 import it.hash.osgi.utils.StringUtils;
 
-public class utilsBusiness {
+public class BusinessTools {
 
+	public static Map<String, Object> toMap(Business business) {
+		Map<String, Object> pars = new HashMap<String, Object>();
+
+		if (!isEmptyOrNull(business.get_id()))
+			pars.put("_id", business.get_id());
+		if (!isEmptyOrNull(business.getUuid()))
+			pars.put("uuid", business.getUuid());
+		if (!isEmptyOrNull(business.getName()))
+			pars.put("name", business.getName());
+		if (!isEmptyOrNull(business.getPIva()))
+			pars.put("pIva", business.getPIva());
+		if (!isEmptyOrNull(business.getFiscalCode()))
+			pars.put("fiscalCode", business.getFiscalCode());
+		if (!isEmptyOrNull(business.getAddress()))
+			pars.put("address", business.getAddress());
+		if (!isEmptyOrNull(business.getCity()))
+			pars.put("city", business.getCity());
+		if (!isEmptyOrNull(business.getCap()))
+			pars.put("cap", business.getCap());
+		if (!isEmptyOrNull(business.getNation()))
+			pars.put("nation", business.getNation());
+		if (!isEmptyOrNull(business.get__Description()))
+			pars.put("_description", business.get__Description());
+		if (!isEmptyOrNull(business.get__longDescription()))
+			pars.put("_longDescription", business.get__longDescription());
+		if (!isEmptyOrNull(business.getOwner()))
+			pars.put("owner", business.getOwner());
+		if (business.getCategories() != null)
+			pars.put("categories", business.getCategories());
+		if (business.getFollowers()!=null)
+			pars.put("followers", business.getFollowers());
+		if (business.getPosition()!=null){
+			Map <String, Object> pos = new HashMap<String, Object>();
+			pos.put("type","Point");
+			pos.put("coordinates", business.getPosition().getCoordinates().toArray());
+			pars.put("position", pos);}
+		if (!isEmptyOrNull(business.getEmail()))
+			pars.put("email", business.getEmail());
+		if (!isEmptyOrNull(business.getMobile()))
+			pars.put("mobile", business.getMobile());
+		if (!isEmptyOrNull(business.getPublished()))
+			pars.put("published", business.getPublished());
+		if (!isEmptyOrNull(business.getTrusted_email()))
+			pars.put("trusted_email", business.getTrusted_email());
+		if (!isEmptyOrNull(business.getTrusted_mobile()))
+			pars.put("trusted_mobile", business.getTrusted_mobile());
+		if (!isEmptyOrNull(business.getCauthor()))
+			pars.put("cauthor", business.getCauthor());
+		if (!isEmptyOrNull(business.getCdate()))
+			pars.put("cdate", business.getCdate());
+		if (!isEmptyOrNull(business.getMauthor()))
+			pars.put("mauthor", business.getMauthor());
+		if (!isEmptyOrNull(business.getMdate()))
+			pars.put("mdate", business.getMdate());
+		if (!isEmptyOrNull(business.getLdate()))
+			pars.put("ldate", business.getLdate());
+		if (business.getOthers() != null)
+			pars.put("others", business.getOthers());
+
+		return pars;
+	}
 
 	@SuppressWarnings("unchecked")
 	public static Business toBusiness(Map<?, ?> mapBusiness) {

@@ -25,6 +25,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import io.swagger.annotations.Api;
 import it.hash.osgi.business.Business;
+import it.hash.osgi.business.BusinessTools;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.geojson.Coordinates;
 import it.hash.osgi.geojson.Point;
@@ -44,9 +45,11 @@ public class Resources {
 	@Path("/{Uuid}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getBusiness", notes = "...")
 	public Response getBusiness(@PathParam("Uuid") String uuid) {
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
-				.entity(_businessService.getBusiness(uuid))
+				.entity(BusinessTools.toMap(_businessService.getBusiness(uuid)))
+				//.entity(_businessService.getBusiness(uuid))
 				.build();
 	}
 	
@@ -54,6 +57,7 @@ public class Resources {
 	@Path("/{uuid}/position")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getPosition", notes = "...")
 	public Response getPosition(@PathParam("uuid") String businessUuid) {
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(_businessService.getPosition(businessUuid)).build();
 	}
@@ -98,6 +102,7 @@ public class Resources {
 	@Path("/by_selfFollowed/positions")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getFollowedPositions", notes = "...")
 	public Response getFollowedPositions() {
 		// Retrieve
 		List<Business> businesses = _businessService.retrieveFollowedByUser(_userService.getUUID());
@@ -124,6 +129,7 @@ public class Resources {
 	@GET
 	@Path("/by_searchKeyword/{keyword}")
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getBusiness by keword", notes = "...")
 	public Response getBusiness(@PathParam("keyword") PathSegment keyword) {
 
 		Map<String, Object> response = new TreeMap<String, Object>();
@@ -138,14 +144,13 @@ public class Resources {
 
 		response.put("businesses", businesses);
 
-	
-		
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 	
 	@GET
 	@Path("/by_searchKeyword/{keyword}/attributes")
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getAttribute", notes = "...")
 	// if search == uuidBusiness  ritorna tutti gli attributi di quel Business (valorizzati e non) 
 	// in base alle categorie a cui appartiene 
 	public Response getAttribute(@PathParam("keyword") PathSegment s) {
@@ -176,6 +181,7 @@ public class Resources {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes({MediaType.APPLICATION_JSON})
+    @io.swagger.annotations.ApiOperation(value = "update", notes = "...")
 	public Response update(@PathParam("uuid") String uuid, Business business) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
@@ -188,6 +194,7 @@ public class Resources {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes({ MediaType.APPLICATION_JSON})
+    @io.swagger.annotations.ApiOperation(value = "create", notes = "...")
 	public Response create(Business business) {
 		// SET Business's owner
 		business.setOwner(_userService.getUUID());
@@ -202,6 +209,7 @@ public class Resources {
 	@Path("/{uuid}")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "delete", notes = "...")
 	public Response delete(@PathParam("uuid") String uuid) {
 		Map<String, Object> response = _businessService.deleteBusiness(uuid);
 		System.out.println("Delete  " + response.get("business") + "returnCode " + response.get("returnCode"));
@@ -214,6 +222,7 @@ public class Resources {
 	@POST
 	@Consumes ({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "setMapPosition", notes = "...")
 	public Response setMapPosition(@PathParam("Uuid") String uuid, Coordinates coordinate) {
 		Business business = new Business();
 		business.setPosition(new Point(coordinate));
@@ -227,6 +236,7 @@ public class Resources {
 	@POST
 	@Consumes ({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/{uuid}/selfUnfollow")
+    @io.swagger.annotations.ApiOperation(value = "unFollow", notes = "...")
 	public Response unFollow(@PathParam("uuid") String businessUuid) {
 		Map<String, Object> response = _businessService.unfollow(businessUuid, _userService.getUUID());
 		
@@ -236,6 +246,7 @@ public class Resources {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/{uuid}/selfFollow")
+    @io.swagger.annotations.ApiOperation(value = "selfFollow", notes = "...")
 	public Response selfFollow(@PathParam("uuid") String businessUuid) {
 		Map<String, Object> response = _businessService.follow(businessUuid, _userService.getUUID());
 		
@@ -245,6 +256,7 @@ public class Resources {
 	@GET
 	@Path("/by_selfFollowed")
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getFollowedBusinesses", notes = "...")
 	public Response getFollowedBusinesses() {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
@@ -263,6 +275,7 @@ public class Resources {
 	@GET
 	@Path("/by_selfOwned")
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getOwnedBusinesses", notes = "...")
 	public Response getOwnedBusinesses() {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
@@ -280,6 +293,7 @@ public class Resources {
 	@GET 
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/by_notSelfFollowed/by_searchKeyword/{keyword}")
+    @io.swagger.annotations.ApiOperation(value = "getNotFollowedBusiness", notes = "...")
 	public Response getNotFollowedBusiness(@PathParam("keyword") String keyword) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
