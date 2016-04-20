@@ -44,7 +44,16 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.rest)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.service)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.shell)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.user)'
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.user)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.application)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.persistence)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.rest)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.service)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.shell)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.persistence)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.rest)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.service)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.shell)'
 -resolve: auto
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
@@ -59,6 +68,15 @@ Bundle-Version: 1.0.0.${tstamp}
 	com.googlecode.json-simple;version='[1.1.1,1.1.2)',\
 	de.undercouch.bson4jackson;version='[1.3.0,1.3.1)',\
 	it.hash.osgi.application;version=snapshot,\
+	it.hash.osgi.business.application;version=snapshot,\
+	it.hash.osgi.business.category.persistence;version=snapshot,\
+	it.hash.osgi.business.category.rest;version=snapshot,\
+	it.hash.osgi.business.category.service;version=snapshot,\
+	it.hash.osgi.business.category.shell;version=snapshot,\
+	it.hash.osgi.business.persistence;version=snapshot,\
+	it.hash.osgi.business.rest;version=snapshot,\
+	it.hash.osgi.business.service;version=snapshot,\
+	it.hash.osgi.business.shell;version=snapshot,\
 	it.hash.osgi.resource.uuid.api;version=snapshot,\
 	it.hash.osgi.resource.uuid.mongo;version=snapshot,\
 	it.hash.osgi.resource.uuid.shell;version=snapshot,\
