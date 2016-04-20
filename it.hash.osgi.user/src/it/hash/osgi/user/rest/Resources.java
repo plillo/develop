@@ -27,6 +27,7 @@ public class Resources {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "list", notes = "...")
 	// @RolesAllowed("root")
 	public Response list() {
 		//GenericEntity<List<User>> entity = new GenericEntity<List<User>>(_userService.getUsers()) {};
@@ -35,6 +36,7 @@ public class Resources {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "createAndLogin", notes = "...")
 	public Response createAndLogin(@QueryParam("identificator") String identificator, @QueryParam("password") String password, @QueryParam("appcode") String appcode) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		User user = new User();
@@ -69,6 +71,7 @@ public class Resources {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "update", notes = "...")
 	public Response update(@PathParam("Uuid") String uuid, User user) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
@@ -117,32 +120,4 @@ public class Resources {
 					.build();
 		}
 	}
-
-/*
-	@Path("/follow/{businessUuid}")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response follow(@PathParam("businessUuid") String businessUuid, List<Attribute> list) {
-
-		System.out.println("");
-
-		Map<String, Object> responseUser = new HashMap<String, Object>();
-		Map<String, Object> responseBusiness = new HashMap<String, Object>();
-		Map<String, Object> response = new HashMap<String, Object>();
-
-		Map<String, Object> pars = new HashMap<String, Object>();
-		pars.put("attributes", list);
-
-		pars.put("userUuid", _userService.getUUID());
-		responseUser = _userService.updateAttributes(pars);
-		if ((boolean) responseUser.get("updated") == true) {
-			pars.put("businessUuid", businessUuid);
-			pars.remove("attributes");
-			responseBusiness = _businessService.updateFollowersToBusiness(pars);
-		}
-		response = MapTools.merge(responseUser, responseBusiness);
-		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
-	}
-*/
 }

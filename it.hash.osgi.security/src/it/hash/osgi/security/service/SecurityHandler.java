@@ -26,9 +26,13 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
 	// will receive a HTTP error 403 "Forbidden"
 	@Override
 	public boolean isUserInRole(Principal user, String role) {
-		if(roles==null) return false;
+		if("anonymous".equalsIgnoreCase(role))
+			return true;
 		
-		return roles!=null ? roles.contains(role) : true;
+		if(roles==null) 
+			return false;
+
+		return roles.contains(role);
 	}
 
 	@SuppressWarnings("unused")

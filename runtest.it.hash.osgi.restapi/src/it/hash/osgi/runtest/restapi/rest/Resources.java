@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,8 +21,8 @@ public class Resources {
 	@GET
 	@Path("/sayhello")
     @Produces(MediaType.TEXT_PLAIN)
-    @io.swagger.annotations.ApiOperation(value = "sayHello", notes = "The Price Estimates endpoint returns.\n")
-	public Response sayHello() {
+    @io.swagger.annotations.ApiOperation(value = "sayHelloTextViaEntity", notes = "Note for sayHelloTextViaEntity:...\n")
+	public Response sayHelloTextViaEntity() {
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
 				.entity("Hello OSGi world!")
 				.build();
@@ -29,15 +31,16 @@ public class Resources {
 	@GET
 	@Path("/sayhello2")
     @Produces(MediaType.TEXT_PLAIN)
-    @io.swagger.annotations.ApiOperation(value = "sayHello", notes = "The Price Estimates endpoint returns.\n")
-	public String sayHello2() {
+    @io.swagger.annotations.ApiOperation(value = "sayHelloTextDirect", notes = "Note for sayHelloTextDirect:...\n")
+	public String sayHelloTextDirect() {
 		return "Hello OSGi world!";
 	}
 	
 	@GET
 	@Path("/sayjsonhello")
 	@Produces(MediaType.APPLICATION_JSON)
-    @io.swagger.annotations.ApiOperation(value = "atsayjsonhello", notes = "actors in this multiplier.\n")
+	@RolesAllowed("anonymous")
+    @io.swagger.annotations.ApiOperation(value = "sayjsonhello", notes = "Note for sayjsonhello:...\n")
 	public Response sayjsonhello(@QueryParam("test") String test) {
 		Map<String, Object> map = new TreeMap<String, Object>();
 		map.put("test", test);
@@ -56,7 +59,8 @@ public class Resources {
 	@GET
 	@Path("sayxmlhello")
 	@Produces(MediaType.APPLICATION_XML)
-	public Response getBusiness(@QueryParam("test") String test) {
+    @io.swagger.annotations.ApiOperation(value = "sayxmlhello", notes = "Note for sayxmlhello:...\n")
+	public Response sayxmlhello(@QueryParam("test") String test) {
 		Map<String, Object> map = new TreeMap<String, Object>();
 		map.put("test", test);
 		return Response.ok().header("Access-Control-Allow-Origin", "*")

@@ -8,10 +8,10 @@
 	it.hash.osgi.utilities,\
 	it.hash.osgi.resource.uuid.api,\
 	com.eclipsesource.jaxrs.jersey-all,\
-	it.hash.osgi.user.user.attribute.service,\
 	it.hash.osgi.user.attribute,\
 	jackson-mapper-asl,\
 	org.mongodb.mongo-java-driver,\
 	org.apache.felix.gogo.runtime,\
-	com.eclipsesource.jaxrs.swagger-all
+	com.eclipsesource.jaxrs.swagger-all,\
+	it.hash.osgi.user.attribute.service
 -sub: *.bnd
