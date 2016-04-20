@@ -27,6 +27,8 @@ public interface UserService {
 	Map<String, Object> validateIdentificator(String identificator);
 
 	Map<String, Object> validateIdentificatorAndGetUser(String identificator);
+	
+	Map<String, Object> changePassword(String identificator, String oldPassword, String password);
 
 	Map<String, Object> getUser(Map<String, Object> pars);
 

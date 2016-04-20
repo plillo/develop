@@ -83,6 +83,7 @@ public class Resources {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("validateIdentificator")
+    @io.swagger.annotations.ApiOperation(value = "validateIdentificator", notes = "...")
 	public Response validateIdentificator(@QueryParam("value") String identificator) {
 		Map<String, Object> response = _userService.validateIdentificatorAndGetUser(identificator);
 
@@ -92,6 +93,7 @@ public class Resources {
 	@GET
 	@Path("login")
 	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "login", notes = "...")
 	public Response login(@QueryParam("identificator") String identificator, @QueryParam("password") String password, @QueryParam("appcode") String appcode) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
@@ -110,13 +112,12 @@ public class Resources {
 
 		if ((int) loginResponse.get("status") == it.hash.osgi.user.service.api.Status.LOGGED.getCode()) {
 			// LOGGED
-			String uuid = (String) loginResponse.get("uuid");
-			System.out.println("Logged user: " + uuid);
 			return Response.ok().header("Access-Control-Allow-Origin", "*").entity(loginResponse).build();
 		} else {
 			// NOT LOGGED
 			String errorMessage = (String) loginResponse.get("message");
-			return Response.status(Status.UNAUTHORIZED).entity(errorMessage).header("Access-Control-Allow-Origin", "*")
+			System.out.println("Not logged user: " + errorMessage);
+			return Response.status(Status.UNAUTHORIZED).entity(loginResponse).header("Access-Control-Allow-Origin", "*")
 					.build();
 		}
 	}

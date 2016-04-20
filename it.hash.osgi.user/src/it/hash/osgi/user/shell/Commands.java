@@ -35,6 +35,34 @@ public class Commands {
 			println(_userService.validateIdentificatorAndLogin(identificator, password, null));
 	}
 	
+	// Change password
+	public void chapwd(String identificator, String oldPassword, String password) {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		
+		if(isEON(password) || isEON(oldPassword)) {
+			response.put("isLogged", false);
+			if(isEON(password) && isEON(oldPassword)) {
+				response.put("status", Status.ERROR_MISSING_NEW_AND_OLD_PASSWORD);
+				response.put("message", Status.ERROR_MISSING_NEW_AND_OLD_PASSWORD.getMessage());
+			}
+			else 
+				if(isEON(password)) {
+					response.put("status", Status.ERROR_MISSING_PASSWORD);
+					response.put("message", Status.ERROR_MISSING_PASSWORD.getMessage());
+				}
+				else {
+					response.put("status", Status.ERROR_MISSING_OLD_PASSWORD);
+					response.put("message", Status.ERROR_MISSING_OLD_PASSWORD.getMessage());
+				}
+
+			println(response);
+			
+			return;
+		}
+		else 
+			println(_userService.changePassword(identificator, oldPassword, password));
+	}
+	
 	public void create(String identificator, String firstname, String lastname, String password) {
 		User user = new User();
 		

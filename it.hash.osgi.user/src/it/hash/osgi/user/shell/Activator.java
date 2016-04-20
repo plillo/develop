@@ -16,7 +16,7 @@ public class Activator extends DependencyActivatorBase {
 	public void init(BundleContext context, DependencyManager manager) throws Exception {
     	Properties props = new Properties();
 		props.put(CommandProcessor.COMMAND_SCOPE, "user");
-		props.put(CommandProcessor.COMMAND_FUNCTION, new String[] {"login", "create", "number", "list", "identify", "UUID"});
+		props.put(CommandProcessor.COMMAND_FUNCTION, new String[] {"login", "create", "number", "list", "identify", "chapwd", "UUID"});
 		manager.add(createComponent()
 				.setInterface(Object.class.getName(), props)
 				.setImplementation(Commands.class)

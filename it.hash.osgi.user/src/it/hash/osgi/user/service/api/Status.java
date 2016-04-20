@@ -21,6 +21,9 @@ public enum Status {
 	ERROR_FORBIDDEN_ACCESS(4003, "errorForbidenAccess"),
 	ERROR_UNMATCHED_USER(4004, "errorUnmatchedUser"),
 	ERROR_MISSING_PASSWORD(4005, "errorMissingPassword"),
+	ERROR_MISSING_OLD_PASSWORD(4006, "errorMissingOldPassword"),
+	ERROR_MISSING_NEW_AND_OLD_PASSWORD(4007, "errorMissingNewAndOldPassword"),
+	ERROR_MISMATCHED_PASSWORD(4008, "errorMismatchedPassword"),
 	
 	// SERVER ERROR
 	ERROR_HASHING_PASSWORD(5001, "errorHashingPassword"),
