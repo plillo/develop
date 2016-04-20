@@ -46,15 +46,16 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.shell)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.user)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.application)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.persistence)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.rest)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.service)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.shell)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.persistence)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.rest)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.service)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.shell)'
--resolve: auto
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.shell)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.category.parser)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.category.parser.xml)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.persistence)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.rest)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.service)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.shell)'
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
 -runbundles: \
@@ -73,6 +74,8 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.business.category.rest;version=snapshot,\
 	it.hash.osgi.business.category.service;version=snapshot,\
 	it.hash.osgi.business.category.shell;version=snapshot,\
+	it.hash.osgi.business.category.category.parser;version=snapshot,\
+	it.hash.osgi.business.category.category.parser.xml;version=snapshot,\
 	it.hash.osgi.business.persistence;version=snapshot,\
 	it.hash.osgi.business.rest;version=snapshot,\
 	it.hash.osgi.business.service;version=snapshot,\
@@ -130,3 +133,8 @@ Bundle-Version: 1.0.0.${tstamp}
 	runtest.it.hash.osgi.restapi;version=snapshot,\
 	slf4j.api;version='[1.7.21,1.7.22)',\
 	slf4j.simple;version='[1.7.21,1.7.22)'
+-buildpath: \
+	osgi.core,\
+	org.apache.felix.dependencymanager
+Private-Package: it.hash.osgi.runall
+Bundle-Activator: it.hash.osgi.runall.Activator

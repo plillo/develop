@@ -19,7 +19,6 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.application.service.ApplicationManager;
-////import it.hash.osgi.application.service.ApplicationManager;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 import it.hash.osgi.security.jwt.service.JWTService;
 import it.hash.osgi.user.User;
@@ -76,6 +75,8 @@ public class UserServiceImpl implements UserService, ManagedService {
 		// Build the response
 		if ((int) userSearch.get("matched") > 0) {
 			User user = (User) userSearch.get("user");
+			
+			String log_message = "Logging user " + user.getUuid();
 
 			// MATCHED user
 			String password = (String) pars.get("password");
@@ -87,6 +88,9 @@ public class UserServiceImpl implements UserService, ManagedService {
 					// PUT status UNAUTHORIZED_ACCESS
 					response.put("status", Status.ERROR_UNAUTHORIZED_ACCESS.getCode());
 					response.put("message", Status.ERROR_UNAUTHORIZED_ACCESS.getMessage());
+					
+					// TODO modificare output da shell a sistema di LOG
+					System.out.println(log_message+": " + Status.ERROR_MISMATCHED_PASSWORD.getMessage());
 
 					return response;
 				}
@@ -171,10 +175,18 @@ public class UserServiceImpl implements UserService, ManagedService {
 				// PUT status LOGGED
 				response.put("status", Status.LOGGED.getCode());
 				response.put("message", Status.LOGGED.getMessage());
+				
+				// TODO modificare output da shell a sistema di LOG
+				System.out.println(log_message + ": LOGGED with roles:" + roles);
 			} catch (Exception e) {
 				// PUT status UNAUTHORIZED_ACCESS
 				response.put("status", Status.ERROR_UNAUTHORIZED_ACCESS.getCode());
 				response.put("message", Status.ERROR_UNAUTHORIZED_ACCESS.getMessage());
+				
+				// TODO modificare output da shell a sistema di LOG
+				System.out.println(log_message + ": ERROR" + e.toString());
+				
+				// STACKTRACE
 				e.printStackTrace();
 			}
 		} else {
@@ -216,6 +228,39 @@ public class UserServiceImpl implements UserService, ManagedService {
 		}
 		response.put("status", Status.ERROR_NOTVALID_IDENTIFICATOR.getCode());
 
+		return response;
+	}
+	
+	@Override
+	public Map<String, Object> changePassword(String identificator, String oldPassword, String password) {
+		Map<String, Object> pars = validateIdentificatorAndGetUser(identificator);
+		Map<String, Object> response = new TreeMap<String, Object>();
+		
+		if((boolean)pars.get("matched")) {
+			String uuid = (String)pars.get("UUID");
+			if(StringUtils.isEON(uuid))
+				return response;
+			
+			User user = _userPersistenceService.getUserByUuid(uuid);
+			if(user==null)
+				return response;
+			
+			try {
+				user.setSalted_hash_password(_passwordService.getSaltedHash(password));
+			} catch (Exception e) {
+				response.put("status", Status.ERROR_HASHING_PASSWORD.getCode());
+				response.put("message", Status.ERROR_HASHING_PASSWORD.getMessage());
+				// RETURN
+				return response;
+			}
+			// Update
+			updateUser(user);
+		}
+		else {
+			
+		}
+			
+		// RETURN
 		return response;
 	}
 
@@ -290,6 +335,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 			if ((int) userMap.get("matched") > 0) {
 				// MATCHED user
 				response.put("matched", true);
+				response.put("UUID", ((User)userMap.get("user")).getUuid());
 				response.put("message", "Matched user with \"" + identificator + "\" identificator");
 			} else {
 				response.put("matched", false);

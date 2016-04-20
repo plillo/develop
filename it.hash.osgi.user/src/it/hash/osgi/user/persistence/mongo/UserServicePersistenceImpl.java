@@ -64,6 +64,7 @@ public class UserServicePersistenceImpl implements UserServicePersistence {
 		// not existing: CREATE
 		// ====================
 		if ((int) result.get("matched") == 0) {
+			user.setPassword(null);
 			String savedId = users.save(user).getSavedId();
 			if (savedId != null) {
 				User created_user = users.findOneById(savedId);
@@ -323,7 +324,7 @@ public class UserServicePersistenceImpl implements UserServicePersistence {
 	public User getUserById(String userId) {
 		return getUserByKey("userId", userId);
 	}
-
+	
 	// UPDATE
 	// ======
 
@@ -675,6 +676,11 @@ public class UserServicePersistenceImpl implements UserServicePersistence {
 			bdbObject.append("email",user.getEmail());
 		if(user.getMobile()!=null)
 			bdbObject.append("mobile",user.getMobile());
+		if(user.getPassword()!=null)
+			bdbObject.append("password",user.getPassword());
+		if(user.getSalted_hash_password()!=null)
+			bdbObject.append("salted_hash_password",user.getSalted_hash_password());
+		
 		if(user.getAttributes()!=null) {
 			BasicDBList dbl = new BasicDBList();
 			// Insert user's attributes in BasicDBList

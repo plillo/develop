@@ -27,7 +27,7 @@ public class Activator extends DependencyActivatorBase {
 				.add(createServiceDependency().setService(UserService.class).setRequired(true))
 				
 				);
-		System.out.println(" Business service actived.");
+		System.out.println("Business service actived.");
 	}
 
 	@Override
