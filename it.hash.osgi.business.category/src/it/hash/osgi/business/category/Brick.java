@@ -72,11 +72,15 @@ public class Brick {
 		}
 		return null;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((LstAttType == null) ? 0 : LstAttType.hashCode());
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result + ((definition == null) ? 0 : definition.hashCode());
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
 
@@ -89,10 +93,25 @@ public class Brick {
 		if (getClass() != obj.getClass())
 			return false;
 		Brick other = (Brick) obj;
+		if (LstAttType == null) {
+			if (other.LstAttType != null)
+				return false;
+		} else if (!LstAttType.equals(other.LstAttType))
+			return false;
 		if (code == null) {
 			if (other.code != null)
 				return false;
 		} else if (!code.equals(other.code))
+			return false;
+		if (definition == null) {
+			if (other.definition != null)
+				return false;
+		} else if (!definition.equals(other.definition))
+			return false;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
 			return false;
 		return true;
 	}
