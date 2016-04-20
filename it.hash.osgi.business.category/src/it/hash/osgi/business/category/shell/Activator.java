@@ -13,7 +13,7 @@ import it.hash.osgi.business.category.service.CategoryService;
 public class Activator extends DependencyActivatorBase {
 
 	@Override
-	public void init(BundleContext context, DependencyManager manager) throws Exception {
+	public synchronized void init(BundleContext context, DependencyManager manager) throws Exception {
     	Properties props = new Properties();
 		props.put(CommandProcessor.COMMAND_SCOPE, "category");
 		props.put(CommandProcessor.COMMAND_FUNCTION, new String[] {"addCategory", "deleteCategory", "retrieveCategories", "createAttribute","createCollectionBy"});
