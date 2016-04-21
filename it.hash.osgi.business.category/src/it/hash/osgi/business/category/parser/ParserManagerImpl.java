@@ -1,10 +1,7 @@
 package it.hash.osgi.business.category.parser;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import it.hash.osgi.user.attribute.Attribute;
 
 public class ParserManagerImpl implements ParserManager{
 	

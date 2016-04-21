@@ -2,7 +2,6 @@ package it.hash.osgi.business.category.parser.service.xml;
 
 import java.util.Properties;
 
-import org.amdatu.mongo.MongoDBService;
 import org.apache.felix.dm.DependencyActivatorBase;
 import org.apache.felix.dm.DependencyManager;
 import org.osgi.framework.BundleContext;
