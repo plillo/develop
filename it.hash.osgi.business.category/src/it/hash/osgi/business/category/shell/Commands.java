@@ -12,22 +12,10 @@ public class Commands {
 	private volatile CategoryService _category;
 	private volatile ParserManager _parserMng;
 
-	public void createCollectionBy(String appCode,String url, String fileName){
-//		 url="file:\\C|\\Users\\Antonella\\git\\osgi-platform\\a-node\\src\\it\\hash\\osgi\\business\\category\\service";
-		//	 fileName="categories.csv";
+	public void addCategoriesByUrl(String type, String url) {
+		System.out.println(String.format("Creating categories by Url [%s]: %b", url, _parserMng.addCategoriesByUrl(type, url)));
+	}
 		
-	//String	url="file:\\C|\\Users\\Antonella\\git\\osgi-platform\\a-node\\load\\";
-	//String	 fileName= "gs1.xml";	
-
-//			System.out.println(" Collection created: "+ _parserMng.createCollectionBy("ctg-prs-xml", url,fileName ));
-			
-//			System.out.println(" Collection created: "+ _parserMng.createCollectionBy("ctg-prs-csv", "csv",fileName ));
-			 
-			System.out.println(" Collection created: "+ _parserMng.createCollectionBy(appCode, url,fileName ));
-		}
-
-		
-	
 	public void addCategory(String name, String code, String description, String longDescription) {
 		Category category = new Category();
 		category.setName(name);

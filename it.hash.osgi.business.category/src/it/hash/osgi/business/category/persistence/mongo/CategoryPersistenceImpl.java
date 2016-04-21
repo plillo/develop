@@ -18,7 +18,6 @@ import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
 import it.hash.osgi.utils.StringUtils;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.JacksonDBCollection;
-import net.vz.mongodb.jackson.WriteResult;
 
 public class CategoryPersistenceImpl implements CategoryPersistence {
 	// Injected services
@@ -33,7 +32,7 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
  
 	@Override
 	public Map<String, Object> createCategory(Category category) {
-		JacksonDBCollection<Category, Object> categoryMap = JacksonDBCollection.wrap(categoriesCollection, Category.class);
+		JacksonDBCollection<Category, String> categoryMap = JacksonDBCollection.wrap(categoriesCollection, Category.class, String.class);
 
 		Map<String, Object> response = new TreeMap<String, Object>();
 
@@ -42,8 +41,7 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
 
 		// If new category
 		if ((int) result.get("matched") == 0) {
-			WriteResult<Category, Object> writeResult = categoryMap.save(category);
-			String savedId = (String) writeResult.getSavedId();
+			String savedId = categoryMap.save(category).getSavedId();
 			if (!StringUtils.isEmptyOrNull(savedId)) {
 				Category created_category = categoryMap.findOneById(savedId);
 				if (created_category != null) {

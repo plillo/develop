@@ -32,7 +32,7 @@ public class Category implements Comparable<Category>{
 		this.uuid = uuid;
 	}
 	
-	public String getParentUUID() {
+	public String getParentUuid() {
 		return parentUuid;
 	}
 

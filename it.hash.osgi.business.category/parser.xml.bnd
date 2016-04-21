@@ -1,4 +1,0 @@
-Bundle-Version: 1.0.0.${tstamp}
-Bundle-Activator: it.hash.osgi.business.category.parser.service.xml.Activator
-Private-Package: it.hash.osgi.business.category.parser.service.xml
-Export-Package: it.hash.osgi.business.category.parser.service.xml

@@ -15,8 +15,6 @@ public class AttributeServiceImpl implements AttributeService{
 
 	@Override
 	public List<Attribute> getAttributesByCategories(List<String> categories) {
-		// TODO Auto-generated method stub
-		// list conterra gli uuid delle categorie
 		return _persistence.getAttributesByCategories(categories);
 	}
 	

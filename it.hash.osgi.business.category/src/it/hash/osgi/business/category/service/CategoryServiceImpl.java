@@ -54,14 +54,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
-
 	@Override
 	public Map<String, Object> createCategory(Category category) {
-		String uuid=_uuidSrv.createUUID("app/profiler/business-category");
-		category.setUuid(uuid);
 		Map<String, Object> response = _persistenceSrv.createCategory(category);
-		if ((boolean)response.get("created") ==false)
-			_uuidSrv.removeUUID(uuid);
 		return response ;
 	}
 

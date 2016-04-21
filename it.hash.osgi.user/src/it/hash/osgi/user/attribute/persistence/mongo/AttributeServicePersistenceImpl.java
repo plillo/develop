@@ -62,14 +62,20 @@ public class AttributeServicePersistenceImpl implements AttributeServicePersiste
 
 		regexQuery = new BasicDBObject();
 
-		List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
-		for (String s : categories) {
-			obj.add(new BasicDBObject("context", new BasicDBObject("$regex", s).append("$options", "$i")));
-		}
-		regexQuery.put("$or", obj);
+		DBCursor cursor = null;
+		if(!categories.isEmpty()){
+			List<BasicDBObject> obj = new ArrayList<BasicDBObject>();
+			for (String s : categories) {
+				obj.add(new BasicDBObject("context", new BasicDBObject("$regex", s).append("$options", "$i")));
+			}
+			regexQuery.put("$or", obj);
 
-		System.out.println(regexQuery.toString());
-		DBCursor cursor = attributesCollection.find(regexQuery);
+			System.out.println(regexQuery.toString());
+			cursor = attributesCollection.find(regexQuery);
+		}
+		else
+			cursor = attributesCollection.find();
+
 		List<DBObject> list = cursor.toArray();
 		Attribute b;
 		for (DBObject elem : list) {

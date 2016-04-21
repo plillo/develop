@@ -112,7 +112,7 @@ public class Resources {
 
 		if ((int) loginResponse.get("status") == it.hash.osgi.user.service.api.Status.LOGGED.getCode()) {
 			// LOGGED
-			return Response.ok().header("Access-Control-Allow-Origin", "*").entity(loginResponse).build();
+			return Response.status(Status.OK).header("Access-Control-Allow-Origin", "*").entity(loginResponse).build();
 		} else {
 			// NOT LOGGED
 			String errorMessage = (String) loginResponse.get("message");

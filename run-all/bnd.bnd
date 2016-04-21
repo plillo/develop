@@ -50,8 +50,8 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.rest)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.service)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.shell)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.category.parser)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.category.parser.xml)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.parser)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.parser.gs1)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.persistence)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.rest)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.service)',\
@@ -74,8 +74,8 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.business.category.rest;version=snapshot,\
 	it.hash.osgi.business.category.service;version=snapshot,\
 	it.hash.osgi.business.category.shell;version=snapshot,\
-	it.hash.osgi.business.category.category.parser;version=snapshot,\
-	it.hash.osgi.business.category.category.parser.xml;version=snapshot,\
+	it.hash.osgi.business.category.parser;version=snapshot,\
+	it.hash.osgi.business.category.parser.gs1;version=snapshot,\
 	it.hash.osgi.business.persistence;version=snapshot,\
 	it.hash.osgi.business.rest;version=snapshot,\
 	it.hash.osgi.business.service;version=snapshot,\

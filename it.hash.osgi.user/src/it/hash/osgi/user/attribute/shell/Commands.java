@@ -24,12 +24,16 @@ public class Commands {
 	}
 	
 	public void getAttributesByCategories(String categories){
-		List<String> listS= new ArrayList<String>();
-		String[] cat = categories.split(",");
-		for(String cat1: cat){
-			listS.add(cat1);
+		List<String> categoriesList = new ArrayList<String>();
+		
+		if(!"all".equalsIgnoreCase(categories)) {
+			String[] arrctg = categories.split(",");
+			for(String cat: arrctg){
+				categoriesList.add(cat);
+			}
 		}
-		List<Attribute> list = _attributeService.getAttributesByCategories(listS);
+		
+		List<Attribute> list = _attributeService.getAttributesByCategories(categoriesList);
 		
 		ObjectMapper om = new ObjectMapper();
 		String json;

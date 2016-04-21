@@ -3,11 +3,11 @@ package it.hash.osgi.business.category;
 import java.util.ArrayList;
 import java.util.List;
   
-public class Family {
+public class Clazz {
 	String definition;
 	String text;
 	Integer code;
-	List<Clazz> LstClasse;
+	List<Brick> LstBrick;
 	public String getDefinition() {
 		return definition;
 	}
@@ -26,34 +26,33 @@ public class Family {
 	public void setCode(Integer code) {
 		this.code = code;
 	}
-	public List<Clazz> getLstClasse() {
-		return LstClasse;
+	public List<Brick> getLstBrick() {
+		return LstBrick;
 	}
-	public void setLstClasse(List<Clazz> lstClasse) {
-		LstClasse = lstClasse;
+	public void setLstBrick(List<Brick> lstBrick) {
+		LstBrick = lstBrick;
 	}
-	
-	
-	public Clazz getClasse(Integer code){
-		for(Clazz clas: LstClasse){
-			if (clas.code == code)
-				return clas;
+
+	public Brick getBrick(Integer code){
+		for(Brick brick: LstBrick){
+			if (brick.code == code)
+				return brick;
 		}
 		
 		return null;
 	}		
-	public boolean addClasse(Clazz clas){
-		if (LstClasse== null)
-			this.LstClasse=new ArrayList<Clazz>();
-		if (!LstClasse.contains(clas))
-			return LstClasse.add(clas);
+	public boolean addBrick(Brick brick){
+		if (LstBrick== null)
+			this.LstBrick=new ArrayList<Brick>();
+		if (!LstBrick.contains(brick))
+			return LstBrick.add(brick);
 		return false;
 	}	
 	
-	public boolean removeClasse(Integer code){
-		for(Clazz clas: LstClasse){
-			if (clas.code == code)
-				return this.LstClasse.remove(clas);
+	public boolean removeBrick(Integer code){
+		for(Brick brick: LstBrick){
+			if (brick.code == code)
+				return this.LstBrick.remove(brick);
 		}
 		
 		
@@ -63,7 +62,7 @@ public class Family {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((LstClasse == null) ? 0 : LstClasse.hashCode());
+		result = prime * result + ((LstBrick == null) ? 0 : LstBrick.hashCode());
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + ((definition == null) ? 0 : definition.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
@@ -77,11 +76,11 @@ public class Family {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Family other = (Family) obj;
-		if (LstClasse == null) {
-			if (other.LstClasse != null)
+		Clazz other = (Clazz) obj;
+		if (LstBrick == null) {
+			if (other.LstBrick != null)
 				return false;
-		} else if (!LstClasse.equals(other.LstClasse))
+		} else if (!LstBrick.equals(other.LstBrick))
 			return false;
 		if (code == null) {
 			if (other.code != null)
@@ -101,8 +100,8 @@ public class Family {
 		return true;
 	}
 	
-	
-	
-	
-	
 }
+
+	
+	
+
