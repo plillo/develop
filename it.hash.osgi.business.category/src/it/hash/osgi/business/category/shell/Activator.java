@@ -15,9 +15,10 @@ public class Activator extends DependencyActivatorBase {
 	@Override
 	public synchronized void init(BundleContext context, DependencyManager manager) throws Exception {
     	Properties props = new Properties();
-		props.put(CommandProcessor.COMMAND_SCOPE, "category");
+		props.put(CommandProcessor.COMMAND_SCOPE,"category");
 		props.put(CommandProcessor.COMMAND_FUNCTION, new String[] {"addCategory", "deleteCategory", "retrieveCategories", "createAttribute","createCollectionBy"});
-		manager.add(createComponent()
+		manager.add(
+				 createComponent()
 				.setInterface(Object.class.getName(), props)
 				.setImplementation(Commands.class)
 				.add(createServiceDependency().setService(CategoryService.class).setRequired(true))
