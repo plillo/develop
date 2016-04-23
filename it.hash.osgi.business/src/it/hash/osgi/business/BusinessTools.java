@@ -12,7 +12,7 @@ import it.hash.osgi.utils.StringUtils;
 
 public class BusinessTools {
 
-	public static Map<String, Object> toMap(Business business) {
+	public static Map<String, Object> _toMap(Business business) {
 		Map<String, Object> pars = new HashMap<String, Object>();
 
 		if (!isEmptyOrNull(business.get_id()))
@@ -75,7 +75,7 @@ public class BusinessTools {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Business toBusiness(Map<?, ?> mapBusiness) {
+	public static Business _toBusiness(Map<?, ?> mapBusiness) {
 		
 		Business business = new Business();
 		String attribute = null;
@@ -214,7 +214,7 @@ public class BusinessTools {
 		return business;
 
 	}
-public static Map<String, Object> createPars(Business business) {
+public static Map<String, Object> _createPars(Business business) {
 
 		Map<String, Object> pars = new HashMap<String, Object>();
 

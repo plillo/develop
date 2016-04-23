@@ -11,6 +11,7 @@ import it.hash.osgi.business.Business;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.geojson.Coordinates;
+import it.hash.osgi.geojson.Point;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.utils.StringUtils;
@@ -166,6 +167,11 @@ public class BusinessServiceImpl implements BusinessService {
 	@Override
 	public Coordinates getPosition(String businessUuid) {
 		Business business = _businessPersistenceService.getBusinessByUuid(businessUuid);
+		
+		Point position = business.getPosition();
+		
+		if(position==null)
+			return null;
 		
 		return business.getPosition().getCoordinates();
 	}

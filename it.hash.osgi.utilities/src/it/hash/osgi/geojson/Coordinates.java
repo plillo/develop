@@ -1,5 +1,7 @@
 package it.hash.osgi.geojson;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class Coordinates implements Comparable<Coordinates>{
 		protected double lat;
@@ -19,10 +21,6 @@ public class Coordinates implements Comparable<Coordinates>{
 		
 		public void setLongitude(double longitude) {
 			this.lng = longitude;
-		}
-		
-		public Double[] toArray(){
-			return new Double[]{ this.lat, this.lng};
 		}
 		
 		@Override
@@ -57,6 +55,18 @@ public class Coordinates implements Comparable<Coordinates>{
 					return 0;
 			
 			return 1;
+		}
+
+		public Object toMap() {
+			Map <String, Object> map = new HashMap<String, Object>();
+			map.put("lat", this.getLatitude());
+			map.put("lng", this.getLongitude());
+			
+			return map;
+		}
+		
+		public Double[] toArray(){
+			return new Double[]{ this.lat, this.lng};
 		}
 		
 		@Override

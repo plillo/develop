@@ -45,8 +45,8 @@ public class ParserServiceImpl extends DefaultHandler implements ParserService {
 	String classUUID = null;
 	
 	@Override
-	public String getAppCode() {
-		return "ctg-prs-xml";
+	public String getParserCode() {
+		return "gs1-xml";
 	}
 
 	@Override

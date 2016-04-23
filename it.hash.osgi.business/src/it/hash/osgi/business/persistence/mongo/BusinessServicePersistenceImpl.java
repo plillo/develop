@@ -20,7 +20,6 @@ import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 
 import it.hash.osgi.business.Business;
-import it.hash.osgi.business.BusinessTools;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
 
 /**
@@ -30,6 +29,7 @@ import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
  * @author Montinari Antonella
  */
 
+@SuppressWarnings("unchecked")
 public class BusinessServicePersistenceImpl implements BusinessServicePersistence {
 	/** Name of the collection */
 	private static final String COLLECTION = "businesses";
@@ -48,19 +48,10 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	@Override
 	public Map<String, Object> addBusiness(Map<String, Object> business) {
 
-		Business business_obj = BusinessTools.toBusiness(business);
+		Business business_obj = Business.toBusiness(business);
 
 		return addBusiness(business_obj);
 
-	}
-
-	private DBObject dbObjectBusiness(Business business) {
-		Map<String, Object> map = BusinessTools.createPars(business);
-		
-		DBObject db = new BasicDBObject(map);
-		System.out.println(db.toString());
-
-		return db;
 	}
 
 	@Override
@@ -73,11 +64,11 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		// If new business
 		if ((int) result.get("matched") == 0) {
 
-			businessCollection.save(dbObjectBusiness(business));
-			DBObject created = businessCollection.findOne(dbObjectBusiness(business));
+			businessCollection.save(businessToDBObject(business));
+			DBObject created = businessCollection.findOne(businessToDBObject(business));
 
 			if (created != null) {
-				Business created_business = BusinessTools.toBusiness(created.toMap());
+				Business created_business = Business.toBusiness(created.toMap());
 				response.put("business", created_business);
 				response.put("created", true);
 				response.put("returnCode", 200);
@@ -131,7 +122,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			listB= new ArrayList<Business>();
 		Business b;
 		for (DBObject elem : list) {
-			b = BusinessTools.toBusiness(elem.toMap());
+			b = Business.toBusiness(elem.toMap());
 			listB.add(b);
 		}
 		}
@@ -150,7 +141,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("uuid", business.get("uuid")));
 
 			if (found != null) {
-				found_business = BusinessTools.toBusiness(found.toMap());
+				found_business = Business.toBusiness(found.toMap());
 
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
@@ -165,7 +156,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")));
 
 			if (found != null) {
-				found_business = BusinessTools.toBusiness(found.toMap());
+				found_business = Business.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
 					list = new TreeSet<String>();
@@ -177,7 +168,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		if (business.containsKey("fiscalCode") && business.get("fiscalCode") != null) {
 			found = businessCollection.findOne(new BasicDBObject("fiscalCode", business.get("fiscalCode")));
 			if (found != null) {
-				found_business = BusinessTools.toBusiness(found.toMap());
+				found_business = Business.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
 					list = new TreeSet<String>();
@@ -192,7 +183,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("name", business.get("name")));
 
 			if (found != null) {
-				found_business = BusinessTools.toBusiness(found.toMap());
+				found_business = Business.toBusiness(found.toMap());
 
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
@@ -206,7 +197,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			found = businessCollection.findOne(new BasicDBObject("pIva", business.get("pIva")));
 
 			if (found != null) {
-				found_business = BusinessTools.toBusiness(found.toMap());
+				found_business = Business.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
 				if (list == null)
 					list = new TreeSet<String>();
@@ -282,7 +273,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		DBCursor cursor = businessCollection.find();
 		List<Business> list = new ArrayList<>();
 		while (cursor.hasNext()) {
-			list.add(BusinessTools.toBusiness(cursor.next().toMap()));
+			list.add(Business.toBusiness(cursor.next().toMap()));
 		}
 
 		return list;
@@ -291,11 +282,11 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	@Override
 	public List<Business> getBusinessDetails(Business business) {
 
-		DBCursor cursor = businessCollection.find(dbObjectBusiness(business));
+		DBCursor cursor = businessCollection.find(businessToDBObject(business));
 
 		List<Business> list = new ArrayList<>();
 		while (cursor.hasNext()) {
-			list.add(BusinessTools.toBusiness(cursor.next().toMap()));
+			list.add(Business.toBusiness(cursor.next().toMap()));
 		}
 
 		return list;
@@ -317,7 +308,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			
 			DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
 			
-			Business updateBusiness = BusinessTools.toBusiness(updated.toMap());
+			Business updateBusiness = Business.toBusiness(updated.toMap());
 			if (updateBusiness != null) {
 				responseUpdate.put("business", updateBusiness);
 				responseUpdate.put("update", "OK");
@@ -370,7 +361,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
 		
 		// response
-		Business updateBusiness = BusinessTools.toBusiness(updated.toMap());
+		Business updateBusiness = Business.toBusiness(updated.toMap());
 		if (updateBusiness != null) {
 			response.put("business", updateBusiness);
 			response.put("update", "OK");
@@ -462,7 +453,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			List<Business> list = new ArrayList<Business>();
 
 			while (cursor.hasNext()) {
-				list.add(BusinessTools.toBusiness(cursor.next().toMap()));
+				list.add(Business.toBusiness(cursor.next().toMap()));
 			}
 			return list;
 		}
@@ -476,7 +467,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 			List<Business> list = new ArrayList<Business>();
 			while (cursor.hasNext()) {
-				list.add(BusinessTools.toBusiness(cursor.next().toMap()));
+				list.add(Business.toBusiness(cursor.next().toMap()));
 			}
 			return list;
 		}
@@ -505,7 +496,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		List<Business> list = new ArrayList<Business>();
 		if (dbc!=null){
 			while (dbc.hasNext()) {
-				list.add(BusinessTools.toBusiness(dbc.next().toMap()));
+				list.add(Business.toBusiness(dbc.next().toMap()));
 			}
 			response.put("notFollowedBusinesses", list);
 		}
@@ -514,72 +505,10 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	}
 	
 	private DBObject businessToDBObject(Business business) {
-		Map<String, Object> map = businessToMap(business);
-		DBObject db = new BasicDBObject(map);
+		DBObject db = new BasicDBObject(Business.toMap(business));
 
 		return db;
 	}
 	
-	public static Map<String, Object> businessToMap(Business business) {
-		Map<String, Object> pars = new HashMap<String, Object>();
 
-		if (!isEmptyOrNull(business.get_id()))
-			pars.put("_id", business.get_id());
-		if (!isEmptyOrNull(business.getUuid()))
-			pars.put("uuid", business.getUuid());
-		if (!isEmptyOrNull(business.getName()))
-			pars.put("name", business.getName());
-		if (!isEmptyOrNull(business.getPIva()))
-			pars.put("pIva", business.getPIva());
-		if (!isEmptyOrNull(business.getFiscalCode()))
-			pars.put("fiscalCode", business.getFiscalCode());
-		if (!isEmptyOrNull(business.getAddress()))
-			pars.put("address", business.getAddress());
-		if (!isEmptyOrNull(business.getCity()))
-			pars.put("city", business.getCity());
-		if (!isEmptyOrNull(business.getCap()))
-			pars.put("cap", business.getCap());
-		if (!isEmptyOrNull(business.getNation()))
-			pars.put("nation", business.getNation());
-		if (!isEmptyOrNull(business.get__Description()))
-			pars.put("_description", business.get__Description());
-		if (!isEmptyOrNull(business.get__longDescription()))
-			pars.put("_longDescription", business.get__longDescription());
-		if (!isEmptyOrNull(business.getOwner()))
-			pars.put("owner", business.getOwner());
-		if (business.getCategories() != null)
-			pars.put("categories", business.getCategories());
-		if (business.getFollowers()!=null)
-			pars.put("followers", business.getFollowers());
-		if (business.getPosition()!=null){
-			Map <String, Object> pos = new HashMap<String, Object>();
-			pos.put("type","Point");
-			pos.put("coordinates", business.getPosition().getCoordinates().toArray());
-		   
-			pars.put("position", pos);}
-		if (!isEmptyOrNull(business.getEmail()))
-			pars.put("email", business.getEmail());
-		if (!isEmptyOrNull(business.getMobile()))
-			pars.put("mobile", business.getMobile());
-		if (!isEmptyOrNull(business.getPublished()))
-			pars.put("published", business.getPublished());
-		if (!isEmptyOrNull(business.getTrusted_email()))
-			pars.put("trusted_email", business.getTrusted_email());
-		if (!isEmptyOrNull(business.getTrusted_mobile()))
-			pars.put("trusted_mobile", business.getTrusted_mobile());
-		if (!isEmptyOrNull(business.getCauthor()))
-			pars.put("cauthor", business.getCauthor());
-		if (!isEmptyOrNull(business.getCdate()))
-			pars.put("cdate", business.getCdate());
-		if (!isEmptyOrNull(business.getMauthor()))
-			pars.put("mauthor", business.getMauthor());
-		if (!isEmptyOrNull(business.getMdate()))
-			pars.put("mdate", business.getMdate());
-		if (!isEmptyOrNull(business.getLdate()))
-			pars.put("ldate", business.getLdate());
-		if (business.getOthers() != null)
-			pars.put("others", business.getOthers());
-
-		return pars;
-	}
 }

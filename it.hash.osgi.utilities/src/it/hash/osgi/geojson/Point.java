@@ -1,5 +1,7 @@
 package it.hash.osgi.geojson;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class Point extends Geometry implements Comparable<Point>{
 	protected Coordinates coordinates;
@@ -55,6 +57,13 @@ public class Point extends Geometry implements Comparable<Point>{
 	    if (!coordinates.equals(other.coordinates))
 			return false;
 		return true;
+	}
+	
+	public Map<String, Object> toMap() {
+		Map <String, Object> map = new HashMap<String, Object>();
+		map.put("type","Point");
+		map.put("coordinates", getCoordinates().toMap());
+		return map;	
 	}
 
 	public String toGeoJson() {

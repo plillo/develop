@@ -25,7 +25,6 @@ import org.apache.commons.codec.binary.Base64;
 
 import io.swagger.annotations.Api;
 import it.hash.osgi.business.Business;
-import it.hash.osgi.business.BusinessTools;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.geojson.Coordinates;
 import it.hash.osgi.geojson.Point;
@@ -48,7 +47,7 @@ public class Resources {
     @io.swagger.annotations.ApiOperation(value = "getBusiness", notes = "...")
 	public Response getBusiness(@PathParam("Uuid") String uuid) {
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
-				.entity(BusinessTools.toMap(_businessService.getBusiness(uuid)))
+				.entity(Business.toMap(_businessService.getBusiness(uuid)))
 				//.entity(_businessService.getBusiness(uuid))
 				.build();
 	}
