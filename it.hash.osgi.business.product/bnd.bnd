@@ -1,0 +1,16 @@
+-buildpath: \
+	org.apache.felix.dependencymanager,\
+	com.mongodb,\
+	org.amdatu.mongo,\
+	org.apache.felix.gogo.runtime,\
+	osgi.core,\
+	net.vz.mongodb.jackson.mongo-jackson-mapper,\
+	jackson-mapper-asl,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	org.mongodb.mongo-java-driver,\
+	it.hash.osgi.utilities,\
+	it.hash.osgi.resource.uuid.api,\
+	org.apache.felix.eventadmin,\
+	com.eclipsesource.jaxrs.swagger-all,\
+	org.apache.felix.log
+-sub: *.bnd

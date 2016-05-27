@@ -1,13 +1,19 @@
 package it.hash.osgi.business.rest;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,13 +22,21 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import eu.medsea.mimeutil.MimeType;
+import eu.medsea.mimeutil.MimeUtil;
+import eu.medsea.mimeutil.detector.MimeDetector;
 import io.swagger.annotations.Api;
 import it.hash.osgi.business.Business;
 import it.hash.osgi.business.service.BusinessService;
@@ -47,8 +61,7 @@ public class Resources {
     @io.swagger.annotations.ApiOperation(value = "getBusiness", notes = "...")
 	public Response getBusiness(@PathParam("Uuid") String uuid) {
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
-				.entity(Business.toMap(_businessService.getBusiness(uuid)))
-				//.entity(_businessService.getBusiness(uuid))
+				.entity(Business.toMap(_businessService.getBusiness(uuid, false)))
 				.build();
 	}
 	
@@ -66,9 +79,12 @@ public class Resources {
 	@Produces(MediaType.WILDCARD)
     @io.swagger.annotations.ApiOperation(value = "getLogo", notes = "get business logo")
 	public Response getLogo(@PathParam("uuid") String uuid) throws Exception {
-		Business business = _businessService.getBusiness(uuid);
+		Business business = _businessService.getBusiness(uuid, true);
 	
-		return Response.ok(new ByteArrayInputStream(Base64.decodeBase64(business.getLogo()))).type(business.getLogoType()).build();
+		if(business.getLogo()!=null)
+			return Response.ok(new ByteArrayInputStream(Base64.decodeBase64(business.getLogo()))).type(business.getLogoType()).build();
+		else
+			return Response.ok().header("Access-Control-Allow-Origin", "*").build();
 	}
 	
 	// GET businesses/1.0/businesses/by_selfOwned/positions
@@ -179,10 +195,69 @@ public class Resources {
 	@Path("/{uuid}")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
     @io.swagger.annotations.ApiOperation(value = "update", notes = "...")
-	public Response update(@PathParam("uuid") String uuid, Business business) {
+	public Response update(
+			@Context HttpServletRequest request,
+			@PathParam("uuid") String uuid, 
+			@FormDataParam("name") String name,
+			@FormDataParam("address") String address,
+			@FormDataParam("_description") String _description,
+			@FormDataParam("city") String city,
+			@FormDataParam("cap") String cap,
+			@FormDataParam("pIva") String pIva,
+			@FormDataParam("fiscalCode") String fiscalCode,
+			@FormDataParam("logo") InputStream inputStream,
+			@FormDataParam("logo") FormDataBodyPart body,
+			@FormDataParam("logo") FormDataContentDisposition fileDetail) {
 		Map<String, Object> response = new TreeMap<String, Object>();
+		
+		Business business = new Business();
+		business.setUuid(uuid);
+		business.setName(name);
+		business.setAddress(address);
+		business.set__Description(_description);
+		business.setCity(city);
+		business.setCap(cap);
+		business.setPIva(pIva);
+		business.setFiscalCode(fiscalCode);
+		try {
+			if(inputStream!=null){
+				// Cloning the inputStream
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = inputStream.read(buffer)) > -1 ) {
+				    baos.write(buffer, 0, len);
+				}
+				baos.flush();
+
+				InputStream is1 = new ByteArrayInputStream(baos.toByteArray()); 
+				InputStream is2 = new ByteArrayInputStream(baos.toByteArray()); 
+				
+				// Set Logo
+				business.setLogo(Base64.encodeBase64(IOUtils.toByteArray(is1)));
+				
+				// Get MimeType
+				String mimeType = "application/octet-stream";
+				MimeDetector md = MimeUtil.getMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
+				if(md==null)
+					MimeUtil.registerMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
+				@SuppressWarnings("unchecked")
+				Collection<MimeType> collection = MimeUtil.getMimeTypes(IOUtils.toByteArray(is2));
+				Iterator<MimeType> iterator = collection.iterator();
+				while(iterator.hasNext()) {
+					MimeType mt = iterator.next();
+					mimeType =  mt.getMediaType() + "/" + mt.getSubType();
+					break;
+				}
+
+				// Set LogoType
+				business.setLogoType(mimeType);
+			}
+		} catch (IOException e) {
+		}
 
 		response = _businessService.updateBusiness(uuid, business);
 		
@@ -192,15 +267,71 @@ public class Resources {
 	// PUT businesses/1.0/businesses
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes({ MediaType.APPLICATION_JSON})
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
     @io.swagger.annotations.ApiOperation(value = "create", notes = "...")
-	public Response create(Business business) {
-		// SET Business's owner
+	public Response create(
+			@Context HttpServletRequest request,
+			@FormDataParam("name") String name,
+			@FormDataParam("address") String address,
+			@FormDataParam("_description") String _description,
+			@FormDataParam("city") String city,
+			@FormDataParam("cap") String cap,
+			@FormDataParam("pIva") String pIva,
+			@FormDataParam("fiscalCode") String fiscalCode,
+			@FormDataParam("logo") InputStream inputStream,
+			@FormDataParam("logo") FormDataBodyPart body,
+			@FormDataParam("logo") FormDataContentDisposition fileDetail) {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		
+		Business business = new Business();
 		business.setOwner(_userService.getUUID());
+		business.setName(name);
+		business.setAddress(address);
+		business.set__Description(_description);
+		business.setCity(city);
+		business.setCap(cap);
+		business.setPIva(pIva);
+		business.setFiscalCode(fiscalCode);
+		try {
+			if(inputStream!=null){
+				// Cloning the inputStream
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+				byte[] buffer = new byte[1024];
+				int len;
+				while ((len = inputStream.read(buffer)) > -1 ) {
+				    baos.write(buffer, 0, len);
+				}
+				baos.flush();
+
+				InputStream is1 = new ByteArrayInputStream(baos.toByteArray()); 
+				InputStream is2 = new ByteArrayInputStream(baos.toByteArray()); 
+				
+				// Set Logo
+				business.setLogo(Base64.encodeBase64(IOUtils.toByteArray(is1)));
+				
+				// Get MimeType
+				String mimeType = "application/octet-stream";
+				MimeDetector md = MimeUtil.getMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
+				if(md==null)
+					MimeUtil.registerMimeDetector("eu.medsea.mimeutil.detector.MagicMimeMimeDetector");
+				@SuppressWarnings("unchecked")
+				Collection<MimeType> collection = MimeUtil.getMimeTypes(IOUtils.toByteArray(is2));
+				Iterator<MimeType> iterator = collection.iterator();
+				while(iterator.hasNext()) {
+					MimeType mt = iterator.next();
+					mimeType =  mt.getMediaType() + "/" + mt.getSubType();
+					break;
+				}
+
+				// Set LogoType
+				business.setLogoType(mimeType);
+			}
+		} catch (IOException e) {
+		}
+
+		response = _businessService.createBusiness(business);
 		
-		Map<String, Object> response = _businessService.createBusiness(business);
-		
-		System.out.println("Add " + business.get_id() + "returnCode " + response.get("returnCode"));
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
@@ -260,7 +391,7 @@ public class Resources {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
 		// Retrieve
-		List<Business> businesses = _businessService.retrieveFollowedByUser(_userService.getUUID());
+		List<Business> businesses = _businessService.retrieveFollowedByUser(_userService.getUUID(), false);
 
 		if (businesses == null)
 			return Response.serverError().build();
@@ -279,7 +410,7 @@ public class Resources {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
 		// Retrieve
-		List<Business> businesses = _businessService.retrieveOwnedByUser(_userService.getUUID());
+		List<Business> businesses = _businessService.retrieveOwnedByUser(_userService.getUUID(), false);
 
 		if (businesses == null)
 			return Response.serverError().build();
@@ -297,7 +428,7 @@ public class Resources {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
 		// Retrieve
-		List<Business> businesses = _businessService.retrieveNotFollowedByUser(_userService.getUUID(), keyword);
+		List<Business> businesses = _businessService.retrieveNotFollowedByUser(_userService.getUUID(), keyword, false);
 
 		if (businesses == null)
 			return Response.serverError().build();

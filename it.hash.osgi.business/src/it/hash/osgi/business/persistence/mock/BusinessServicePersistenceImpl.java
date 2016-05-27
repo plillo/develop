@@ -433,6 +433,66 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Business> retrieveFollowedByUser(String uuid, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Business> retrieveOwnedByUser(String uuid, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Business> retrieveNotFollowedByUser(String userUuid, String search, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getBusiness(Business business, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> getBusiness(Map<String, Object> business, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Business getBusinessByFiscalCode(String fiscalCode, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Business getBusinessByPartitaIva(String partitaIva, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Business getBusinessByName(String Name, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Business getBusinessById(String businessId, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Business getBusinessByUuid(String uuid, boolean withLogo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

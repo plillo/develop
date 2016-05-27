@@ -19,7 +19,9 @@
 	org.apache.commons.codec,\
 	it.hash.osgi.user.attribute.service,\
 	it.hash.osgi.user.service,\
-	it.hash.osgi.utilities
+	it.hash.osgi.utilities,\
+	javax.servlet-api,\
+	eu.medsea.mimeutil.mime-util;version=2.1
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
 -runrequires: \
@@ -63,4 +65,4 @@
 	osgi.identity;filter:='(osgi.identity=com.eclipsesource.jaxrs.provider.moxy)',\
 	osgi.identity;filter:='(osgi.identity=org.eclipse.persistence.asm)',\
 	osgi.identity;filter:='(osgi.identity=com.eclipsesource.jaxrs.provider.swagger)'
--resolve: auto
+

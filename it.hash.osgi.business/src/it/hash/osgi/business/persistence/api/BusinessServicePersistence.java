@@ -21,21 +21,31 @@ public interface BusinessServicePersistence {
 	             
 	// READ
 	Map<String, Object> getBusiness(Business business);
+	Map<String, Object> getBusiness(Business business, boolean withLogo);
 	Map<String, Object> getBusiness(Map<String, Object> business);
+	Map<String, Object> getBusiness(Map<String, Object> business, boolean withLogo);
 	
 	Business getBusinessByFiscalCode(String fiscalCode);
+	Business getBusinessByFiscalCode(String fiscalCode, boolean withLogo);
 	Business getBusinessByPartitaIva(String partitaIva);
+	Business getBusinessByPartitaIva(String partitaIva, boolean withLogo);
 	Business getBusinessByName(String Name);
+	Business getBusinessByName(String Name, boolean withLogo);
 	Business getBusinessById(String businessId);
+	Business getBusinessById(String businessId, boolean withLogo);
 	Business getBusinessByUuid(String uuid);
+	Business getBusinessByUuid(String uuid, boolean withLogo);
 	
 	List<Business> getBusinesses();
 	List<Business> getBusinessDetails(Business business);
 	List<Business> retrieveBusinesses(String criterion, String search);
 	
 	List<Business> retrieveFollowedByUser(String uuid);
+	List<Business> retrieveFollowedByUser(String uuid, boolean withLogo);
 	List<Business> retrieveOwnedByUser(String uuid);
+	List<Business> retrieveOwnedByUser(String uuid, boolean withLogo);
 	List<Business> retrieveNotFollowedByUser(String userUuid, String search);
+	List<Business> retrieveNotFollowedByUser(String userUuid, String search, boolean withLogo);
 	
 	// UPDATE
 	Map<String, Object> updateBusiness(String uuid, Business business);

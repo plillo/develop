@@ -1,10 +1,13 @@
 package it.hash.osgi.business.service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.business.Business;
@@ -34,8 +37,6 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@Override
 	public Map<String, Object> createBusiness(Business business) {
-		// TODO IMPLEMENTARE MEGLIO L 'INTEGRITà REFERENZIALE TRA LE DUE
-		// TABELLE!!!!
 		Map<String, Object> response = new HashMap<String, Object>();
 		String u = _uuid.createUUID("app/business");
 		if (!StringUtils.isEmptyOrNull(u)) {
@@ -46,14 +47,8 @@ public class BusinessServiceImpl implements BusinessService {
 				_uuid.removeUUID(u);
 
 		} else {
-			// associo il business al user!!!!! 
-	//		 String userUUID = _userSrv.getUUID();
-	//		 User user = (User) _userSrv.getUserByUuid(userUUID);
-	//		 _userSrv.updateUser(addBusinessToUser(business,user));
-
 			response.put("created", false);
 			response.put("returnCode", 630);
-
 		}
 		return response;
 	}
@@ -112,6 +107,18 @@ public class BusinessServiceImpl implements BusinessService {
 	public Map<String, Object> updateBusinessLogo(String uuid, String type, byte[] encodeBase64) {
 		return _businessPersistenceService.updateBusinessLogo(uuid, type, encodeBase64);
 	}
+	
+	@Override
+	public Map<String, Object> updateBusinessLogo(String uuid, String type, InputStream istream) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		try {
+			return updateBusinessLogo(uuid, type, IOUtils.toByteArray(istream));
+		} catch (IOException e) {
+			response.put("update", "ERROR");
+			response.put("returnCode", 610);
+		}
+		return response;
+	}
 
 	@Override
 	public List<Business> retrieveBusinesses(String criterion, String search) {
@@ -130,10 +137,15 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 	
 	@Override
+	public Business getBusiness(String uuid, boolean withLogo){
+		return _businessPersistenceService.getBusinessByUuid(uuid, withLogo);
+	}
+	
+	@Override
 	public Business getBusiness(String uuid){
 		return _businessPersistenceService.getBusinessByUuid(uuid);
 	}
-
+	
 	@Override
 	public Map<String, Object> updateFollowersToBusiness(Map<String, Object> pars) {
 		return _businessPersistenceService.updateBusiness("", pars);
@@ -153,15 +165,30 @@ public class BusinessServiceImpl implements BusinessService {
 	public List<Business> retrieveFollowedByUser(String uuid) {
 		return _businessPersistenceService.retrieveFollowedByUser(uuid);
 	}
+	
+	@Override
+	public List<Business> retrieveFollowedByUser(String uuid, boolean withLogo) {
+		return _businessPersistenceService.retrieveFollowedByUser(uuid, withLogo);
+	}
 
 	@Override
 	public List<Business> retrieveOwnedByUser(String uuid) {
 		return _businessPersistenceService.retrieveOwnedByUser(uuid);
 	}
+	
+	@Override
+	public List<Business> retrieveOwnedByUser(String uuid, boolean withLogo) {
+		return _businessPersistenceService.retrieveOwnedByUser(uuid, withLogo);
+	}
 
 	@Override
 	public List<Business> retrieveNotFollowedByUser(String uuid, String search) {
 		return _businessPersistenceService.retrieveNotFollowedByUser(uuid, search);
+	}
+	
+	@Override
+	public List<Business> retrieveNotFollowedByUser(String uuid, String search, boolean withLogo) {
+		return _businessPersistenceService.retrieveNotFollowedByUser(uuid, search, withLogo);
 	}
 
 	@Override

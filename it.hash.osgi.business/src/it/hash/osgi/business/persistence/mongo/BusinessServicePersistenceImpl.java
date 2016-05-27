@@ -56,17 +56,19 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 	@Override
 	public Map<String, Object> addBusiness(Business business) {
-
 		Map<String, Object> response = new TreeMap<String, Object>();
 
 		// Match business
 		Map<String, Object> result = getBusiness(business);
 		// If new business
 		if ((int) result.get("matched") == 0) {
-
+			// Create business
 			businessCollection.save(businessToDBObject(business));
-			DBObject created = businessCollection.findOne(businessToDBObject(business));
+			
+			// Get created business without logo
+			DBObject created = businessCollection.findOne(businessToDBObject(business), new BasicDBObject("logo", false));
 
+			// Build response
 			if (created != null) {
 				Business created_business = Business.toBusiness(created.toMap());
 				response.put("business", created_business);
@@ -79,13 +81,15 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		} else {
 			response.put("created", false);
 			response.put("returnCode", 630);
-
 		}
 		return response;
 	}
-
+	
 	@Override
-	public Map<String, Object> getBusiness(Business business) {
+	public Map<String, Object> getBusiness(Business business, boolean withLogo) {
+		if(business==null)
+			return null;
+
 		Map<String, Object> map = new TreeMap<String, Object>();
 
 		if (!isEmptyOrNull(business.get_id()))
@@ -99,7 +103,12 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		if (!isEmptyOrNull(business.getFiscalCode()))
 			map.put("fiscalCode", business.getFiscalCode());
 
-		return getBusiness(map);
+		return getBusiness(map, withLogo);
+	}
+	
+	@Override
+	public Map<String, Object> getBusiness(Business business) {
+		return getBusiness(business, false);
 	}
 	
 	@Override
@@ -130,7 +139,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	}
 
 	@Override
-	public Map<String, Object> getBusiness(Map<String, Object> business) {
+	public Map<String, Object> getBusiness(Map<String, Object> business, boolean withLogo) {
 
 		Map<String, Object> response = new HashMap<String, Object>();
 		DBObject found = null;
@@ -138,7 +147,10 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		Map<Business, TreeSet<String>> matchs = new TreeMap<Business, TreeSet<String>>();
 
 		if (business.containsKey("uuid") && business.get("uuid") != null) {
-			found = businessCollection.findOne(new BasicDBObject("uuid", business.get("uuid")));
+			if(withLogo)
+				found = businessCollection.findOne(new BasicDBObject("uuid", business.get("uuid")));
+			else
+				found = businessCollection.findOne(new BasicDBObject("uuid", business.get("uuid")), new BasicDBObject("logo", false));
 
 			if (found != null) {
 				found_business = Business.toBusiness(found.toMap());
@@ -153,7 +165,10 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		}
 
 		if (business.containsKey("_id") && business.get("_id") != null) {
-			found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")));
+			if(withLogo)
+				found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")));
+			else
+				found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")), new BasicDBObject("logo", false));
 
 			if (found != null) {
 				found_business = Business.toBusiness(found.toMap());
@@ -166,7 +181,11 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			}
 		}
 		if (business.containsKey("fiscalCode") && business.get("fiscalCode") != null) {
-			found = businessCollection.findOne(new BasicDBObject("fiscalCode", business.get("fiscalCode")));
+			if(withLogo)
+				found = businessCollection.findOne(new BasicDBObject("fiscalCode", business.get("fiscalCode")));
+			else
+				found = businessCollection.findOne(new BasicDBObject("fiscalCode", business.get("fiscalCode")), new BasicDBObject("logo", false));
+			
 			if (found != null) {
 				found_business = Business.toBusiness(found.toMap());
 				TreeSet<String> list = matchs.get(found_business);
@@ -179,8 +198,10 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		}
 
 		if (business.containsKey("name") && business.get("name") != null) {
-
-			found = businessCollection.findOne(new BasicDBObject("name", business.get("name")));
+			if(withLogo)
+				found = businessCollection.findOne(new BasicDBObject("name", business.get("name")));
+			else
+				found = businessCollection.findOne(new BasicDBObject("name", business.get("name")), new BasicDBObject("logo", false));
 
 			if (found != null) {
 				found_business = Business.toBusiness(found.toMap());
@@ -194,7 +215,10 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 			}
 		}
 		if (business.containsKey("pIva") && business.get("pIva") != null) {
-			found = businessCollection.findOne(new BasicDBObject("pIva", business.get("pIva")));
+			if(withLogo)
+				found = businessCollection.findOne(new BasicDBObject("pIva", business.get("pIva")));
+			else
+				found = businessCollection.findOne(new BasicDBObject("pIva", business.get("pIva")), new BasicDBObject("logo", false));
 
 			if (found != null) {
 				found_business = Business.toBusiness(found.toMap());
@@ -230,40 +254,79 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 		return response;
 	}
+	
+	@Override
+	public Map<String, Object> getBusiness(Map<String, Object> business) {
+		return getBusiness(business, false);
+	}
 
-	private Business getBusinessByKey(String key, String value) {
+	private Business getBusinessByKey(String key, String value, boolean withLogo) {
 		Map<String, Object> map = new TreeMap<String, Object>();
 		map.put(key, value);
-		Map<String, Object> response = getBusiness(map);
+		Map<String, Object> response = getBusiness(map, withLogo);
 		if (response.containsKey("business"))
 			return (Business) response.get("business");
 
 		return null;
 	}
+	
+	private Business getBusinessByKey(String key, String value) {
+		return getBusinessByKey(key, value, false);
+	}
 
+	@Override
+	public Business getBusinessByFiscalCode(String fiscalCode, boolean withLogo) {
+		return getBusinessByKey("fiscalCode", fiscalCode, withLogo);
+	}
+	
 	@Override
 	public Business getBusinessByFiscalCode(String fiscalCode) {
-		return getBusinessByKey("fiscalCode", fiscalCode);
+		return getBusinessByFiscalCode(fiscalCode, false);
 	}
 
+	@Override
+	public Business getBusinessByPartitaIva(String partitaIva, boolean withLogo) {
+		return getBusinessByKey("partitaIva", partitaIva, withLogo);
+	}
+	
 	@Override
 	public Business getBusinessByPartitaIva(String partitaIva) {
-		return getBusinessByKey("partitaIva", partitaIva);
+		return getBusinessByPartitaIva(partitaIva, false);
 	}
 
+	@Override
+	public Business getBusinessByName(String name, boolean withLogo) {
+		return getBusinessByKey("name", name, withLogo);
+	}
+	
 	@Override
 	public Business getBusinessByName(String name) {
-
-		return getBusinessByKey("name", name);
+		return getBusinessByName(name, false);
 	}
 
 	@Override
+	public Business getBusinessById(String businessId, boolean withLogo) {
+		return getBusinessByKey("businessId", businessId, withLogo);
+	}
+	
+	@Override
 	public Business getBusinessById(String businessId) {
-		return getBusinessByKey("businessId", businessId);
+		return getBusinessById(businessId, false);
+	}
+	
+	@Override
+	public Business getBusinessByUuid(String uuid, boolean withLogo) {
+		if(uuid==null)
+			return null;
+		
+		return getBusinessByKey("uuid", uuid, withLogo);
 	}
 
 	@Override
 	public Business getBusinessByUuid(String uuid) {
+		if(uuid==null)
+			return null;
+		
 		return getBusinessByKey("uuid", uuid);
 	}
 
@@ -298,19 +361,22 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		Map<String, Object> response = new TreeMap<String, Object>();
 		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
 		response = isNotEmptyOrNull(uuid) ? getBusiness(getBusinessByUuid(uuid)):getBusiness(business);
-		if ((int) response.get("matched") == 1) {
+		if (response == null) {
+			responseUpdate.put("update", "ERROR");
+			responseUpdate.put("returnCode", 610);
+		} else if ((int) response.get("matched") == 1) {
 			// UNSET _ID
 			business.set_id(null);
 			BasicDBObject updateDocument = new BasicDBObject().append("$set", businessToDBObject(business));
 			BasicDBObject searchQuery = new BasicDBObject().append("uuid", uuid);
-	       
+
 			WriteResult wr = businessCollection.update(searchQuery, updateDocument);
-			
-			DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid));
-			
-			Business updateBusiness = Business.toBusiness(updated.toMap());
-			if (updateBusiness != null) {
-				responseUpdate.put("business", updateBusiness);
+
+			// Retrieve updated business (without logo)
+			DBObject updated = businessCollection.findOne(new BasicDBObject("uuid", uuid), new BasicDBObject("logo", false));
+			Business updatedBusiness = Business.toBusiness(updated.toMap());
+			if (updatedBusiness != null) {
+				responseUpdate.put("business", updatedBusiness);
 				responseUpdate.put("update", "OK");
 				responseUpdate.put("returnCode", 200);
 
@@ -446,10 +512,14 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	}
 	
 	@Override
-	public List<Business> retrieveOwnedByUser(String uuid) {
+	public List<Business> retrieveOwnedByUser(String uuid, boolean withLogo) {
 		if (uuid != null) {
-			DBCursor cursor = businessCollection.find(new BasicDBObject("owner", uuid));
-
+			DBCursor cursor;
+			if(withLogo)
+				cursor = businessCollection.find(new BasicDBObject("owner", uuid));
+			else
+				cursor = businessCollection.find(new BasicDBObject("owner", uuid), new BasicDBObject("logo", false));
+			
 			List<Business> list = new ArrayList<Business>();
 
 			while (cursor.hasNext()) {
@@ -461,9 +531,18 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	}
 	
 	@Override
-	public List<Business> retrieveFollowedByUser(String uuid) {
+	public List<Business> retrieveOwnedByUser(String uuid) {
+		return retrieveOwnedByUser(uuid, false);
+	}
+	
+	@Override
+	public List<Business> retrieveFollowedByUser(String uuid, boolean withLogo) {
 		if (uuid != null) {
-			DBCursor cursor = businessCollection.find(new BasicDBObject("followers", uuid));
+			DBCursor cursor;
+			if(withLogo)
+				cursor = businessCollection.find(new BasicDBObject("followers", uuid));
+			else
+				cursor = businessCollection.find(new BasicDBObject("followers", uuid), new BasicDBObject("logo", false));
 
 			List<Business> list = new ArrayList<Business>();
 			while (cursor.hasNext()) {
@@ -476,7 +555,12 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	}
 
 	@Override
-	public List<Business> retrieveNotFollowedByUser(String userUuid, String search) {
+	public List<Business> retrieveFollowedByUser(String uuid) {
+		return retrieveFollowedByUser(uuid, false);
+	}
+	
+	@Override
+	public List<Business> retrieveNotFollowedByUser(String userUuid, String search, boolean withLogo) {
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		List<BasicDBObject> array = new ArrayList<BasicDBObject>();
@@ -490,18 +574,27 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		array.add(substring_query);
 		array.add(not_followed_query);
 		BasicDBObject query = new BasicDBObject().append("$and", array);
-
-		DBCursor dbc = businessCollection.find(query);
+		
+		DBCursor cursor;
+		if(withLogo)
+			cursor = businessCollection.find(query);
+		else
+			cursor = businessCollection.find(query, new BasicDBObject("logo", false));
 
 		List<Business> list = new ArrayList<Business>();
-		if (dbc!=null){
-			while (dbc.hasNext()) {
-				list.add(Business.toBusiness(dbc.next().toMap()));
+		if (cursor!=null){
+			while (cursor.hasNext()) {
+				list.add(Business.toBusiness(cursor.next().toMap()));
 			}
 			response.put("notFollowedBusinesses", list);
 		}
 		
 		return list;
+	}
+	
+	@Override
+	public List<Business> retrieveNotFollowedByUser(String userUuid, String search) {
+		return retrieveNotFollowedByUser(userUuid, search, false);
 	}
 	
 	private DBObject businessToDBObject(Business business) {

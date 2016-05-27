@@ -499,6 +499,9 @@ public class Business implements Comparable<Business> {
 	}
 	
 	public static Map<String, Object> toMap(Business business) {
+		if(business==null)
+			return null;
+		
 		Map<String, Object> pars = new HashMap<String, Object>();
 
 		if (!isEmptyOrNull(business.get_id()))
@@ -535,6 +538,10 @@ public class Business implements Comparable<Business> {
 			pars.put("email", business.getEmail());
 		if (!isEmptyOrNull(business.getMobile()))
 			pars.put("mobile", business.getMobile());
+		if (!isEmptyOrNull(business.getLogoType()))
+			pars.put("logoType", business.getLogoType());
+		if (business.getLogo()!=null)
+			pars.put("logo", business.getLogo());
 		if (!isEmptyOrNull(business.getPublished()))
 			pars.put("published", business.getPublished());
 		if (!isEmptyOrNull(business.getTrusted_email()))
