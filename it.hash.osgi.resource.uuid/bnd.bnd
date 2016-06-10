@@ -58,7 +58,7 @@
 	org.mongodb.mongo-java-driver;version='[2.13.3,2.13.4)'
 Bundle-Version: 1.0.1.${tstamp}
 Service-Component: *
-Export-Package: it.hash.osgi.resource.uuid.api
-Private-Package: \
-	it.hash.osgi.resource.uuid.mongo,\
-	it.hash.osgi.resource.uuid.shell
+Export-Package: \
+	it.hash.osgi.resource.uuid.api,\
+	it.hash.osgi.resource.uuid.shell,\
+	it.hash.osgi.resource.uuid.mongo

@@ -6,34 +6,41 @@ import java.util.Map;
 
 import org.apache.felix.service.command.CommandProcessor;
 
+import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 
-@Component(properties={CommandProcessor.COMMAND_SCOPE+":String=uuid",
+
+@Component(immediate=true,properties={CommandProcessor.COMMAND_SCOPE+":String=uuid",
 		CommandProcessor.COMMAND_FUNCTION+":String=create",
 		CommandProcessor.COMMAND_FUNCTION+":String=delete",
 		CommandProcessor.COMMAND_FUNCTION+":String=list",
 		CommandProcessor.COMMAND_FUNCTION+":String=get"})
 public class uuidCommands {
-	private volatile UUIDService _uuidService;
+	private volatile UUIDService serviceUUID;
 
 	@Reference(service=UUIDService.class)
 	public void setUUIDService(UUIDService service){
-		_uuidService = service;
+		serviceUUID = service;
+		System.out.println("Reference uuidService");
 	}
 	
 	public void unsetUUIDService(UUIDService service){
-		_uuidService = null;
+		serviceUUID = null;
+	}
+	@Activate
+	public void Activate (){
+		System.out.println("ShellCommands UUID Activate");
 	}
 	
 	public List<String> list(String type) {
-		List<String> response = _uuidService.listUUID(type);
+		List<String> response = serviceUUID.listUUID(type);
 		return response;
 	}
 
 	public String get(String uuid) {
-		Map<String, Object> response = _uuidService.getTypeUUID(uuid);
+		Map<String, Object> response = serviceUUID.getTypeUUID(uuid);
 		System.out.println("UUID  " + uuid);
 		System.out.println("Type " + response.get("type"));
 		return (String) response.get("type");
@@ -41,7 +48,7 @@ public class uuidCommands {
 	}
 
 	public void create(String type) {
-		String uuid = _uuidService.createUUID(type);
+		String uuid = serviceUUID.createUUID(type);
 		if (uuid != null) {
 			System.out.println("Created UUID" + uuid);
 		}
@@ -51,7 +58,7 @@ public class uuidCommands {
 		Map<String, Object> pars = new HashMap<String, Object>();
 		pars.put("uuid", uuid);
 
-		Map<String, Object> ret = _uuidService.removeUUID(uuid);
+		Map<String, Object> ret = serviceUUID.removeUUID(uuid);
 		System.out.println("deleted " + ret.get("deleted"));
 	}
 

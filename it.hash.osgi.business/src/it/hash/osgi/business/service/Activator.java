@@ -1,5 +1,4 @@
 package it.hash.osgi.business.service;
- 
 import java.util.Properties;
 
 import org.apache.felix.dm.DependencyActivatorBase;
