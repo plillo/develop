@@ -23,7 +23,7 @@ public class uuidCommands {
 		_uuidService = service;
 	}
 	
-	public void unsetMongoDBService(UUIDService service){
+	public void unsetUUIDService(UUIDService service){
 		_uuidService = null;
 	}
 	
