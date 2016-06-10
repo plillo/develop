@@ -9,6 +9,5 @@
 	it.hash.osgi.user.user,\
 	it.hash.osgi.user.password,\
 	it.hash.osgi.user.persistence,\
-	org.apache.commons.io,\
-	it.hash.osgi.resource.uuid.api
+	org.apache.commons.io
 -sub: *.bnd

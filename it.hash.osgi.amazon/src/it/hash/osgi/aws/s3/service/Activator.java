@@ -8,7 +8,6 @@ import org.apache.felix.service.command.CommandProcessor;
 import org.osgi.framework.BundleContext;
 
 import it.hash.osgi.aws.console.Console;
-import it.hash.osgi.resource.uuid.api.UUIDService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override

@@ -1,7 +1,6 @@
 package it.hash.osgi.business.product.persistence.mongo;
 
 import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
-import static it.hash.osgi.utils.StringUtils.isNotEmptyOrNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;

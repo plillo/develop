@@ -33,9 +33,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.amazon.console)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.amazon.s3)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.utilities)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.api)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.mongo)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.shell)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.persistence)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.rest)',\
@@ -107,9 +105,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.business.rest;version=snapshot,\
 	it.hash.osgi.business.service;version=snapshot,\
 	it.hash.osgi.business.shell;version=snapshot,\
-	it.hash.osgi.resource.uuid.api;version=snapshot,\
-	it.hash.osgi.resource.uuid.mongo;version=snapshot,\
-	it.hash.osgi.resource.uuid.shell;version=snapshot,\
+	it.hash.osgi.resource.uuid;version=snapshot,\
 	it.hash.osgi.security.authentication;version=snapshot,\
 	it.hash.osgi.security.service;version=snapshot,\
 	it.hash.osgi.swagger.ui;version=snapshot,\
