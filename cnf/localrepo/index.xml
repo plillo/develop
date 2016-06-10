@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1464371606436" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1465546842511" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="biz.aQute.bnd.annotation"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="7cd9f4ee8f373a15d2f475ffffee21fa4579cf1f594212d35ba5f6514cbbf83a"/>
+      <attribute name="url" value="biz.aQute.bnd.annotation/biz.aQute.bnd.annotation-2.4.0.jar"/>
+      <attribute name="size" type="Long" value="62157"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="aQute.bnd.annotation"/>
+      <attribute name="version" type="Version" value="1.43.2"/>
+      <attribute name="bundle-symbolic-name" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="aQute.bnd.annotation.component"/>
+      <attribute name="version" type="Version" value="1.43.1"/>
+      <attribute name="bundle-symbolic-name" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="aQute.bnd.annotation.headers"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="aQute.bnd.annotation.licenses"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="aQute.bnd.annotation.metatype"/>
+      <attribute name="version" type="Version" value="1.45.0"/>
+      <attribute name="bundle-symbolic-name" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="aQute.bnd.annotation.plugin"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="biz.aQute.bnd.annotation"/>
+      <attribute name="bundle-version" type="Version" value="2.4.0.201411031537"/>
+    </capability>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.6))"/>
+    </requirement>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="com.eclipsesource.jaxrs.consumer"/>

@@ -2,3 +2,4 @@ Private-Package: it.hash.osgi.resource.uuid.mongo
 Bundle-Version: 1.0.1.${tstamp}
 Bundle-Activator: it.hash.osgi.resource.uuid.mongo.Activator
 Include-Resource: OSGI-INF/metatype=OSGI-INF/metatype
+-dsannotations: *
