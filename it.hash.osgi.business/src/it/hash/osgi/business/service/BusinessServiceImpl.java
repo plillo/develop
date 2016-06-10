@@ -28,7 +28,6 @@ public class BusinessServiceImpl implements BusinessService {
    
 	@SuppressWarnings("unused")
 	private volatile EventAdmin _eventAdminService;
-
 	
 	@Override
 	public Map<String, Object> getBusiness(Map<String, Object> pars) {

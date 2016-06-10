@@ -9,10 +9,10 @@
 	com.eclipsesource.jaxrs.jersey-all,\
 	org.mongodb.mongo-java-driver,\
 	it.hash.osgi.utilities,\
-	it.hash.osgi.resource.uuid.api,\
 	org.apache.felix.eventadmin,\
 	com.eclipsesource.jaxrs.swagger-all,\
 	org.apache.felix.log,\
 	it.hash.osgi.amazon.s3,\
-	it.hash.osgi.business.category.service
+	it.hash.osgi.business.category.service,\
+	it.hash.osgi.resource.uuid
 -sub: *.bnd

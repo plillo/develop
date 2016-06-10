@@ -1,3 +1,0 @@
-Private-Package: it.hash.osgi.resource.uuid.shell
-Bundle-Version: 1.0.0.${tstamp}
-Bundle-Activator: it.hash.osgi.resource.uuid.shell.Activator

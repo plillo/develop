@@ -14,8 +14,11 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 
+import aQute.bnd.annotation.component.Component;
+import aQute.bnd.annotation.component.Reference;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 
+@Component()
 public class UUIDServiceImpl implements UUIDService {
 	private static final String COLLECTION = "UUID";
 	
@@ -23,6 +26,15 @@ public class UUIDServiceImpl implements UUIDService {
 	private volatile MongoDBService m_mongoDBService;
 	private DBCollection uuidCollection;
 
+	@Reference(service=MongoDBService.class)
+	public void setMongoDBService(MongoDBService service){
+		m_mongoDBService = service;
+	}
+	
+	public void unsetMongoDBService(MongoDBService service){
+		m_mongoDBService = null;
+	}
+	
 	public void start() {
 		uuidCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}

@@ -8,7 +8,6 @@
 	it.hash.osgi.application,\
 	it.hash.osgi.user.attribute,\
 	org.apache.felix.log,\
-	it.hash.osgi.resource.uuid.api,\
 	org.amdatu.mongo,\
 	com.mongodb,\
 	com.eclipsesource.jaxrs.jersey-all,\
@@ -21,7 +20,8 @@
 	it.hash.osgi.user.service,\
 	it.hash.osgi.utilities,\
 	javax.servlet-api,\
-	eu.medsea.mimeutil.mime-util;version=2.1
+	eu.medsea.mimeutil.mime-util;version=2.1,\
+	it.hash.osgi.resource.uuid
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
 -runrequires: \

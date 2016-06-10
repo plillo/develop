@@ -11,7 +11,6 @@ import it.hash.osgi.business.category.service.CategoryService;
 import it.hash.osgi.business.product.persistence.api.ProductPersistence;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 
-
 public class Activator extends DependencyActivatorBase {
 	@Override
 	public synchronized void init(BundleContext context, DependencyManager manager) throws Exception {

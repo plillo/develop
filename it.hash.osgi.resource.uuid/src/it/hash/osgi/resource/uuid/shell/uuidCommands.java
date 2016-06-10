@@ -4,11 +4,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.felix.service.command.CommandProcessor;
+
+import aQute.bnd.annotation.component.Component;
+import aQute.bnd.annotation.component.Reference;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 
+@Component(properties={CommandProcessor.COMMAND_SCOPE+":String=uuid",
+		CommandProcessor.COMMAND_FUNCTION+":String=create",
+		CommandProcessor.COMMAND_FUNCTION+":String=delete",
+		CommandProcessor.COMMAND_FUNCTION+":String=list",
+		CommandProcessor.COMMAND_FUNCTION+":String=get"})
 public class uuidCommands {
 	private volatile UUIDService _uuidService;
 
+	@Reference(service=UUIDService.class)
+	public void setUUIDService(UUIDService service){
+		_uuidService = service;
+	}
+	
+	public void unsetMongoDBService(UUIDService service){
+		_uuidService = null;
+	}
+	
 	public List<String> list(String type) {
 		List<String> response = _uuidService.listUUID(type);
 		return response;

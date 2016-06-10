@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.${tstamp}
 	net.vz.mongodb.jackson.mongo-jackson-mapper,\
 	osgi.core,\
 	org.apache.felix.dependencymanager,\
-	it.hash.osgi.resource.uuid.api,\
 	org.apache.felix.gogo.runtime,\
 	jackson-core-asl,\
 	jackson-mapper-asl,\
@@ -19,7 +18,8 @@ Bundle-Version: 1.0.0.${tstamp}
 	com.eclipsesource.jaxrs.swagger-all,\
 	com.eclipsesource.jaxrs.jersey-all,\
 	it.hash.osgi.security.service,\
-	it.hash.osgi.application
+	it.hash.osgi.application,\
+	it.hash.osgi.resource.uuid
 -sub: *.bnd
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
