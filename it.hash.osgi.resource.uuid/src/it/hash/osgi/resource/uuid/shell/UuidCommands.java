@@ -9,24 +9,25 @@ import org.apache.felix.service.command.CommandProcessor;
 import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
 
-@Component(immediate=true,properties={CommandProcessor.COMMAND_SCOPE+":String=uuid",
+@Component(immediate=true,properties={
+		CommandProcessor.COMMAND_SCOPE+":String=uuid",
 		CommandProcessor.COMMAND_FUNCTION+":String=create",
 		CommandProcessor.COMMAND_FUNCTION+":String=delete",
 		CommandProcessor.COMMAND_FUNCTION+":String=list",
 		CommandProcessor.COMMAND_FUNCTION+":String=get"})
-public class uuidCommands {
-	private volatile UUIDService serviceUUID;
+public class UuidCommands {
+	private volatile UuidService serviceUUID;
 
-	@Reference(service=UUIDService.class)
-	public void setUUIDService(UUIDService service){
+	@Reference(service=UuidService.class)
+	public void setUUIDService(UuidService service){
 		serviceUUID = service;
 		System.out.println("Reference uuidService");
 	}
 	
-	public void unsetUUIDService(UUIDService service){
+	public void unsetUUIDService(UuidService service){
 		serviceUUID = null;
 	}
 	@Activate

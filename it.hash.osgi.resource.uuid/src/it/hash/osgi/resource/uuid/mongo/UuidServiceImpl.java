@@ -17,13 +17,12 @@ import com.mongodb.WriteResult;
 import aQute.bnd.annotation.component.Activate;
 import aQute.bnd.annotation.component.Component;
 import aQute.bnd.annotation.component.Reference;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
-@Component(provide = UUIDService.class,immediate=true)
-public class UUIDServiceImpl implements UUIDService {
+@Component(provide = UuidService.class,immediate=true)
+public class UuidServiceImpl implements UuidService {
 	private static final String COLLECTION = "UUID";
 	
-	// Injected services
 	private volatile MongoDBService m_mongoDBService;
 	private DBCollection uuidCollection;
 
@@ -38,12 +37,12 @@ public class UUIDServiceImpl implements UUIDService {
 	}
 	
 	public void start() {
-		System.out.println("UUIDService Activate");
+		System.out.println("UuidService activated");
 		uuidCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
 @Activate
 public void activate(){
-	System.out.println("UUIDService Activate");
+	System.out.println("UuidService activated");
 	uuidCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 
 }

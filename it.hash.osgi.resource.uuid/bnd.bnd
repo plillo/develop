@@ -3,7 +3,6 @@
 	org.amdatu.mongo,\
 	com.mongodb,\
 	org.apache.felix.gogo.runtime,\
-	org.apache.felix.dependencymanager;version=4.0,\
 	biz.aQute.bnd.annotation
 -resolve: auto
 -runfw: org.apache.felix.framework;version='[4.0.3,4.0.3]'
@@ -57,8 +56,10 @@
 	org.apache.felix.scr;version='[1.6.2,1.6.3)',\
 	org.mongodb.mongo-java-driver;version='[2.13.3,2.13.4)'
 Bundle-Version: 1.0.1.${tstamp}
-Service-Component: *
+
 Export-Package: \
 	it.hash.osgi.resource.uuid.api,\
 	it.hash.osgi.resource.uuid.shell,\
 	it.hash.osgi.resource.uuid.mongo
+-dsannotations: *
+Bundle-Name: UUID manager
