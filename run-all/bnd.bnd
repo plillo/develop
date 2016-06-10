@@ -33,7 +33,6 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.amazon.console)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.amazon.s3)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.utilities)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.persistence)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.rest)',\
@@ -70,7 +69,6 @@ Bundle-Version: 1.0.0.${tstamp}
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
 -runbundles: \
-	com.eclipsesource.jaxrs.jersey-all;version='[2.22.1,2.22.2)',\
 	com.eclipsesource.jaxrs.jersey-all;version='[2.22.2,2.22.3)',\
 	com.eclipsesource.jaxrs.provider.gson;version='[2.3.0,2.3.1)',\
 	com.eclipsesource.jaxrs.provider.multipart;version='[2.2.0,2.2.1)',\
@@ -161,6 +159,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	slf4j.simple;version='[1.7.21,1.7.22)'
 -buildpath: \
 	osgi.core,\
-	org.apache.felix.dependencymanager
+	org.apache.felix.dependencymanager,\
+	biz.aQute.bnd.annotation
 Private-Package: it.hash.osgi.runall
 Bundle-Activator: it.hash.osgi.runall.Activator
