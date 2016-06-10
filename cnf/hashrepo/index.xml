@@ -1,5 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1464274717298" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1464714655284" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.amazon.console"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201605291751"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="a22ddeb866c307394e215dc4f4675ab3bcb2c2270c0ada32835309a87e3ea566"/>
+      <attribute name="url" value="it.hash.osgi.amazon.console/it.hash.osgi.amazon.console-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="23854"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.amazon.console"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.amazon.console"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.aws.console"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.amazon.console"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <directive name="uses" value="com.amazonaws.auth,org.apache.felix.dm,org.osgi.framework,org.osgi.service.cm"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.auth)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.auth.profile)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.regions)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.dynamodbv2)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.dynamodbv2.document)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.dynamodbv2.document.internal)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.dynamodbv2.document.spec)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.dynamodbv2.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.ec2)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.ec2.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.s3)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.s3.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.simpledb)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.simpledb.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.simpleemail)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.simpleemail.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.sqs)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.sqs.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.cm)(version&gt;=1.4.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.amazon.s3"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="1.0.0.201605291751"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="88509fcc238ed3c06b42b426b9b6dfe60e804a3b79bcc9cd635342eecc067874"/>
+      <attribute name="url" value="it.hash.osgi.amazon.s3/it.hash.osgi.amazon.s3-1.0.0.jar"/>
+      <attribute name="size" type="Long" value="9333"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.amazon.s3"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.amazon.s3"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.aws.s3.service"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.amazon.s3"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <directive name="uses" value="com.amazonaws.services.s3,com.amazonaws.services.s3.model,com.amazonaws.services.s3.transfer,org.apache.felix.dm,org.osgi.framework"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.auth)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.s3)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.s3.model)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.amazonaws.services.s3.transfer)(version&gt;=1.10.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.aws.console)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.application"/>
@@ -99,21 +257,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.application"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="bb7db896b4d44c4d532390d10589980f1871bd532ace333b97e18cc7dcac98ef"/>
+      <attribute name="osgi.content" value="c6b2d8707c7fba923d53a0e812c7f010d27f41264ecb657fd3e1b39b79cb6b2a"/>
       <attribute name="url" value="it.hash.osgi.business.application/it.hash.osgi.business.application-1.0.0.jar"/>
       <attribute name="size" type="Long" value="5368"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.application"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.application"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.application.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -135,27 +293,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.category.parser.gs1"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="70d2c293e5dedb843d0cc7b1acce1aa0f6f0b5278ba48689e253e00f15ffee62"/>
+      <attribute name="osgi.content" value="bd02f4f30d334a76562ae31aacc91abb7cd358e8733a7662d284ac9a8175d613"/>
       <attribute name="url" value="it.hash.osgi.business.category.parser.gs1/it.hash.osgi.business.category.parser.gs1-1.0.0.jar"/>
       <attribute name="size" type="Long" value="9409"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.category.parser.gs1"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.category.parser.gs1"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.category.parser.gs1"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.category.parser.gs1"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
       <directive name="uses" value="it.hash.osgi.business.category.parser,org.apache.felix.dm,org.osgi.framework,org.xml.sax,org.xml.sax.helpers"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -193,27 +351,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.category.parser"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="56c2ba22d0459abb7163abd0813191bd23a483efa904b4027a683257469344b0"/>
+      <attribute name="osgi.content" value="5fbd405cac0ecbe53af8eb8eedcf785f4dc9fbcfd0b7d7c89a345a3cf8e9e596"/>
       <attribute name="url" value="it.hash.osgi.business.category.parser/it.hash.osgi.business.category.parser-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="7627"/>
+      <attribute name="size" type="Long" value="7628"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.category.parser"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.category.parser"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.category.parser"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.category.parser"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
       <directive name="uses" value="org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -230,27 +388,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.category.persistence"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="d440fc3a1a38faaacb72d9028d5b11680300a9260dfb44236968a671e662d19e"/>
+      <attribute name="osgi.content" value="f1d2a06666fd869b7c3db7477e3d557c02da06e6979d0597d9498047d312c71d"/>
       <attribute name="url" value="it.hash.osgi.business.category.persistence/it.hash.osgi.business.category.persistence-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="12391"/>
+      <attribute name="size" type="Long" value="12715"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.category.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.category.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.category.persistence.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.category.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
       <directive name="uses" value="it.hash.osgi.business.category"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -285,21 +443,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.category.rest"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="fd4b2646ceb1b3e8b85946066ea78432936a2c355e776ba91fff793bb151e699"/>
+      <attribute name="osgi.content" value="7fb5d3ca3847b8a8165851323781309d02827057efd99af1d7942e2dcd2f8a9a"/>
       <attribute name="url" value="it.hash.osgi.business.category.rest/it.hash.osgi.business.category.rest-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="6110"/>
+      <attribute name="size" type="Long" value="6113"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.category.rest"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.category.rest"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=io.swagger.annotations)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
@@ -327,33 +485,33 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.category.service"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="11a26ba96c066874b3c3518143a879b983c225ab6fe20c9597f8f35f54b42e35"/>
+      <attribute name="osgi.content" value="75b31b386e6657f812b921696d59e60303f0c550e844f3b9a8ff8bfde0a30bbc"/>
       <attribute name="url" value="it.hash.osgi.business.category.service/it.hash.osgi.business.category.service-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="68609"/>
+      <attribute name="size" type="Long" value="68792"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.category.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.category.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.category"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.category.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.category.service"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.category.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
       <directive name="uses" value="it.hash.osgi.business.category,it.hash.osgi.user.attribute,org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -388,27 +546,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.category.shell"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="ba2662f1855d60446d18c2c13323d36ac1a9490ebde7665313a8dacd1bd30118"/>
+      <attribute name="osgi.content" value="b4d8334093ac481a20ceb89546f4abed7081d517de8d9c4616328c3a4c12b432"/>
       <attribute name="url" value="it.hash.osgi.business.category.shell/it.hash.osgi.business.category.shell-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="7264"/>
+      <attribute name="size" type="Long" value="7265"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.category.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.category.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.category.shell"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.category.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261326"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310926"/>
       <directive name="uses" value="org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -437,34 +595,34 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.persistence"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="937991014f427337a032f6b0ebf9d81640489fd56b726f3d21d800b3ba6d9f03"/>
+      <attribute name="osgi.content" value="54b4534626b283d7d1f6ca894f98d9434650e609d410a9304551784b7e7a4ebd"/>
       <attribute name="url" value="it.hash.osgi.business.persistence/it.hash.osgi.business.persistence-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="16847"/>
+      <attribute name="size" type="Long" value="17881"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.persistence.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
       <directive name="uses" value="it.hash.osgi.business"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.persistence.mongo"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
       <directive name="uses" value="it.hash.osgi.business,it.hash.osgi.business.persistence.api,org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -499,27 +657,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.product.persistence"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="55566ffd1374adfdef3a8bcf619c5ec187cb1b482d493cc5dafac80ac235cf5d"/>
+      <attribute name="osgi.content" value="5b21ce38dbbb8d3ec5e67ce84c1f2fda1ec4a0b155078fe14b2a26929c41397c"/>
       <attribute name="url" value="it.hash.osgi.business.product.persistence/it.hash.osgi.business.product.persistence-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="12507"/>
+      <attribute name="size" type="Long" value="13666"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.product.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.product.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.product.persistence.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.product.persistence"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
       <directive name="uses" value="it.hash.osgi.business.product"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -554,30 +712,36 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.product.rest"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="9600bef52e518ec867c1cf330169e83e86538034a387a8177c973f16144f53d0"/>
+      <attribute name="osgi.content" value="800fd6cacf80aff7d2be47d8a71f9db07e397908fd6f3b3cd50f8b7e06769a26"/>
       <attribute name="url" value="it.hash.osgi.business.product.rest/it.hash.osgi.business.product.rest-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="6778"/>
+      <attribute name="size" type="Long" value="8718"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.product.rest"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.product.rest"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=io.swagger.annotations)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.aws.s3.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business.product)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business.product.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.resource.uuid.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
@@ -587,6 +751,9 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.glassfish.jersey.media.multipart)(version&gt;=2.22.0)(!(version&gt;=3.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
@@ -599,35 +766,41 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.product.service"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="adfb2c7f353a1cb4816f106e4af89d59ba699295ba34607b32f1aa856fba5dcc"/>
+      <attribute name="osgi.content" value="59df02a79d26b2ab487b25d85a0a7a29adf009f0914e02348e20ecebc768fdd7"/>
       <attribute name="url" value="it.hash.osgi.business.product.service/it.hash.osgi.business.product.service-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="13881"/>
+      <attribute name="size" type="Long" value="15196"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.product.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.product.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.product"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.product.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.product.service"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.product.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
-      <directive name="uses" value="it.hash.osgi.business.product,org.apache.felix.dm,org.osgi.framework"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
+      <directive name="uses" value="it.hash.osgi.business.category,it.hash.osgi.business.product,org.apache.felix.dm,org.osgi.framework"/>
     </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business.category)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business.category.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business.product)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
@@ -660,21 +833,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.product.shell"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="c0d83fd22abc7c6d5ab0b3da8b483677fbf8511fef60005aa01cc6c0af70c84e"/>
+      <attribute name="osgi.content" value="36443c0212ad3270b526a56ab80875b204d48e03274d8295c7d43016daddbeef"/>
       <attribute name="url" value="it.hash.osgi.business.product.shell/it.hash.osgi.business.product.shell-1.0.0.jar"/>
       <attribute name="size" type="Long" value="6288"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.product.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.product.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605261458"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605311710"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business.product)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -696,22 +869,28 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.rest"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="d4b59e975d489f0fa2b020050ed39a3aa52fdec6152b150e72cbba85c173551f"/>
+      <attribute name="osgi.content" value="9821fd0a29349c6335bc10031e9eff107a0e893e4dd69d268d9d7311f5b3ded7"/>
       <attribute name="url" value="it.hash.osgi.business.rest/it.hash.osgi.business.rest-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="13695"/>
+      <attribute name="size" type="Long" value="15444"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.rest"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.rest"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=eu.medsea.mimeutil)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=eu.medsea.mimeutil.detector)"/>
+    </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=io.swagger.annotations)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
@@ -765,34 +944,34 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.service"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="57157fc6a29602f07ab2c7c0ee3c32a89b1fadc2434a795dbb03fbe8c11076e3"/>
+      <attribute name="osgi.content" value="44393b036e9b32a17e7938b8bd2abcc281b2079d67ca301c429af707bc25c6ba"/>
       <attribute name="url" value="it.hash.osgi.business.service/it.hash.osgi.business.service-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="25646"/>
+      <attribute name="size" type="Long" value="25775"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
       <directive name="uses" value="it.hash.osgi.geojson"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.business.service"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.service"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
       <directive name="uses" value="it.hash.osgi.business,it.hash.osgi.geojson,org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -836,21 +1015,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.business.shell"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="64d462f2d4682137e77bdab8a3fce440dcd51d7400a415b831be81ba4f934006"/>
+      <attribute name="osgi.content" value="7c2177c9cf07150b12abaac1c6f25e26812d56d0a0cb5e0128f7437593108c45"/>
       <attribute name="url" value="it.hash.osgi.business.shell/it.hash.osgi.business.shell-1.0.0.jar"/>
       <attribute name="size" type="Long" value="9415"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.business.shell"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604270648"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201605310653"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.business)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
