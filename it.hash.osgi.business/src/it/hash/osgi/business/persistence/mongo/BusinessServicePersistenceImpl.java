@@ -332,7 +332,6 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 	@Override
 	public List<Business> getBusinesses() {
-		// dobbiamo leggerli come oggetti json perchè non sappiamo lo schema!!!
 		DBCursor cursor = businessCollection.find();
 		List<Business> list = new ArrayList<>();
 		while (cursor.hasNext()) {

@@ -12,6 +12,7 @@ import org.amdatu.mongo.MongoDBService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import com.mongodb.QueryBuilder;
 
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
@@ -173,9 +174,20 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
 	}
 
 	@Override
-	public Category getCategoryByUUID(String categoryUuid) {
+	public Category getCategoryByUuid(String categoryUuid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+
+	@Override
+	public List<Category> getCategoryByUuid(List<String> uuids) {
+		JacksonDBCollection<Category, Object> categoryJacksonCollection = JacksonDBCollection.wrap(categoriesCollection, Category.class);
+
+		BasicDBObject query = (BasicDBObject) QueryBuilder.start("uuid").in(uuids).get();
+		DBCursor<Category> cursor = categoryJacksonCollection.find(query);
+
+		return cursor.toArray();
 	}
 
 	@Override

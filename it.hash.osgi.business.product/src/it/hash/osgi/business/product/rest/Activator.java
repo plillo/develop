@@ -4,7 +4,9 @@ import org.apache.felix.dm.DependencyActivatorBase;
 import org.apache.felix.dm.DependencyManager;
 import org.osgi.framework.BundleContext;
 
+import it.hash.osgi.aws.s3.service.S3Service;
 import it.hash.osgi.business.product.service.ProductService;
+import it.hash.osgi.resource.uuid.api.UUIDService;
 
 public class Activator extends DependencyActivatorBase {
     @Override
@@ -12,7 +14,10 @@ public class Activator extends DependencyActivatorBase {
     	manager.add(createComponent()
 				.setInterface(Object.class.getName(), null)
 				.setImplementation(Resources.class)
-				.add(createServiceDependency().setService(ProductService.class).setRequired(true)));
+				.add(createServiceDependency().setService(ProductService.class).setRequired(true))
+				.add(createServiceDependency().setService(UUIDService.class).setRequired(true))
+				.add(createServiceDependency().setService(S3Service.class).setRequired(true))
+		);
 
 		System.out.println("Product REST resources actived");
     }

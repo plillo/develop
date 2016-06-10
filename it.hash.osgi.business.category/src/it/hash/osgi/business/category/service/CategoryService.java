@@ -8,7 +8,9 @@ import it.hash.osgi.user.attribute.Attribute;
 
 public interface CategoryService {
 	Category getCategory(Category category);
-	List<Category> getCategory(String serach);
+	List<Category> getCategory(String search);
+	Category getCategoryByUuid(String uuid);
+	List<Category> getCategoryByUuid(List<String> uuids);
 	Map<String, Object> createCategory(Category category);
 	Map<String, Object> updateCategory(Category category);
 	Map<String, Object> deleteCategory(String uuid);

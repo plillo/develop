@@ -7,6 +7,7 @@ import org.apache.felix.dm.DependencyManager;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.event.EventAdmin;
 
+import it.hash.osgi.business.category.service.CategoryService;
 import it.hash.osgi.business.product.persistence.api.ProductPersistence;
 import it.hash.osgi.resource.uuid.api.UUIDService;
 
@@ -21,6 +22,7 @@ public class Activator extends DependencyActivatorBase {
 					properties)
 			.setImplementation(ProductServiceImpl.class)
 			.add(createServiceDependency().setService(ProductPersistence.class).setRequired(true))
+			.add(createServiceDependency().setService(CategoryService.class).setRequired(true))
 			.add(createServiceDependency().setService(EventAdmin.class).setRequired(true))
 			.add(createServiceDependency().setService(UUIDService.class).setRequired(true))
 		);

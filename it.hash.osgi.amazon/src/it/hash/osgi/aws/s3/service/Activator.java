@@ -8,6 +8,7 @@ import org.apache.felix.service.command.CommandProcessor;
 import org.osgi.framework.BundleContext;
 
 import it.hash.osgi.aws.console.Console;
+import it.hash.osgi.resource.uuid.api.UUIDService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override
@@ -18,7 +19,8 @@ public class Activator extends DependencyActivatorBase {
 		manager.add(createComponent()
 			.setInterface(S3Service.class.getName(), null)
 			.setImplementation(S3ServiceImpl.class)
-			.add(createServiceDependency().setService(Console.class).setRequired(true)));
+			.add(createServiceDependency().setService(Console.class).setRequired(true))
+		);
 		
 		// Shell commands registration
 		properties.put(CommandProcessor.COMMAND_SCOPE, "aws-s3");

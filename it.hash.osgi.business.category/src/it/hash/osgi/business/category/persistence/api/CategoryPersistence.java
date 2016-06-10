@@ -13,8 +13,9 @@ public interface CategoryPersistence {
 	// READ
 	Map<String, Object> getCategory(Category category);
 	Map<String, Object> getCategory(Map<String, Object> category);
-	
-	Category getCategoryByUUID(String categoryUuid);
+
+	Category getCategoryByUuid(String categoryUuid);
+	List<Category> getCategoryByUuid(List<String> uuids);
 	
 	List<Category> retrieveCategories(String type,String criterion);
 	

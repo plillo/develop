@@ -11,7 +11,7 @@ import java.util.Vector;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
-public class Product {
+public class Product implements Comparable<Product> {
 	 
 	@ObjectId @Id
 	private String _id;
@@ -19,6 +19,7 @@ public class Product {
 	private String business;
 	private List<String> categories;
 	private List<String> stores;
+	private List<String> pictures;
 	private String code;
 	private String barcode;
 	private String _locDescription;
@@ -78,6 +79,28 @@ public class Product {
 		this.categories.remove(category);
 	}
 
+	public List<String> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<String> pictures) {
+		this.pictures = pictures;
+	}
+	
+	public void addPicture(String picture) {
+		if(this.pictures==null)
+			this.pictures = new Vector<String>();
+		
+		this.pictures.add(picture);
+	}
+	
+	public void removePicture(String picture) {
+		if(this.pictures==null)
+			return;
+		
+		this.pictures.remove(picture);
+	}
+	
 	public List<String> getStores() {
 		return stores;
 	}
@@ -226,14 +249,20 @@ public class Product {
 			pars.put("_locDescription", item.get_locDescription());
 		if (!isEmptyOrNull(item.get_locLongDescription()))
 			pars.put("_locLongDescription", item.get_locLongDescription());
-		if (item.getBusiness()!=null)
+		if (!isEmptyOrNull(item.getBusiness()))
 			pars.put("business", item.getBusiness());
+		
+		// Lists
 		if (item.getCategories()!=null)
 			pars.put("categories", item.getCategories());
 		if (item.getStores()!=null)
 			pars.put("stores", item.getStores());
 		if (item.getPrices()!=null)
 			pars.put("prices", item.getPrices());
+		if (item.getPictures()!=null)
+			pars.put("pictures", item.getPictures());
+		
+		// Authoring
 		if (!isEmptyOrNull(item.getCauthor()))
 			pars.put("cauthor", item.getCauthor());
 		if (!isEmptyOrNull(item.getCdate()))
@@ -245,6 +274,7 @@ public class Product {
 		if (!isEmptyOrNull(item.getLdate()))
 			pars.put("ldate", item.getLdate());
 		
+		// Others
 		if (item.getOthers() != null)
 			pars.put("others", item.getOthers());
 
@@ -272,6 +302,9 @@ public class Product {
 				case "code":
 					item.setCode((String) map.get(attribute));
 					break;
+				case "barcode":
+					item.setBarcode((String) map.get(attribute));
+					break;
 				case "_locDescription":
 					item.set_locDescription((String) map.get(attribute));
 					break;
@@ -286,6 +319,9 @@ public class Product {
 					break;
 				case "prices":
 					item.setPrices((List<Double>) map.get(elem));
+					break;
+				case "pictures":
+					item.setPictures((List<String>) map.get(elem));
 					break;
 				case "cauthor":
 					item.setCauthor((String) map.get(elem));
@@ -319,5 +355,10 @@ public class Product {
 		}
 
 		return item;
+	}
+
+	@Override
+	public int compareTo(Product obj) {
+		return this._id.compareTo(obj.get_id());
 	}
 }

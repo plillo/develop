@@ -1,3 +1,4 @@
 Private-Package: it.hash.osgi.aws.console
 Bundle-Version: 1.0.0.${tstamp}
 Bundle-Activator: it.hash.osgi.aws.console.Activator
+Export-Package: it.hash.osgi.aws.console

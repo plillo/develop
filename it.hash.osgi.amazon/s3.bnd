@@ -1,3 +1,4 @@
 Private-Package: it.hash.osgi.aws.s3.service
 Bundle-Version: 1.0.0.${tstamp}
 Bundle-Activator: it.hash.osgi.aws.s3.service.Activator
+Export-Package: it.hash.osgi.aws.s3.service

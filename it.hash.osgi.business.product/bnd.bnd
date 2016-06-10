@@ -12,5 +12,7 @@
 	it.hash.osgi.resource.uuid.api,\
 	org.apache.felix.eventadmin,\
 	com.eclipsesource.jaxrs.swagger-all,\
-	org.apache.felix.log
+	org.apache.felix.log,\
+	it.hash.osgi.amazon.s3,\
+	it.hash.osgi.business.category.service
 -sub: *.bnd

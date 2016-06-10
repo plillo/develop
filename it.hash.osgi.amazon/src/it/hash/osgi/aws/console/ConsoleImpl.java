@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
-import org.osgi.service.log.LogService;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;
@@ -23,8 +22,6 @@ import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 public class ConsoleImpl implements Console, ManagedService{
     AWSCredentials credentials = null;
     Dictionary<String, ?> properties = null;
-	@SuppressWarnings("unused")
-	private volatile LogService logService;
 	
 	void setCredentials(Dictionary<String, ?> properties){
 		if(properties==null){

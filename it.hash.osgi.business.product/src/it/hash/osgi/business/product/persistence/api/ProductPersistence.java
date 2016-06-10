@@ -15,7 +15,7 @@ public interface ProductPersistence {
 	Map<String, Object> getProduct(Product item);
 	Map<String, Object> getProduct(Map<String, Object> item);
 	
-	Product getProductByUUID(String itemUuid);
+	Product getProductByUuid(String itemUuid);
 	
 	List<Product> retrieveProducts(String uuid, String keyword);
 	List<Product> retrieveProducts(String keyword);
@@ -27,6 +27,10 @@ public interface ProductPersistence {
 	// DELETE
 	Map<String, Object> deleteProduct(String uuid);
 	
+	// ADD PICTURE
+	Map<String, Object> addPicture(String productUuid, String pictureUuid);
+	
 	// IMPLEMENTATION
 	String getImplementation();
+
 }

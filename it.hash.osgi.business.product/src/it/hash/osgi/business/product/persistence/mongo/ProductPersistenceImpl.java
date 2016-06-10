@@ -1,6 +1,7 @@
 package it.hash.osgi.business.product.persistence.mongo;
 
 import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
+import static it.hash.osgi.utils.StringUtils.isNotEmptyOrNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.WriteResult;
 
 import it.hash.osgi.business.product.Product;
 import it.hash.osgi.business.product.persistence.api.ProductPersistence;
@@ -50,7 +52,7 @@ public class ProductPersistenceImpl implements ProductPersistence {
 			// Build response
 			if (created != null) {
 				Product created_product = Product.toProduct(created.toMap());
-				response.put("business", created_product);
+				response.put("product", created_product);
 				response.put("created", true);
 				response.put("returnCode", 200);
 			} else {
@@ -147,11 +149,20 @@ public class ProductPersistenceImpl implements ProductPersistence {
 
 		return response;
 	}
+	
+	private Product getProductByKey(String key, String value) {
+		Map<String, Object> map = new TreeMap<String, Object>();
+		map.put(key, value);
+		Map<String, Object> response = getProduct(map);
+		if (response.containsKey("product"))
+			return (Product) response.get("product");
+
+		return null;
+	}
 
 	@Override
-	public Product getProductByUUID(String productUuid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Product getProductByUuid(String productUuid) {
+		return getProductByKey("uuid", productUuid);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -208,9 +219,41 @@ public class ProductPersistenceImpl implements ProductPersistence {
 	}
 
 	@Override
-	public Map<String, Object> updateProduct(Product business) {
-		// TODO Auto-generated method stub
-		return null;
+	public synchronized Map<String, Object> updateProduct(Product item) {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
+		response = getProduct(item);
+		if (response == null) {
+			responseUpdate.put("update", "ERROR");
+			responseUpdate.put("returnCode", 610);
+		} else if ((int) response.get("matched") == 1) {
+			// UNSET _ID
+			item.set_id(null);
+			BasicDBObject updateDocument = new BasicDBObject().append("$set", new BasicDBObject(Product.toMap(item)));
+			BasicDBObject searchQuery = new BasicDBObject().append("uuid", item.getUuid());
+			
+			productsCollection.update(searchQuery, updateDocument);
+
+			// Retrieve updated product
+			DBObject updated = productsCollection.findOne(new BasicDBObject("uuid", item.getUuid()));
+			
+			@SuppressWarnings("unchecked")
+			Product updatedProduct = Product.toProduct(updated.toMap());
+			if (updatedProduct != null) {
+				responseUpdate.put("product", updatedProduct);
+				responseUpdate.put("update", "OK");
+				responseUpdate.put("returnCode", 200);
+
+			} else {
+				responseUpdate.put("update", "ERROR");
+				responseUpdate.put("returnCode", 610);
+			}
+		} else {
+			responseUpdate.put("update", "ERROR");
+			responseUpdate.put("returnCode", 610);
+		}
+
+		return responseUpdate;
 	}
 
 	@Override
@@ -239,6 +282,24 @@ public class ProductPersistenceImpl implements ProductPersistence {
 			response.put("deleted", false);
 			response.put("returnCode", 680);
 		}
+		return response;
+	}
+	
+	@Override
+	public Map<String, Object> addPicture(String productUuid, String pictureUuid) {
+		Map<String, Object> response = new HashMap<String, Object>();
+
+		BasicDBObject updatedDocument = new BasicDBObject().append("$addToSet",
+				new BasicDBObject().append("pictures", pictureUuid));
+		BasicDBObject searchQuery = new BasicDBObject().append("uuid", productUuid);
+
+		WriteResult wr = productsCollection.update(searchQuery, updatedDocument);
+
+		if (wr.getN() == 0)
+			response.put("update", false);
+		else
+			response.put("update", true);
+
 		return response;
 	}
 

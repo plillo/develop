@@ -3,6 +3,7 @@ package it.hash.osgi.business.product.service;
 import java.util.List;
 import java.util.Map;
 
+import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.product.Product;
 
 public interface ProductService {
@@ -18,4 +19,7 @@ public interface ProductService {
 
 	List<Product> retrieveProducts(String businessUuid, String keyword);
 	List<Product> retrieveProducts(String keyword);
+	Map<String, Object> addPicture(String productUuid, String string);
+	List<Category> retrieveProductCategories(String productUuid);
+	List<String> retrieveProductPictures(String retrieveProductPictures);
 }

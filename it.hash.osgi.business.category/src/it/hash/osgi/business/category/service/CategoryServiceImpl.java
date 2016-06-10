@@ -48,10 +48,20 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Category getCategory(Category search) {
 		Map<String, Object> response = new HashMap<String,Object>();
-		response =_persistenceSrv.getCategory(search);
+		response = _persistenceSrv.getCategory(search);
 		if (response.containsKey("category"))
 				return (Category) response.get("category") ;
 		return null;
+	}
+	
+	@Override
+	public Category getCategoryByUuid(String uuid) {
+		return _persistenceSrv.getCategoryByUuid(uuid);
+	}
+
+	@Override
+	public List<Category> getCategoryByUuid(List<String> uuids) {
+		return _persistenceSrv.getCategoryByUuid(uuids);
 	}
 
 	@Override
@@ -210,5 +220,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 		return is;
 	}
+
+
+
 
 }
