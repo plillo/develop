@@ -5,7 +5,7 @@ import org.apache.felix.dm.DependencyManager;
 import org.osgi.framework.BundleContext;
 
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.user.attribute.service.AttributeService;
 
 public class Activator extends DependencyActivatorBase {
@@ -18,7 +18,7 @@ public class Activator extends DependencyActivatorBase {
 						.setService(CategoryPersistence.class)
 						.setRequired(true))
 				.add(createServiceDependency()
-						.setService(UUIDService.class)
+						.setService(UuidService.class)
 						.setRequired(true))
 				.add(createServiceDependency()
 						.setService(AttributeService.class)

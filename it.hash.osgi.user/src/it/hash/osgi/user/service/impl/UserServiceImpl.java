@@ -19,7 +19,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.application.service.ApplicationManager;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.security.jwt.service.JWTService;
 import it.hash.osgi.user.User;
 import it.hash.osgi.user.attribute.Attribute;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 	private volatile Password _passwordService;
 	private volatile EventAdmin _eventAdminService;
 	private volatile JWTService _jwtService;
-	private volatile UUIDService _UUIDService;
+	private volatile UuidService _UUIDService;
 	private volatile AttributeService _attributeService;
 	private volatile ApplicationManager _applicationManagerService;
 

@@ -26,14 +26,14 @@ import it.hash.osgi.aws.s3.service.S3Service;
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.product.Product;
 import it.hash.osgi.business.product.service.ProductService;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
 @Api
 @Path("businesses/1.0/")
 public class Resources {
 	private volatile ProductService _productService;
 	private volatile S3Service _S3Service;
-	private volatile UUIDService _uuidService;
+	private volatile UuidService _uuidService;
 	
 	@PUT
 	// PUT businesses/1.0/business/{uuid}/product

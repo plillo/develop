@@ -15,13 +15,13 @@ import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.geojson.Coordinates;
 import it.hash.osgi.geojson.Point;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.utils.StringUtils;
 
 public class BusinessServiceImpl implements BusinessService {
 	private volatile BusinessServicePersistence _businessPersistenceService;
-	private volatile UUIDService _uuid;
+	private volatile UuidService _uuid;
 
 	@SuppressWarnings("unused")
 	private volatile UserService _userSrv;

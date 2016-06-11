@@ -10,7 +10,7 @@ import org.osgi.service.cm.ManagedService;
 import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.application.service.ApplicationManager;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.security.jwt.service.JWTService;
 import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.user.attribute.service.AttributeService;
@@ -30,7 +30,7 @@ public class Activator extends DependencyActivatorBase {
 			.add(createServiceDependency().setService(EventAdmin.class).setRequired(true))
 			.add(createServiceDependency().setService(JWTService.class).setRequired(true))
 		    .add(createServiceDependency().setService(Password.class).setRequired(true))
-            .add(createServiceDependency().setService(UUIDService.class).setRequired(true))
+            .add(createServiceDependency().setService(UuidService.class).setRequired(true))
             .add(createServiceDependency().setService(AttributeService.class).setRequired(true))
             .add(createServiceDependency().setService(ApplicationManager.class).setRequired(true))
 		);

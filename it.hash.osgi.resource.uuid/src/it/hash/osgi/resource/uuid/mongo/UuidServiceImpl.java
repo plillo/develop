@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.amdatu.mongo.MongoDBService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -14,12 +17,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
 import it.hash.osgi.resource.uuid.api.UuidService;
 
-@Component(provide = UuidService.class,immediate=true)
+@Component
 public class UuidServiceImpl implements UuidService {
 	private static final String COLLECTION = "UUID";
 	
@@ -40,13 +40,13 @@ public class UuidServiceImpl implements UuidService {
 		System.out.println("UuidService activated");
 		uuidCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
-@Activate
-public void activate(){
-	System.out.println("UuidService activated");
-	uuidCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
-
-}
-
+	
+	@Activate
+	public void activate(){
+		System.out.println("UuidService activated");
+		uuidCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
+	
+	}
 
 	@Override
 	public synchronized String createUUID(String type) {
@@ -72,7 +72,7 @@ public void activate(){
 				loop = counter++ <= 10;
 		}
 
-		System.out.println("ERROR generating UUID");
+		System.out.println("ERROR while generating UUID");
 		return null;
 
 	}
@@ -127,8 +127,8 @@ public void activate(){
 	
 	@Override
 	public boolean isUUID(String Uuid) {
-		// TODO in java.util.UUID non esiste un metodo per vedere se Ã¨ un UUID
-		// quindi la stringa Ã¨ un UUID se Ã¨ contenuta nella collezione
+		// TODO in java.util.UUID non esiste un metodo per vedere se � un UUID
+		// quindi la stringa � un UUID se � contenuta nella collezione
 		String regex="[a-zA-z0-9]{1,}-[a-zA-z0-9]{1,}-[a-zA-z0-9]{1,}-[a-zA-z0-9]{1,}-[a-zA-z0-9]{1,}";
 		
 		if 	(Uuid.matches(regex))

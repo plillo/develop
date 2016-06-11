@@ -14,7 +14,7 @@ import org.osgi.service.cm.ManagedService;
 
 import it.hash.osgi.business.Business;
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.utils.StringUtils;
 
      
@@ -22,7 +22,7 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	List<Business> businesses = new ArrayList<Business>();
 	@SuppressWarnings("rawtypes")
 	Dictionary properties;
-    private volatile UUIDService _uuid;
+    private volatile UuidService _uuid;
 	
     @SuppressWarnings("unchecked")
 	private Business createBusiness(Map<String, Object> mapbusiness) {

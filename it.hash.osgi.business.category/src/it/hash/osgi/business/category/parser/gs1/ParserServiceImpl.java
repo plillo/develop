@@ -25,10 +25,10 @@ import it.hash.osgi.business.category.Family;
 import it.hash.osgi.business.category.Segment;
 import it.hash.osgi.business.category.parser.ParserService;
 import it.hash.osgi.business.category.service.CategoryService;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
 public class ParserServiceImpl extends DefaultHandler implements ParserService {
-	private volatile UUIDService _UUIDService;
+	private volatile UuidService _UUIDService;
 	private volatile CategoryService _ctgService;
 	
 	List<Segment> segmentList = new ArrayList<>();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1465583130222" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1465635402970" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.amazon.console"/>
@@ -1246,45 +1246,57 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.resource.uuid"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.1.201606101656"/>
+      <attribute name="version" type="Version" value="1.0.1.201606110856"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="fdc42f4cf99a97a663bc1bc973fc1cc67e1da4328544a662f93528f4de6bb298"/>
+      <attribute name="osgi.content" value="9a08d062e5f0bcbc246bf1fb51b1fa6c61bc611eb944436f2693ae9cca8b565a"/>
       <attribute name="url" value="it.hash.osgi.resource.uuid/it.hash.osgi.resource.uuid-1.0.1.jar"/>
-      <attribute name="size" type="Long" value="16827"/>
+      <attribute name="size" type="Long" value="11992"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.resource.uuid"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606101656"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606110856"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.resource.uuid"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606101656"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606110856"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.resource.uuid.api"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.resource.uuid"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606101656"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606110856"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.resource.uuid.shell"/>
-      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="version" type="Version" value="1.0.1"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.resource.uuid"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606101656"/>
-      <directive name="uses" value="it.hash.osgi.resource.uuid.api,org.apache.felix.dm,org.osgi.framework"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606110856"/>
+      <directive name="uses" value="it.hash.osgi.resource.uuid.api"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.resource.uuid.mongo"/>
-      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="version" type="Version" value="1.0.1"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.resource.uuid"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606101656"/>
-      <directive name="uses" value="it.hash.osgi.resource.uuid.api,org.amdatu.mongo,org.apache.felix.dm,org.osgi.framework"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606110856"/>
+      <directive name="uses" value="it.hash.osgi.resource.uuid.api,org.amdatu.mongo"/>
     </capability>
     <capability namespace="osgi.service">
-      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.resource.uuid.api.UUIDService"/>
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.resource.uuid.api.UuidService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.resource.uuid.shell.UuidCommands"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.resource.uuid.api.UuidService"/>
       <directive name="uses" value="it.hash.osgi.resource.uuid.api"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.resource.uuid.shell.UuidCommands"/>
+      <attribute name="osgi.command.function" type="List&lt;String&gt;" value="create,delete,list,get"/>
+      <attribute name="osgi.command.scope" value="uuid"/>
+      <directive name="uses" value="it.hash.osgi.resource.uuid.shell"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=com.mongodb)"/>
@@ -1295,11 +1307,13 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.amdatu.mongo)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=4.0.0)(!(version&gt;=5.0.0)))"/>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
+      <directive name="effective" value="active"/>
     </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=org.amdatu.mongo.MongoDBService)"/>
+      <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
@@ -1309,7 +1323,7 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
-      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UUIDService)"/>
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">

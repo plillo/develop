@@ -9,16 +9,16 @@ import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.service.CategoryService;
 import it.hash.osgi.business.product.Product;
 import it.hash.osgi.business.product.persistence.api.ProductPersistence;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.utils.StringUtils;
 
 public class ProductServiceImpl implements ProductService{
 	private volatile ProductPersistence _productPersistence;
 	private volatile CategoryService _category;
-	private volatile UUIDService _uuid;
+	private volatile UuidService _uuid;
 
 	@SuppressWarnings("unused")
-	private volatile UUIDService _userSrv;
+	private volatile UuidService _userSrv;
    
 	@Override
 	public Map<String, Object> getProduct(Map<String, Object> pars) {

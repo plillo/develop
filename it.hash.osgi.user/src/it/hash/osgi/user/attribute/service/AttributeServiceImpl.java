@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence;
 import it.hash.osgi.utils.StringUtils;
 
 public class AttributeServiceImpl implements AttributeService{
 	private volatile AttributeServicePersistence _persistence;
-	private volatile UUIDService _uuid;
+	private volatile UuidService _uuid;
 
 	@Override
 	public List<Attribute> getAttributesByCategories(List<String> categories) {

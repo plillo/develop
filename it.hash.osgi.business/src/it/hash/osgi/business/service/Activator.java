@@ -8,7 +8,7 @@ import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
 import it.hash.osgi.business.service.BusinessService;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.user.service.api.UserService;
 
 public class Activator extends DependencyActivatorBase {
@@ -22,7 +22,7 @@ public class Activator extends DependencyActivatorBase {
 				.setImplementation(BusinessServiceImpl.class)
 				.add(createServiceDependency().setService(BusinessServicePersistence.class).setRequired(true))
 				.add(createServiceDependency().setService(EventAdmin.class).setRequired(true))
-				.add(createServiceDependency().setService(UUIDService.class).setRequired(true))
+				.add(createServiceDependency().setService(UuidService.class).setRequired(true))
 				.add(createServiceDependency().setService(UserService.class).setRequired(true))
 				
 				);

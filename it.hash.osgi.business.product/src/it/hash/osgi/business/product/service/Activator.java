@@ -9,7 +9,7 @@ import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.business.category.service.CategoryService;
 import it.hash.osgi.business.product.persistence.api.ProductPersistence;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override
@@ -23,7 +23,7 @@ public class Activator extends DependencyActivatorBase {
 			.add(createServiceDependency().setService(ProductPersistence.class).setRequired(true))
 			.add(createServiceDependency().setService(CategoryService.class).setRequired(true))
 			.add(createServiceDependency().setService(EventAdmin.class).setRequired(true))
-			.add(createServiceDependency().setService(UUIDService.class).setRequired(true))
+			.add(createServiceDependency().setService(UuidService.class).setRequired(true))
 		);
 		System.out.println("Product service actived.");
 	}

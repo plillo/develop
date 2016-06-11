@@ -5,33 +5,38 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.felix.service.command.CommandProcessor;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
-import aQute.bnd.annotation.component.Activate;
-import aQute.bnd.annotation.component.Component;
-import aQute.bnd.annotation.component.Reference;
 import it.hash.osgi.resource.uuid.api.UuidService;
 
 
-@Component(immediate=true,properties={
-		CommandProcessor.COMMAND_SCOPE+":String=uuid",
-		CommandProcessor.COMMAND_FUNCTION+":String=create",
-		CommandProcessor.COMMAND_FUNCTION+":String=delete",
-		CommandProcessor.COMMAND_FUNCTION+":String=list",
-		CommandProcessor.COMMAND_FUNCTION+":String=get"})
+@Component(
+	immediate=true, 
+	service = UuidCommands.class, 
+	property = {
+		CommandProcessor.COMMAND_SCOPE+"=uuid",
+		CommandProcessor.COMMAND_FUNCTION+"=create",
+		CommandProcessor.COMMAND_FUNCTION+"=delete",
+		CommandProcessor.COMMAND_FUNCTION+"=list",
+		CommandProcessor.COMMAND_FUNCTION+"=get"}
+)
 public class UuidCommands {
 	private volatile UuidService serviceUUID;
 
 	@Reference(service=UuidService.class)
 	public void setUUIDService(UuidService service){
 		serviceUUID = service;
-		System.out.println("Reference uuidService");
+		System.out.println("Referenced uuidService: "+(service==null?"NULL":"ok"));
 	}
 	
 	public void unsetUUIDService(UuidService service){
 		serviceUUID = null;
 	}
+	
 	@Activate
-	public void Activate (){
+	public void activate (){
 		System.out.println("ShellCommands UUID Activate");
 	}
 	

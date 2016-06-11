@@ -13,7 +13,7 @@ import java.util.Map;
 
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 
@@ -21,7 +21,7 @@ import it.hash.osgi.user.attribute.service.AttributeService;
 public class CategoryServiceImpl implements CategoryService {
 	// Injected services
 	private volatile CategoryPersistence _persistenceSrv;
-	private volatile UUIDService _uuidSrv;
+	private volatile UuidService _uuidSrv;
 	private volatile AttributeService _attributeSrv;
 
 	@Override

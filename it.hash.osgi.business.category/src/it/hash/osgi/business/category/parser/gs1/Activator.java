@@ -8,7 +8,7 @@ import org.osgi.framework.BundleContext;
 
 import it.hash.osgi.business.category.parser.ParserService;
 import it.hash.osgi.business.category.service.CategoryService;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override
@@ -18,7 +18,7 @@ public class Activator extends DependencyActivatorBase {
 		manager.add(createComponent().setInterface(ParserService.class.getName(), properties)
 				.setImplementation(ParserServiceImpl.class)
 				.add(createServiceDependency().setService(CategoryService.class).setRequired(true))
-				.add(createServiceDependency().setService(UUIDService.class).setRequired(true))
+				.add(createServiceDependency().setService(UuidService.class).setRequired(true))
 				);
 		
 		System.out.println("Parser GS1 category service actived.");

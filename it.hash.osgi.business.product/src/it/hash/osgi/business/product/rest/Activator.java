@@ -6,7 +6,7 @@ import org.osgi.framework.BundleContext;
 
 import it.hash.osgi.aws.s3.service.S3Service;
 import it.hash.osgi.business.product.service.ProductService;
-import it.hash.osgi.resource.uuid.api.UUIDService;
+import it.hash.osgi.resource.uuid.api.UuidService;
 
 public class Activator extends DependencyActivatorBase {
     @Override
@@ -15,7 +15,7 @@ public class Activator extends DependencyActivatorBase {
 				.setInterface(Object.class.getName(), null)
 				.setImplementation(Resources.class)
 				.add(createServiceDependency().setService(ProductService.class).setRequired(true))
-				.add(createServiceDependency().setService(UUIDService.class).setRequired(true))
+				.add(createServiceDependency().setService(UuidService.class).setRequired(true))
 				.add(createServiceDependency().setService(S3Service.class).setRequired(true))
 		);
 
