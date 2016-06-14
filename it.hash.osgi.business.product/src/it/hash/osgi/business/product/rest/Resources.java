@@ -37,9 +37,9 @@ import it.hash.osgi.resource.uuid.api.UuidService;
 public class Resources {
 	// References
 	// ==========
-	private volatile ProductService _productService;
-	private volatile UuidService _uuidService;
-	private volatile S3Service _S3Service;
+	private ProductService _productService;
+	private UuidService _uuidService;
+	private S3Service _S3Service;
 	
 	@Reference(service=ProductService.class)
 	public void setProductService(ProductService service){
@@ -66,11 +66,11 @@ public class Resources {
 	@Reference(service=UuidService.class)
 	public void setUuidService(UuidService service){
 		_uuidService = service;
-		doLog("JWTService: "+(service==null?"NULL":"got"));
+		doLog("UuidService: "+(service==null?"NULL":"got"));
 	}
 	
 	public void unsetUuidService(UuidService service){
-		doLog("JWTService: "+(service==null?"NULL":"released"));
+		doLog("UuidService: "+(service==null?"NULL":"released"));
 		_uuidService = null;
 	}
 	// === end references

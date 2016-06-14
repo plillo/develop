@@ -14,7 +14,7 @@ import it.hash.osgi.business.Business;
  * Provides interfaces for the management of the persistence of a business
  * @author Montinari Antonella
  */
-public interface BusinessServicePersistence {
+public interface BusinessPersistenceService {
 	// CREATE
 	Map<String, Object> addBusiness(Map<String, Object> business);
 	Map<String, Object> addBusiness(Business business);
@@ -56,6 +56,7 @@ public interface BusinessServicePersistence {
 
 	// DELETE
 	Map<String, Object> deleteBusiness(String uuid);
+	Map<String, Object> deleteBusinessById(String id);
 	
 	// IMPLEMENTATION
 	String getImplementation();

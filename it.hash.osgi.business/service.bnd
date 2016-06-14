@@ -1,6 +1,0 @@
-Bundle-Version: 1.0.0.${tstamp}
-Private-Package: it.hash.osgi.business.service
-Bundle-Activator: it.hash.osgi.business.service.Activator
-Export-Package: \
-	it.hash.osgi.business,\
-	it.hash.osgi.business.service

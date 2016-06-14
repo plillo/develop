@@ -11,7 +11,10 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.amdatu.mongo.MongoDBService;
-import org.osgi.service.log.LogService;
+import org.bson.types.ObjectId;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -20,7 +23,7 @@ import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 
 import it.hash.osgi.business.Business;
-import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
+import it.hash.osgi.business.persistence.api.BusinessPersistenceService;
 
 /**
  * Implements interface BusinessServicePersistence with MongoDB:
@@ -30,28 +33,35 @@ import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
  */
 
 @SuppressWarnings("unchecked")
-public class BusinessServicePersistenceImpl implements BusinessServicePersistence {
-	/** Name of the collection */
+@Component(immediate=true)
+public class BusinessPersistenceServiceImpl implements BusinessPersistenceService {
 	private static final String COLLECTION = "businesses";
-	// Injected services
-	private volatile MongoDBService m_mongoDBService;
-	@SuppressWarnings("unused")
-	private volatile LogService logService;
-	// Mongo business collection
 	private DBCollection businessCollection;
+	
+	// References
+	private MongoDBService m_mongoDBService;
+	
+	@Reference(service=MongoDBService.class)
+	public void setMongoDBService(MongoDBService service){
+		m_mongoDBService = service;
+		doLog("MongoDBService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetMongoDBService(MongoDBService service){
+		doLog("MongoDBService: "+(service==null?"NULL":"released"));
+		m_mongoDBService = null;
+	}
 
-	public void start() {
-		// Initialize business collection
+	@Activate
+	void activate() {
 		businessCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
 
 	@Override
 	public Map<String, Object> addBusiness(Map<String, Object> business) {
-
 		Business business_obj = Business.toBusiness(business);
 
 		return addBusiness(business_obj);
-
 	}
 
 	@Override
@@ -166,9 +176,9 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 
 		if (business.containsKey("_id") && business.get("_id") != null) {
 			if(withLogo)
-				found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")));
+				found = businessCollection.findOne(new BasicDBObject("_id", new ObjectId((String)business.get("_id"))));
 			else
-				found = businessCollection.findOne(new BasicDBObject("_id", business.get("_id")), new BasicDBObject("logo", false));
+				found = businessCollection.findOne(new BasicDBObject("_id", new ObjectId((String)business.get("_id"))), new BasicDBObject("logo", false));
 
 			if (found != null) {
 				found_business = Business.toBusiness(found.toMap());
@@ -445,9 +455,9 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		Map<String, Object> responseDelete = new TreeMap<String, Object>();
 		response = getBusiness(business);
 		if ((int) response.get("matched") == 1) {
-			String uuid = ((Business) response.get("business")).getUuid();
-			BasicDBObject Dbo = new BasicDBObject("uuid", uuid);
-			WriteResult wr = businessCollection.remove(Dbo);
+			String _id = ((Business) response.get("business")).get_id();
+			
+			WriteResult wr = businessCollection.remove(new BasicDBObject("_id", new ObjectId(_id)));
 			if (wr.getN() == 1) {
 				responseDelete.put("business", business);
 				responseDelete.put("delete", true);
@@ -468,6 +478,14 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 	public Map<String, Object> deleteBusiness(String uuid) {
 		Business business = new Business();
 		business.setUuid(uuid);
+		
+		return deleteBusiness(business);
+	}
+	
+	@Override
+	public Map<String, Object> deleteBusinessById(String id) {
+		Business business = new Business();
+		business.set_id(id);
 		
 		return deleteBusiness(business);
 	}
@@ -602,5 +620,8 @@ public class BusinessServicePersistenceImpl implements BusinessServicePersistenc
 		return db;
 	}
 	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 
 }

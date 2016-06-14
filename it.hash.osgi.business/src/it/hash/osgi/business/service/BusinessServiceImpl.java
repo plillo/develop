@@ -8,27 +8,45 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.osgi.service.event.EventAdmin;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import it.hash.osgi.business.Business;
-import it.hash.osgi.business.persistence.api.BusinessServicePersistence;
-import it.hash.osgi.business.service.BusinessService;
+import it.hash.osgi.business.persistence.api.BusinessPersistenceService;
 import it.hash.osgi.geojson.Coordinates;
 import it.hash.osgi.geojson.Point;
 import it.hash.osgi.resource.uuid.api.UuidService;
-import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.utils.StringUtils;
 
+@Component(immediate=true)
 public class BusinessServiceImpl implements BusinessService {
-	private volatile BusinessServicePersistence _businessPersistenceService;
-	private volatile UuidService _uuid;
-
-	@SuppressWarnings("unused")
-	private volatile UserService _userSrv;
-   
-	@SuppressWarnings("unused")
-	private volatile EventAdmin _eventAdminService;
+	// References
+	private BusinessPersistenceService _businessPersistenceService;
+	private UuidService _uuidService;
 	
+	@Reference(service=BusinessPersistenceService.class)
+	public void setBusinessPersistenceService(BusinessPersistenceService service){
+		_businessPersistenceService = service;
+		doLog("AttributeService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetBusinessPersistenceService(BusinessPersistenceService service){
+		doLog("BusinessPersistenceService: "+(service==null?"NULL":"released"));
+		_businessPersistenceService = null;
+	}
+	
+	@Reference(service=UuidService.class)
+	public void setUuidService(UuidService service){
+		_uuidService = service;
+		doLog("UuidService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUuidService(UuidService service){
+		doLog("UuidService: "+(service==null?"NULL":"released"));
+		_uuidService = null;
+	}
+	// === end references	
+
 	@Override
 	public Map<String, Object> getBusiness(Map<String, Object> pars) {
 		return _businessPersistenceService.getBusiness(pars);
@@ -37,13 +55,13 @@ public class BusinessServiceImpl implements BusinessService {
 	@Override
 	public Map<String, Object> createBusiness(Business business) {
 		Map<String, Object> response = new HashMap<String, Object>();
-		String u = _uuid.createUUID("app/business");
+		String u = _uuidService.createUUID("app/business");
 		if (!StringUtils.isEmptyOrNull(u)) {
 			business.setUuid(u);
 
 			response = _businessPersistenceService.addBusiness(business);
 			if ((Boolean) response.get("created") == false) 
-				_uuid.removeUUID(u);
+				_uuidService.removeUUID(u);
 
 		} else {
 			response.put("created", false);
@@ -54,7 +72,7 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@Override
 	public Map<String, Object> createBusiness(Map<String, Object> pars) {
-		String u = _uuid.createUUID("app/business");
+		String u = _uuidService.createUUID("app/business");
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		if (!StringUtils.isEmptyOrNull(u)) {
@@ -62,7 +80,7 @@ public class BusinessServiceImpl implements BusinessService {
 			response = _businessPersistenceService.addBusiness(pars);
 
 			if ((Boolean) response.get("created") == false) 
-				_uuid.removeUUID(u);
+				_uuidService.removeUUID(u);
 
 				// TODO INTEGRITA' REFERENZIALE
 
@@ -81,7 +99,7 @@ public class BusinessServiceImpl implements BusinessService {
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		if (!StringUtils.isEmptyOrNull(uuid)) {
-			response = _uuid.removeUUID(uuid);
+			response = _uuidService.removeUUID(uuid);
 
 			return _businessPersistenceService.deleteBusiness(uuid);
 		} else {
@@ -92,6 +110,11 @@ public class BusinessServiceImpl implements BusinessService {
 		}
 	}
 
+	@Override
+	public Map<String, Object> deleteBusinessById(String id) {
+		return _businessPersistenceService.deleteBusinessById(id);
+	}
+	
 	@Override
 	public Map<String, Object> updateBusiness(String uuid, Business business) {
 		return _businessPersistenceService.updateBusiness(uuid, business);
@@ -121,7 +144,7 @@ public class BusinessServiceImpl implements BusinessService {
 
 	@Override
 	public List<Business> retrieveBusinesses(String criterion, String search) {
-		if(_uuid.isUUID(search)){
+		if(_uuidService.isUUID(search)){
 			List<Business> list = new ArrayList<Business>();
 			list.add(_businessPersistenceService.getBusinessByUuid(search));
 			return list;
@@ -201,4 +224,9 @@ public class BusinessServiceImpl implements BusinessService {
 		
 		return business.getPosition().getCoordinates();
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
+
 }

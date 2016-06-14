@@ -14,7 +14,7 @@ import it.hash.osgi.business.product.service.ProductService;
 	immediate=true, 
 	service = Commands.class, 
 	property = {
-		CommandProcessor.COMMAND_SCOPE+"=products",
+		CommandProcessor.COMMAND_SCOPE+"=product",
 		CommandProcessor.COMMAND_FUNCTION+"=create",
 		CommandProcessor.COMMAND_FUNCTION+"=delete",
 		CommandProcessor.COMMAND_FUNCTION+"=list"

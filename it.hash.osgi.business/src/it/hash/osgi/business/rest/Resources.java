@@ -33,6 +33,8 @@ import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import eu.medsea.mimeutil.MimeType;
 import eu.medsea.mimeutil.MimeUtil;
@@ -48,11 +50,50 @@ import it.hash.osgi.user.service.api.UserService;
 
 @Api
 @Path("businesses/1.0/businesses")
+@Component(service = Resources.class)
 public class Resources {
-
-	private volatile BusinessService _businessService;
-	private volatile AttributeService _attributeService;
-	private volatile UserService _userService;
+	
+	// References
+	private BusinessService _businessService;
+	private AttributeService _attributeService;
+	private UserService _userService;
+	
+	@Reference(service=BusinessService.class)
+	public void setBusinessService(BusinessService service){
+		_businessService = service;
+		doLog("BusinessService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetBusinessService(BusinessService service){
+		doLog("BusinessService: "+(service==null?"NULL":"released"));
+		_businessService = null;
+	}
+	
+	@Reference(service=AttributeService.class)
+	public void setAttributeService(AttributeService service){
+		_attributeService = service;
+		doLog("AttributeService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetAttributeService(AttributeService service){
+		doLog("AttributeService: "+(service==null?"NULL":"released"));
+		_attributeService = null;
+	}
+	
+	@Reference(service=UserService.class)
+	public void setUserService(UserService service){
+		_userService = service;
+		doLog("UserService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUserService(UserService service){
+		doLog("UserService: "+(service==null?"NULL":"released"));
+		_userService = null;
+	}
+	// === end references
+	
+	// API
+	// ===
 
 	// GET businesses/1.0/businesses/{Uuid}
 	@Path("/{Uuid}")
@@ -549,4 +590,8 @@ public class Resources {
 		}
 		return attributes;
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

@@ -48,11 +48,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.service)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.shell)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.user)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.application)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.persistence)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.rest)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.service)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.shell)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.parser)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.parser.gs1)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.persistence)',\
@@ -82,18 +78,14 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.amazon.console;version=snapshot,\
 	it.hash.osgi.amazon.s3;version=snapshot,\
 	it.hash.osgi.application;version=snapshot,\
-	it.hash.osgi.business.application;version=snapshot,\
+	it.hash.osgi.business;version=snapshot,\
+	it.hash.osgi.business.product;version=snapshot,\
 	it.hash.osgi.business.category.parser;version=snapshot,\
 	it.hash.osgi.business.category.parser.gs1;version=snapshot,\
 	it.hash.osgi.business.category.persistence;version=snapshot,\
 	it.hash.osgi.business.category.rest;version=snapshot,\
 	it.hash.osgi.business.category.service;version=snapshot,\
 	it.hash.osgi.business.category.shell;version=snapshot,\
-	it.hash.osgi.business.persistence;version=snapshot,\
-	it.hash.osgi.business.product;version=snapshot,\
-	it.hash.osgi.business.rest;version=snapshot,\
-	it.hash.osgi.business.service;version=snapshot,\
-	it.hash.osgi.business.shell;version=snapshot,\
 	it.hash.osgi.resource.uuid;version=snapshot,\
 	it.hash.osgi.security;version=snapshot,\
 	it.hash.osgi.swagger.ui;version=snapshot,\
