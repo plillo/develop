@@ -13,23 +13,22 @@
 	org.apache.felix.gogo.runtime,\
 	com.eclipsesource.jaxrs.swagger-all,\
 	it.hash.osgi.user.attribute.service,\
-	it.hash.osgi.resource.uuid;version=latest
--sub: *.bnd
+	it.hash.osgi.resource.uuid;version=latest,\
+	org.osgi.service.component.annotations
+
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
--runrequires: \
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.runtime)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.dependencymanager)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.dependencymanager.shell)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.configadmin)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.fileinstall)',\
-	osgi.identity;filter:='(osgi.identity=org.amdatu.mongo)',\
-	osgi.identity;filter:='(osgi.identity=org.mongodb.mongo-java-driver)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.api)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.mongo)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.service)',\
-	osgi.identity;filter:='(osgi.identity=com.eclipsesource.jaxrs.swagger-all)'
+
 -resolve: auto
+-dsannotations: *
+Bundle-Version: 1.0.1.${tstamp}
+Private-Package: \
+	it.hash.osgi.business.category.parser,\
+	it.hash.osgi.business.category.parser.gs1,\
+	it.hash.osgi.business.category.persistence.mongo,\
+	it.hash.osgi.business.category.rest,\
+	it.hash.osgi.business.category.shell
+Export-Package: \
+	it.hash.osgi.business.category,\
+	it.hash.osgi.business.category.service,\
+	it.hash.osgi.business.category.persistence.api

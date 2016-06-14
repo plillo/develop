@@ -68,6 +68,7 @@ public class Clazz {
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -101,7 +102,3 @@ public class Clazz {
 	}
 	
 }
-
-	
-	
-

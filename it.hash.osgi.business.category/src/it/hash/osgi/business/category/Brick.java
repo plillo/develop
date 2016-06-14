@@ -7,7 +7,7 @@ public class Brick {
 	String definition;
 	String text;
 	Integer code;
-	List<AttType> LstAttType;
+	List<AttributeType> LstAttType;
 	
 	public Brick( String definition, String text, Integer code ){
 		this.definition=definition;
@@ -40,33 +40,33 @@ public class Brick {
 		this.code = code;
 	}
 
-	public List<AttType> getListAttType() {
+	public List<AttributeType> getListAttType() {
 		return LstAttType;
 	}
 
-	public void setListAttType(List<AttType> LstAttType) {
+	public void setListAttType(List<AttributeType> LstAttType) {
 		this.LstAttType = LstAttType;
 	}
 
-	
-	public boolean addAttType(AttType attType){
+	public boolean addAttType(AttributeType attType){
 		if (this.LstAttType==null)
-			this.LstAttType= new ArrayList<AttType>();
+			this.LstAttType= new ArrayList<AttributeType>();
 		if (!this.LstAttType.contains(attType))
 			return this.LstAttType.add(attType);
 		return false;
 		
 	}
+
 	public boolean removeAttType(Integer code){
-		for (AttType aT: this.LstAttType){
+		for (AttributeType aT: this.LstAttType){
 			if (aT.code==code)
 				return this.LstAttType.remove(aT);
 		}
 	
 		return false ;
 	}
-	public AttType getAttType(Integer codeAttType){
-		for (AttType aT: this.LstAttType){
+	public AttributeType getAttType(Integer codeAttType){
+		for (AttributeType aT: this.LstAttType){
 			if (aT.code==codeAttType)
 				return aT;
 		}
@@ -116,6 +116,4 @@ public class Brick {
 		return true;
 	}
 
-	
-	
 }

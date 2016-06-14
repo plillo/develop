@@ -9,7 +9,6 @@ public class Segment {
 	Integer code;
 	List<Family> LstFamily;
 	
-	
 	public String getDefinition() {
 		return definition;
 	}
@@ -34,9 +33,7 @@ public class Segment {
 	public void setLstFamily(List<Family> lstFamily) {
 		LstFamily = lstFamily;
 	}
-	
-	
-	
+
 	public Family getFamily(Integer code){
 		for(Family family: LstFamily){
 			if (family.code==code)
@@ -44,7 +41,8 @@ public class Segment {
 		}
 		
 		return null;
-	}		
+	}
+	
 	public boolean addFamily(Family family){
 		if (LstFamily== null)
 			this.LstFamily=new ArrayList<Family>();
@@ -63,6 +61,7 @@ public class Segment {
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -99,8 +98,7 @@ public class Segment {
 			if (family.code == code)
 				return this.LstFamily.remove(family);
 		}
-		
-		
+
 		return false;
 	}
 	
@@ -110,7 +108,6 @@ public class Segment {
 		s=this.definition+" "+this.code+" "+this.text;
 		
 		return s;
-		
 	}
 	
 }

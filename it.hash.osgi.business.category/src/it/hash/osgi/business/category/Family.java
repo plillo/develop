@@ -41,12 +41,14 @@ public class Family {
 		}
 		
 		return null;
-	}		
+	}
+	
 	public boolean addClasse(Clazz clas){
 		if (LstClasse== null)
 			this.LstClasse=new ArrayList<Clazz>();
 		if (!LstClasse.contains(clas))
 			return LstClasse.add(clas);
+		
 		return false;
 	}	
 	
@@ -55,10 +57,10 @@ public class Family {
 			if (clas.code == code)
 				return this.LstClasse.remove(clas);
 		}
-		
-		
+
 		return false;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +71,7 @@ public class Family {
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -100,9 +103,5 @@ public class Family {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
+
 }

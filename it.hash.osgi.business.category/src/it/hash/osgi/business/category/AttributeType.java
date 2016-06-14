@@ -3,62 +3,65 @@ package it.hash.osgi.business.category;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttType {
+public class AttributeType {
 	String definition;
 	String text;
 	Integer code;
-	List<AttValue> attValue;
-	
+	List<AttributeValue> attValue;
+
 	public String getDefinition() {
 		return definition;
 	}
+
 	public void setDefinition(String definition) {
 		this.definition = definition;
 	}
+
 	public String getText() {
 		return text;
 	}
+
 	public void setText(String text) {
 		this.text = text;
 	}
+
 	public Integer getCode() {
 		return code;
 	}
+
 	public void setCode(Integer code) {
 		this.code = code;
 	}
-	public List<AttValue> getAttValue() {
+
+	public List<AttributeValue> getAttValue() {
 		return attValue;
 	}
-	public void setAttValue(List<AttValue> attValue) {
+
+	public void setAttValue(List<AttributeValue> attValue) {
 		this.attValue = attValue;
 	}
-	
-	public boolean addAttValue(AttValue attValue){
-		if (this.attValue == null )
-			this.attValue= new ArrayList<AttValue>();
+
+	public boolean addAttValue(AttributeValue attValue) {
+		if (this.attValue == null)
+			this.attValue = new ArrayList<AttributeValue>();
 		if (!this.attValue.contains(attValue))
 			return this.attValue.add(attValue);
-		
+
 		return false;
-		
 	}
 
-	public boolean removeAttValue(AttValue attValue){
-	 
-	return this.attValue.remove(attValue);
-}
-	
-	public AttValue getAttValue(Integer code){
-		for( AttValue aV :this.attValue){
-			if (aV.getCode()== code)
-				return aV;
-		}	
-		return null;
-	
-			
-	
+	public boolean removeAttValue(AttributeValue attValue) {
+		return this.attValue.remove(attValue);
 	}
+
+	public AttributeValue getAttValue(Integer code) {
+		for (AttributeValue aV : this.attValue) {
+			if (aV.getCode() == code)
+				return aV;
+		}
+		return null;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +72,7 @@ public class AttType {
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -77,7 +81,7 @@ public class AttType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AttType other = (AttType) obj;
+		AttributeType other = (AttributeType) obj;
 		if (attValue == null) {
 			if (other.attValue != null)
 				return false;
@@ -100,5 +104,5 @@ public class AttType {
 			return false;
 		return true;
 	}
-	
+
 }

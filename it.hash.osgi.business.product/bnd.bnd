@@ -10,12 +10,12 @@
 	org.mongodb.mongo-java-driver,\
 	it.hash.osgi.utilities,\
 	org.apache.felix.eventadmin,\
-	com.eclipsesource.jaxrs.swagger-all,\
 	org.apache.felix.log,\
 	it.hash.osgi.amazon.s3,\
-	it.hash.osgi.business.category.service,\
 	it.hash.osgi.resource.uuid,\
-	org.osgi.service.component.annotations
+	org.osgi.service.component.annotations,\
+	it.hash.osgi.business.category,\
+	com.eclipsesource.jaxrs.swagger-all
 Bundle-Version: 1.0.1.${tstamp}
 -dsannotations: *
 Private-Package: \

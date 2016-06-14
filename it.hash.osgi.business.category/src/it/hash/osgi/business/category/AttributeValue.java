@@ -1,6 +1,6 @@
 package it.hash.osgi.business.category;
 
-public class AttValue {
+public class AttributeValue {
 	String definition;
 	String text;
 	Integer code;
@@ -40,7 +40,7 @@ public class AttValue {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AttValue other = (AttValue) obj;
+		AttributeValue other = (AttributeValue) obj;
 		if (code == null) {
 			if (other.code != null)
 				return false;

@@ -49,12 +49,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.shell)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.user)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.parser)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.parser.gs1)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.persistence)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.rest)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.service)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category.shell)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.product)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.security)',\
 	osgi.identity;filter:='(osgi.identity=runtest.it.hash.osgi.restapi)'
@@ -80,12 +75,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.application;version=snapshot,\
 	it.hash.osgi.business;version=snapshot,\
 	it.hash.osgi.business.product;version=snapshot,\
-	it.hash.osgi.business.category.parser;version=snapshot,\
-	it.hash.osgi.business.category.parser.gs1;version=snapshot,\
-	it.hash.osgi.business.category.persistence;version=snapshot,\
-	it.hash.osgi.business.category.rest;version=snapshot,\
-	it.hash.osgi.business.category.service;version=snapshot,\
-	it.hash.osgi.business.category.shell;version=snapshot,\
+	it.hash.osgi.business.category;version=snapshot,\
 	it.hash.osgi.resource.uuid;version=snapshot,\
 	it.hash.osgi.security;version=snapshot,\
 	it.hash.osgi.swagger.ui;version=snapshot,\

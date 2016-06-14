@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
 import it.hash.osgi.resource.uuid.api.UuidService;
@@ -18,17 +21,53 @@ import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 
 @SuppressWarnings("unchecked")
+@Component(immediate=true)
 public class CategoryServiceImpl implements CategoryService {
-	// Injected services
-	private volatile CategoryPersistence _persistenceSrv;
-	private volatile UuidService _uuidSrv;
-	private volatile AttributeService _attributeSrv;
+	// References
+	private volatile CategoryPersistence _categoryPersistenceService;
+	private volatile AttributeService _attributeService;
+	private volatile UuidService _uuidService;
+	
+	@Reference(service=CategoryPersistence.class)
+	public void setCategoryPersistence(CategoryPersistence service){
+		_categoryPersistenceService = service;
+		doLog("CategoryPersistence: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetCategoryPersistence(CategoryPersistence service){
+		doLog("CategoryPersistence: "+(service==null?"NULL":"released"));
+		_categoryPersistenceService = null;
+	}
+	
+	@Reference(service=AttributeService.class)
+	public void setAttributeService(AttributeService service){
+		_attributeService = service;
+		doLog("AttributeService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetAttributeService(AttributeService service){
+		doLog("AttributeService: "+(service==null?"NULL":"released"));
+		_attributeService = null;
+	}
+	
+	@Reference(service=UuidService.class)
+	public void setUuidService(UuidService service){
+		_uuidService = service;
+		doLog("UuidService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUuidService(UuidService service){
+		doLog("UuidService: "+(service==null?"NULL":"released"));
+		_uuidService = null;
+	}
+	// === end references
+
 
 	@Override
 	public List<Category> getCategory(String search) {
 		Map<String, Object> response = new HashMap<String,Object>();
 		Map<String,Object> pars = new HashMap<String,Object>();
-		if (_uuidSrv.isUUID(search))
+		if (_uuidService.isUUID(search))
 			pars.put("uuid", search);
 		else
 			if (Category.isCode(search))
@@ -37,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
 				pars.put("name", search);
 				}
 		
-		response =_persistenceSrv.getCategory(pars);
+		response =_categoryPersistenceService.getCategory(pars);
 		if (response.containsKey("categories"))
 				return (List<Category>) response.get("categories") ;
 		
@@ -48,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Category getCategory(Category search) {
 		Map<String, Object> response = new HashMap<String,Object>();
-		response = _persistenceSrv.getCategory(search);
+		response = _categoryPersistenceService.getCategory(search);
 		if (response.containsKey("category"))
 				return (Category) response.get("category") ;
 		return null;
@@ -56,17 +95,17 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public Category getCategoryByUuid(String uuid) {
-		return _persistenceSrv.getCategoryByUuid(uuid);
+		return _categoryPersistenceService.getCategoryByUuid(uuid);
 	}
 
 	@Override
 	public List<Category> getCategoryByUuid(List<String> uuids) {
-		return _persistenceSrv.getCategoryByUuid(uuids);
+		return _categoryPersistenceService.getCategoryByUuid(uuids);
 	}
 
 	@Override
 	public Map<String, Object> createCategory(Category category) {
-		Map<String, Object> response = _persistenceSrv.createCategory(category);
+		Map<String, Object> response = _categoryPersistenceService.createCategory(category);
 		return response ;
 	}
 
@@ -78,7 +117,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Map<String, Object> deleteCategory(String uuid) {
-		return _persistenceSrv.deleteCategory(uuid);
+		return _categoryPersistenceService.deleteCategory(uuid);
 	}
 
 	@Override
@@ -98,7 +137,7 @@ public class CategoryServiceImpl implements CategoryService {
 		if (criterion==null)
 			return getCategory(search);
 		else{
-			if (_uuidSrv.isUUID(search))
+			if (_uuidService.isUUID(search))
 				criterion="uuid";
 			else
 				if (Category.isCode(search))
@@ -106,7 +145,7 @@ public class CategoryServiceImpl implements CategoryService {
 				else
                      criterion="name";
 			
-			 return _persistenceSrv.retrieveCategories(criterion,search);
+			 return _categoryPersistenceService.retrieveCategories(criterion,search);
 		}
 		
 	    
@@ -122,7 +161,7 @@ public class CategoryServiceImpl implements CategoryService {
 			listS.add(cat1);
 		}
 	
-		return _attributeSrv.getAttributesByCategories(listS);
+		return _attributeService.getAttributesByCategories(listS);
 	}
 
 	@Override
@@ -136,7 +175,7 @@ public class CategoryServiceImpl implements CategoryService {
 			attribute.add("busctg:" + ctgUuid);
 		*/
 
-		return _attributeSrv.createAttribute(attribute);
+		return _attributeService.createAttribute(attribute);
 	}
 
 	@Override
@@ -208,7 +247,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 		String is ;
 		
-		if (_uuidSrv.isUUID(search)) {
+		if (_uuidService.isUUID(search)) {
 			is="uuid";}
 		else {
 			if (Category.isCode(search)) {
@@ -220,8 +259,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 		return is;
 	}
-
-
-
-
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

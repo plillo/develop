@@ -12,12 +12,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import it.hash.osgi.business.category.AttType;
-import it.hash.osgi.business.category.AttValue;
+import it.hash.osgi.business.category.AttributeType;
+import it.hash.osgi.business.category.AttributeValue;
 import it.hash.osgi.business.category.Brick;
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.Clazz;
@@ -27,22 +29,46 @@ import it.hash.osgi.business.category.parser.ParserService;
 import it.hash.osgi.business.category.service.CategoryService;
 import it.hash.osgi.resource.uuid.api.UuidService;
 
+@Component(immediate=true)
 public class ParserServiceImpl extends DefaultHandler implements ParserService {
-	private volatile UuidService _UUIDService;
-	private volatile CategoryService _ctgService;
-	
 	List<Segment> segmentList = new ArrayList<>();
 	Segment seg = null;
 	Family fam = null;
 	Clazz clas = null;
 	Brick brick = null;
-	AttType attType = null;
-	AttValue attValue = null;
+	AttributeType attType = null;
+	AttributeValue attValue = null;
 	String content = null;
 	
 	String segmentUUID = null;
 	String familyUUID = null;
 	String classUUID = null;
+	
+	// References
+	private UuidService _UUIDService;
+	private CategoryService _categoryService;
+	
+	@Reference(service=UuidService.class)
+	public void setUuidService(UuidService service){
+		_UUIDService = service;
+		doLog("UuidService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUuidService(UuidService service){
+		doLog("UuidService: "+(service==null?"NULL":"released"));
+		_UUIDService = null;
+	}
+	
+	@Reference(service=CategoryService.class)
+	public void setCategoryService(CategoryService service){
+		_categoryService = service;
+		doLog("CategoryService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetCategoryService(CategoryService service){
+		doLog("CategoryService: "+(service==null?"NULL":"released"));
+		_categoryService = null;
+	}
 	
 	@Override
 	public String getParserCode() {
@@ -103,7 +129,7 @@ public class ParserServiceImpl extends DefaultHandler implements ParserService {
 			cat.setName(text);
 			cat.setCode(code);
 			cat.set_locDescription(definition);
-			result = _ctgService.createCategory(cat);
+			result = _categoryService.createCategory(cat);
 			if (result.get("created").equals(false))
 				segmentUUID = null;
 			
@@ -125,7 +151,7 @@ public class ParserServiceImpl extends DefaultHandler implements ParserService {
 			cat.set_locDescription(definition);
 			// set parent UUID
 			cat.setParentUuid(segmentUUID);
-			result = _ctgService.createCategory(cat);
+			result = _categoryService.createCategory(cat);
 			if (result.get("created").equals(false))
 				familyUUID = null;
 			
@@ -147,7 +173,7 @@ public class ParserServiceImpl extends DefaultHandler implements ParserService {
 			cat.set_locDescription(definition);
 			// set parent UUID
 			cat.setParentUuid(familyUUID);
-			result = _ctgService.createCategory(cat);
+			result = _categoryService.createCategory(cat);
 			if (result.get("created").equals(false))
 				familyUUID = null;
 			
@@ -161,4 +187,8 @@ public class ParserServiceImpl extends DefaultHandler implements ParserService {
 
 		content = String.copyValueOf(ch, start, length).trim();
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }
