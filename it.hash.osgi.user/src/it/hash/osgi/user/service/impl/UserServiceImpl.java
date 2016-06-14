@@ -15,6 +15,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
@@ -25,24 +28,111 @@ import it.hash.osgi.user.User;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 import it.hash.osgi.user.password.Password;
-import it.hash.osgi.user.persistence.api.UserServicePersistence;
+import it.hash.osgi.user.persistence.api.UserPersistenceService;
 import it.hash.osgi.user.service.api.Status;
 import it.hash.osgi.user.service.api.UserAttribute;
 import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.utils.StringUtils;
 
+@Component(immediate=true)
 public class UserServiceImpl implements UserService, ManagedService {
 	@SuppressWarnings({ "unused", "rawtypes" })
 	private Dictionary properties;
-	private volatile UserServicePersistence _userPersistenceService;
-	private volatile Password _passwordService;
-	private volatile EventAdmin _eventAdminService;
-	private volatile JWTService _jwtService;
-	private volatile UuidService _UUIDService;
-	private volatile AttributeService _attributeService;
-	private volatile ApplicationManager _applicationManagerService;
-
 	private Validator validator = new Validator();
+	
+	// References
+	private EventAdmin _eventAdminService;
+	private ApplicationManager _applicationManager;
+	private Password _passwordService;
+	private UserPersistenceService _persistenceService;
+	private UuidService _uuidService;
+	private AttributeService _attributeService;
+	private volatile JWTService _jwtService;
+	
+	@Reference(service=EventAdmin.class)
+	public void setEventAdmin(EventAdmin service){
+		_eventAdminService = service;
+		doLog("EventAdmin: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetEventAdmin(EventAdmin service){
+		doLog("EventAdmin: "+(service==null?"NULL":"released"));
+		_eventAdminService = null;
+	}
+	
+	@Reference(service=ApplicationManager.class)
+	public void setApplicationManager(ApplicationManager service){
+		_applicationManager = service;
+		doLog("ApplicationManager: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetApplicationManager(ApplicationManager service){
+		doLog("ApplicationManager: "+(service==null?"NULL":"released"));
+		_applicationManager = null;
+	}
+	
+	@Reference(service=Password.class)
+	public void setPassword(Password service){
+		_passwordService = service;
+		doLog("Password: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetPassword(Password service){
+		doLog("Password: "+(service==null?"NULL":"released"));
+		_passwordService = null;
+	}
+	
+	@Reference(service=UserPersistenceService.class)
+	public void setUserServicePersistence(UserPersistenceService service){
+		_persistenceService = service;
+		doLog("UserServicePersistence: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUserServicePersistence(UserPersistenceService service){
+		doLog("UserServicePersistence: "+(service==null?"NULL":"released"));
+		_persistenceService = null;
+	}
+	
+	@Reference(service=UuidService.class)
+	public void setUuidService(UuidService service){
+		_uuidService = service;
+		doLog("JWTService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUuidService(UuidService service){
+		doLog("JWTService: "+(service==null?"NULL":"released"));
+		_uuidService = null;
+	}
+	
+	@Reference(service=AttributeService.class)
+	public void setAttributeService(AttributeService service){
+		_attributeService = service;
+		doLog("AttributeService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetAttributeService(AttributeService service){
+		doLog("AttributeService: "+(service==null?"NULL":"released"));
+		_attributeService = null;
+	}
+	
+	@Reference(service=JWTService.class)
+	public void setJWTService(JWTService service){
+		_jwtService = service;
+		doLog("JWTService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetJWTService(JWTService service){
+		doLog("JWTService: "+(service==null?"NULL":"released"));
+		_jwtService = null;
+	}
+	// === end references
+	
+	@Activate 
+	void activate( Map<String,Object> map) {
+		doLog("CONFIGURATION???");
+	}
+	
+	
 
 	@Override
 	public Map<String, Object> login(String identificator, String password) {
@@ -69,7 +159,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
 		// GET user
-		Map<String, Object> userSearch = _userPersistenceService.getUser(pars);
+		Map<String, Object> userSearch = _persistenceService.getUser(pars);
 		boolean matched = false;
 
 		// Build the response
@@ -141,7 +231,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 				List<Attribute> application_attributes = _attributeService.getApplicationAttributes(appcode);
 				
 				// Filtering of application user attributes
-				_applicationManagerService.filterAttributes(appcode, application_attributes);
+				_applicationManager.filterAttributes(appcode, application_attributes);
 
 				// merge user attributes
 				attributes.addAll(application_attributes);
@@ -252,7 +342,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 			if(StringUtils.isEON(uuid))
 				return response;
 			
-			User user = _userPersistenceService.getUserByUuid(uuid);
+			User user = _persistenceService.getUserByUuid(uuid);
 			if(user==null)
 				return response;
 			
@@ -277,7 +367,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 
 	@Override
 	public List<User> getUsers() {
-		return _userPersistenceService.getUsers();
+		return _persistenceService.getUsers();
 	}
 
 	@Override
@@ -368,7 +458,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 
 	@Override
 	public Map<String, Object> updateUser(User user) {
-		return _userPersistenceService.updateUser(user);
+		return _persistenceService.updateUser(user);
 	}
 	
 	@Override
@@ -378,7 +468,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 
 	@Override
 	public Map<String, Object> getUser(Map<String, Object> pars) {
-		Map<String, Object> response = _userPersistenceService.getUser(pars);
+		Map<String, Object> response = _persistenceService.getUser(pars);
 
 		return response;
 	}
@@ -425,7 +515,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 		}
 
 		// Get and Set UUID
-		String uuid = _UUIDService.createUUID("core:user");
+		String uuid = _uuidService.createUUID("core:user");
 		if (uuid == null) {
 			response.put("status", Status.ERROR_GENERATING_UUID.getCode());
 			response.put("message", Status.ERROR_GENERATING_UUID.getMessage());
@@ -433,7 +523,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 		}
 		user.setUuid(uuid);
 
-		return merge(_userPersistenceService.addUser(user), response);
+		return merge(_persistenceService.addUser(user), response);
 	}
 
 	@Override
@@ -516,8 +606,12 @@ public class UserServiceImpl implements UserService, ManagedService {
 		Map<String, Object> response = new HashMap<String, Object>();
    
 		
-		response=_userPersistenceService.updateAttribute(pars);
+		response=_persistenceService.updateAttribute(pars);
 		
 		return response;
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

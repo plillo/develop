@@ -5,7 +5,7 @@ import java.util.Map;
 
 import it.hash.osgi.user.User;
 
-public interface UserServicePersistence {
+public interface UserPersistenceService {
 	// CREATE
 	Map<String, Object> addUser(User user);
 	Map<String, Object> addUser(Map<String, Object> user);

@@ -4,19 +4,64 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.felix.service.command.CommandProcessor;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 import it.hash.osgi.user.User;
-import it.hash.osgi.user.persistence.api.UserServicePersistence;
+import it.hash.osgi.user.persistence.api.UserPersistenceService;
 import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.utils.StringUtils;
 
+@Component(
+	immediate=true, 
+	service = Commands.class, 
+	property = {
+		CommandProcessor.COMMAND_SCOPE+"=prsuser",
+		CommandProcessor.COMMAND_FUNCTION+"=create",
+		CommandProcessor.COMMAND_FUNCTION+"=list",
+		CommandProcessor.COMMAND_FUNCTION+"=validate",
+		CommandProcessor.COMMAND_FUNCTION+"=retrieveByEMail",
+		CommandProcessor.COMMAND_FUNCTION+"=delete",
+		CommandProcessor.COMMAND_FUNCTION+"=login",	
+		CommandProcessor.COMMAND_FUNCTION+"=loginOA",	
+		CommandProcessor.COMMAND_FUNCTION+"=update",	
+		CommandProcessor.COMMAND_FUNCTION+"=retrieve",	
+		CommandProcessor.COMMAND_FUNCTION+"=implementation"	
+	}
+)
 public class Commands {
-	
-	private volatile UserServicePersistence persistence;
-	private volatile UserService userService;
-	//private volatile AttributeService attributeService;
+	// References
+	private UserPersistenceService _persistenceService;
+	private UserService _userService;
 
+	@Reference(service=UserPersistenceService.class)
+	public void setUserServicePersistence(UserPersistenceService service){
+		_persistenceService = service;
+		doLog("UserServicePersistence: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUserServicePersistence(UserPersistenceService service){
+		doLog("UserServicePersistence: "+(service==null?"NULL":"released"));
+		_persistenceService = null;
+	}
+	
+	@Reference(service=UserService.class)
+	public void setUserService(UserService service){
+		_userService = service;
+		doLog("UserService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUserService(UserService service){
+		doLog("UserService: "+(service==null?"NULL":"released"));
+		_userService = null;
+	}
+	// === end references
+
+	// SHELL COMMANDS
+	// list
 	public void list() {
-		List<User> users = persistence.getUsers();
+		List<User> users = _persistenceService.getUsers();
 		
 		if(users!=null){
 			for(Iterator<User> it = users.iterator();it.hasNext();){
@@ -26,7 +71,8 @@ public class Commands {
 		}
 	}
    
-	public void adduser(String username,  String email, String mobile, String uuidCategories) {
+	// create
+	public void create(String username,  String email, String mobile, String uuidCategories) {
 		User user = new User();
 		user.setUsername(username);
 		user.setEmail(email);
@@ -52,25 +98,29 @@ public class Commands {
 	    user.setExtra("Attributes", a);
 	    */
 
-		userService.createUser(user);
+		_userService.createUser(user);
 	}
 	
-	public void validate(String userId,String username) {
-		persistence.validateUsername(userId, username);
+	// validate
+	public void validate(String userId, String username) {
+		_persistenceService.validateUsername(userId, username);
 	}
 
-	public void getusermail(String email) {
-		persistence.getUserByEmail(email);
+	// retrieveByEMail
+	public void retrieveByEMail(String email) {
+		_persistenceService.getUserByEmail(email);
 	}
 
-	public void removeuser(String username, String email, String mobile) {
+	//delete
+	public void delete(String username, String email, String mobile) {
 		User user = new User();
 		user.setUsername(username);
 		user.setMobile(mobile);;
 		user.setEmail(email);
-		persistence.deleteUser(user);
+		_persistenceService.deleteUser(user);
 	}
 	
+	// login
 	public void login(String username,String password, String email, String mobile) {
 		HashMap<String,Object> hm = new HashMap<String,Object> ();
 		
@@ -79,9 +129,10 @@ public class Commands {
 		hm.put("mobile", mobile);
 		hm.put("email", email);
 		
-		persistence.login(hm);
+		_persistenceService.login(hm);
 	}
 	
+	// loginOA
 	public void loginOA(String email,String password, String firstName, String lastName) {
 		HashMap<String,Object> hm = new HashMap<String,Object> ();
 		
@@ -90,28 +141,35 @@ public class Commands {
 		hm.put("lastName", lastName);
 		hm.put("email", email);
 		
-		persistence.loginByOAuth2(hm);
+		_persistenceService.loginByOAuth2(hm);
 	}
 
-	public void updateuser(String username,String password ,String email, String mobile) {
+	// update
+	public void update(String username,String password ,String email, String mobile) {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setMobile(mobile);
 		user.setEmail(email);
-		persistence.updateUser(user);
+		_persistenceService.updateUser(user);
 	}
 	
-	public void getuser(String username,String password ,String email, String mobile) {
+	// retrieve
+	public void retrieve(String username,String password ,String email, String mobile) {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setMobile(mobile);;
 		user.setEmail(email);
-		persistence.getUser(user);
+		_persistenceService.getUser(user);
 	}
 
-	public void impl() {
-		System.out.println(persistence.getImplementation());
+	// implementation
+	public void implementation() {
+		System.out.println(_persistenceService.getImplementation());
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

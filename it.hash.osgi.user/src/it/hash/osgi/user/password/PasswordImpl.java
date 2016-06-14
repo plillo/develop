@@ -7,9 +7,11 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.osgi.service.component.annotations.Component;
 
 import it.hash.osgi.utils.Random;
 
+@Component(immediate=true)
 public class PasswordImpl implements Password {
     private static final int iterations = 20*10/*00*/;
     private static final int saltLen = 32;

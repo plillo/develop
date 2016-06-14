@@ -16,14 +16,34 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 import io.swagger.annotations.Api;
 import it.hash.osgi.user.User;
 import it.hash.osgi.user.service.api.UserService;
 
 @Api
 @Path("users/1.0")
+@Component(service = Resources.class)
 public class Resources {
-	private volatile UserService _userService;
+	// References
+	private UserService _userService;
+	
+	@Reference(service=UserService.class)
+	public void setUserService(UserService service){
+		_userService = service;
+		doLog("UserService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUserService(UserService service){
+		doLog("UserService: "+(service==null?"NULL":"released"));
+		_userService = null;
+	}
+	// === end references
+
+	// API
+	// ===
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -121,4 +141,8 @@ public class Resources {
 					.build();
 		}
 	}
+
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

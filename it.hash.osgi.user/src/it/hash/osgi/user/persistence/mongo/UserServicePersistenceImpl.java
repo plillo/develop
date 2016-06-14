@@ -10,7 +10,9 @@ import java.util.TreeSet;
 import org.amdatu.mongo.MongoDBService;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.osgi.service.log.LogService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -22,25 +24,44 @@ import com.mongodb.util.JSON;
 import it.hash.osgi.user.AttributeValue;
 import it.hash.osgi.user.User;
 import it.hash.osgi.user.password.Password;
-import it.hash.osgi.user.persistence.api.UserServicePersistence;
+import it.hash.osgi.user.persistence.api.UserPersistenceService;
 import it.hash.osgi.user.service.api.Status;
 import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 
-public class UserServicePersistenceImpl implements UserServicePersistence {
-
+@Component(immediate=true)
+public class UserServicePersistenceImpl implements UserPersistenceService {
 	private static final String COLLECTION = "users";
-	// Injected services
-	private volatile MongoDBService m_mongoDBService;
-	@SuppressWarnings("unused")
-	private volatile LogService logService;
-	private volatile Password _passwordService;
-
-	// Mongo User collection
 	private DBCollection userCollection;
 
-	public void start() {
-		// Initialize user collection
+	// References
+	private MongoDBService m_mongoDBService;
+	private Password _passwordService;
+	
+	@Reference(service=MongoDBService.class)
+	public void setMongoDBService(MongoDBService service){
+		m_mongoDBService = service;
+		doLog("MongoDBService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetMongoDBService(MongoDBService service){
+		doLog("MongoDBService: "+(service==null?"NULL":"released"));
+		m_mongoDBService = null;
+	}
+	
+	@Reference(service=Password.class)
+	public void setPassword(Password service){
+		_passwordService = service;
+		doLog("Password: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetPassword(Password service){
+		doLog("Password: "+(service==null?"NULL":"released"));
+		_passwordService = null;
+	}
+
+	@Activate
+	void activate() {
 		userCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
 
@@ -702,4 +723,8 @@ public class UserServicePersistenceImpl implements UserServicePersistence {
 		
 		return bdbObject;
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

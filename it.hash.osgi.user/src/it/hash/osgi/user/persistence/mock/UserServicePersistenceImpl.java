@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.osgi.service.component.annotations.Component;
+
 import it.hash.osgi.user.User;
-import it.hash.osgi.user.persistence.api.UserServicePersistence;
+import it.hash.osgi.user.persistence.api.UserPersistenceService;
 import it.hash.osgi.utils.StringUtils;
 
-public class UserServicePersistenceImpl implements UserServicePersistence{
+@Component(immediate=true)
+public class UserServicePersistenceImpl implements UserPersistenceService{
 	List<User> users = new ArrayList<User>();
 
 	@Override

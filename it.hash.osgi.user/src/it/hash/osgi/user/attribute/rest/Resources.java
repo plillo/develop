@@ -13,14 +13,34 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 import io.swagger.annotations.Api;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 
 @Api
 @Path("attributes/1.0")
+@Component(service = Resources.class)
 public class Resources {
-	private volatile AttributeService _attributeService;
+	// References
+	private AttributeService _attributeService;
+	
+	@Reference(service=AttributeService.class)
+	public void setAttributeService(AttributeService service){
+		_attributeService = service;
+		doLog("AttributeService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetAttributeService(AttributeService service){
+		doLog("AttributeService: "+(service==null?"NULL":"released"));
+		_attributeService = null;
+	}
+	// === end references
+	
+	// API
+	// ===
 	
 	// GET attributes/1.0
 	@GET
@@ -76,4 +96,8 @@ public class Resources {
 		
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
+
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

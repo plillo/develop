@@ -15,7 +15,7 @@ import it.hash.osgi.security.jwt.service.JWTService;
 import it.hash.osgi.user.service.api.UserService;
 import it.hash.osgi.user.attribute.service.AttributeService;
 import it.hash.osgi.user.password.Password;
-import it.hash.osgi.user.persistence.api.UserServicePersistence;
+import it.hash.osgi.user.persistence.api.UserPersistenceService;
 
 public class Activator extends DependencyActivatorBase {
 	@Override
@@ -26,7 +26,7 @@ public class Activator extends DependencyActivatorBase {
 		manager.add(createComponent()
 			.setInterface(new String[]{UserService.class.getName(), ManagedService.class.getName()}, properties)
 			.setImplementation(UserServiceImpl.class)
-			.add(createServiceDependency().setService(UserServicePersistence.class).setRequired(true))
+			.add(createServiceDependency().setService(UserPersistenceService.class).setRequired(true))
 			.add(createServiceDependency().setService(EventAdmin.class).setRequired(true))
 			.add(createServiceDependency().setService(JWTService.class).setRequired(true))
 		    .add(createServiceDependency().setService(Password.class).setRequired(true))

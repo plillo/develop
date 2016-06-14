@@ -9,6 +9,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.amdatu.mongo.MongoDBService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -22,13 +25,27 @@ import it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence;
 import it.hash.osgi.utils.StringUtils;
 
 @SuppressWarnings({"unchecked","rawtypes"})
+@Component(immediate=true)
 public class AttributeServicePersistenceImpl implements AttributeServicePersistence {
-	private volatile MongoDBService m_mongoDBService;
 	private static final String COLLECTION = "attributes";
-
 	private DBCollection attributesCollection;
+	
+	// References
+	private MongoDBService m_mongoDBService;
+	
+	@Reference(service=MongoDBService.class)
+	public void setMongoDBService(MongoDBService service){
+		m_mongoDBService = service;
+		doLog("MongoDBService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetMongoDBService(MongoDBService service){
+		doLog("MongoDBService: "+(service==null?"NULL":"released"));
+		m_mongoDBService = null;
+	}
 
-	public void start() {
+	@Activate
+	void activate() {
 		attributesCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
 
@@ -422,4 +439,8 @@ public class AttributeServicePersistenceImpl implements AttributeServicePersiste
 
 		return attribute;
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

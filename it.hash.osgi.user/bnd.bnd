@@ -19,8 +19,8 @@ Bundle-Version: 1.0.0.${tstamp}
 	com.eclipsesource.jaxrs.jersey-all,\
 	it.hash.osgi.application,\
 	it.hash.osgi.resource.uuid,\
-	it.hash.osgi.security
--sub: *.bnd
+	it.hash.osgi.security,\
+	org.osgi.service.component.annotations
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7
 -runrequires: \
@@ -36,3 +36,4 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.api)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.mongo)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid.shell)'
+-dsannotations: *

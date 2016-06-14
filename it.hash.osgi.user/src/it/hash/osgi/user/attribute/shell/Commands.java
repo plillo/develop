@@ -5,17 +5,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.felix.service.command.CommandProcessor;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
 
+@Component(
+	immediate=true, 
+	service = Commands.class, 
+	property = {
+		CommandProcessor.COMMAND_SCOPE+"=userattr",
+		CommandProcessor.COMMAND_FUNCTION+"=create",
+		CommandProcessor.COMMAND_FUNCTION+"=retrieveByCategories"
+	}
+)
 public class Commands {
-	private volatile AttributeService _attributeService;
+	// References
+	private AttributeService _attributeService;
 	
-	public void createAttribute(String name, String label, String context){
+	@Reference(service=AttributeService.class)
+	public void setAttributeService(AttributeService service){
+		_attributeService = service;
+		doLog("AttributeService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetAttributeService(AttributeService service){
+		doLog("AttributeService: "+(service==null?"NULL":"released"));
+		_attributeService = null;
+	}
+	// === end references
+	
+	
+	// SHELL COMMANDS
+	// ==============
+	// create
+	public void create(String name, String label, String context){
 		Attribute attribute = new Attribute();
 		attribute.setName(name);
 		attribute.setLabel(label);
@@ -23,7 +52,8 @@ public class Commands {
 		_attributeService.createAttribute(attribute);
 	}
 	
-	public void getAttributesByCategories(String categories){
+	// retrieveByCategories
+	public void retrieveByCategories(String categories){
 		List<String> categoriesList = new ArrayList<String>();
 		
 		if(!"all".equalsIgnoreCase(categories)) {
@@ -52,4 +82,8 @@ public class Commands {
 		
 		System.out.println(json);
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }
