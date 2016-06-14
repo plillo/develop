@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,6 +26,7 @@ public class User implements Comparable<User> {
 	private String password_mdate;
 	private String email;
 	private String mobile;
+	private List<String> groups;
 	private List<AttributeValue> attributes;
 
 	private Map<String, Object> extra;
@@ -103,6 +105,28 @@ public class User implements Comparable<User> {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	
+	public List<String> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<String> groups) {
+		this.groups = groups;
+	}
+	
+	public void addGroup(String group) {
+		if(this.groups==null)
+			this.groups = new Vector<String>();
+		
+		this.groups.add(group);
+	}
+	
+	public void removeGroup(String group) {
+		if(this.groups==null)
+			return;
+		
+		this.groups.remove(group);
 	}
 
 	public String getPublished() {
@@ -359,6 +383,9 @@ public class User implements Comparable<User> {
 				break;
 			case "mobile":
 				user.setMobile((String) mapUser.get(elem));
+				break;
+			case "groups":
+				user.setGroups((List<String>) mapUser.get(elem));
 				break;
 			case "attributes":
 				user.setAttributes((List<AttributeValue>) mapUser.get(elem));

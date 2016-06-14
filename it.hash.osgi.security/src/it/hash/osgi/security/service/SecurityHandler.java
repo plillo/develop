@@ -8,18 +8,31 @@ import java.util.StringTokenizer;
 import javax.ws.rs.container.ContainerRequestContext;
 
 import org.apache.commons.codec.binary.Base64;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.eclipsesource.jaxrs.provider.security.AuthenticationHandler;
 import com.eclipsesource.jaxrs.provider.security.AuthorizationHandler;
 
 import it.hash.osgi.security.jwt.service.JWTService;
 
-
+@Component
 public class SecurityHandler implements AuthenticationHandler, AuthorizationHandler {
 	String name = "SecurityHandler";
-	String jwt; // Actual TOKEN
-	List<String> roles; // Actual roles
-	private volatile JWTService _jwtService;
+	// List<String> roles;
+	
+	private JWTService _jwtService;
+
+	@Reference(service=JWTService.class)
+	public void setJWTService(JWTService service){
+		_jwtService = service;
+		doLog("JWTService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetJWTService(JWTService service){
+		doLog("JWTService: "+(service==null?"NULL":"released"));
+		_jwtService = null;
+	}
 
 	// This method will be called before the execution of REST API annotated with @RolesAllowed( ... )
 	// The execution of API will be enabled if this method returns TRUE otherwise the requester 
@@ -29,15 +42,22 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
 		if("anonymous".equalsIgnoreCase(role))
 			return true;
 		
+		// Get JWT from principal
+		String jwt = user.getName();
+		// Get roles from JWT
+		List<String> roles = _jwtService.getRoles(jwt);
+		
 		if(roles==null) 
 			return false;
 
-		return roles.contains(role);
+		// RETURN true if user is "root" or in role "role"
+		return roles.contains("root") || roles.contains(role);
 	}
 
 	@SuppressWarnings("unused")
 	@Override
 	public Principal authenticate(ContainerRequestContext requestContext) {
+		String jwt = null;
 		String user_id = "anonymous";
 		
 		// GET token: 1) from Authorization header (Bearer), 2) from Query string
@@ -66,18 +86,23 @@ public class SecurityHandler implements AuthenticationHandler, AuthorizationHand
 			jwt = requestContext.getUriInfo().getQueryParameters().getFirst("access-token");
 		
 		if(jwt!=null) {
-			roles = _jwtService.getRoles(jwt);
-			user_id = _jwtService.getUuid(jwt);
+			//roles = _jwtService.getRoles(jwt);
+			//user_id = _jwtService.getUuid(jwt);
 			
 			TokenThreadLocal.set(jwt);
 		}
 
-		return new User(user_id);
+		return new User(jwt); 
 	}
 
 	@Override
 	public String getAuthenticationScheme() {
 		return null;
 	}
+	
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 
 }

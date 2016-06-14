@@ -19,20 +19,24 @@ public class Activator implements BundleActivator {
 				ExtHttpService httpService = (ExtHttpService) this.context.getService(reference);
 				try {
 					httpService.registerFilter(new AuthenticationFilter(), "/.*", null, 0, null);
-					System.out.println("AuthenticationFilter attivato");
+					doLog("AuthenticationFilter attivato su indirizzi: /.*");
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
 				return httpService;
 			}
 		};
+		
 		// start tracking all HTTP services...
 		httpTracker.open();
 	}
 
 	public void stop(BundleContext context) throws Exception {
-		// stop tracking all HTTP services...
 		httpTracker.close();
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }
 

@@ -99,6 +99,17 @@ public class UserServiceImpl implements UserService, ManagedService {
 				// TODO: get user's roles from system
 				// ==================================
 				String roles = "reguser, admin, root, business.busadmin";
+				if("admin".equals(user.getUsername()))
+					roles = "root";
+				else if("monty".equals(user.getUsername()))
+					roles = "root";
+				else if("business".equals(user.getUsername()))
+					roles = "business.busadmin";
+				else
+					roles = "reguser";
+				// === end TODO
+				
+				// GET APPCODE
 				String appcode = (String) pars.get("appcode");
 
 				// Create a JWT (JSON Web Token)

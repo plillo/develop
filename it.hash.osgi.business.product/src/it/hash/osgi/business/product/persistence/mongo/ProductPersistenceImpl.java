@@ -10,6 +10,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.amdatu.mongo.MongoDBService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -21,14 +24,27 @@ import it.hash.osgi.business.product.Product;
 import it.hash.osgi.business.product.persistence.api.ProductPersistence;
 import it.hash.osgi.utils.StringUtils;
 
+@Component(immediate=true)
 public class ProductPersistenceImpl implements ProductPersistence {
-	// Injected services
-	private volatile MongoDBService m_mongoDBService;
 	private static final String COLLECTION = "products";
-
 	private DBCollection productsCollection;
+	
+	// References
+	private MongoDBService m_mongoDBService;
+	
+	@Reference(service=MongoDBService.class)
+	public void setMongoDBService(MongoDBService service){
+		m_mongoDBService = service;
+		doLog("MongoDBService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetMongoDBService(MongoDBService service){
+		doLog("MongoDBService: "+(service==null?"NULL":"released"));
+		m_mongoDBService = null;
+	}
 
-	public void start() {
+	@Activate
+	void activate() {
 		productsCollection = m_mongoDBService.getDB().getCollection(COLLECTION);
 	}
  
@@ -307,5 +323,9 @@ public class ProductPersistenceImpl implements ProductPersistence {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 
 }

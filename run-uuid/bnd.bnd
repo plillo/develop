@@ -16,8 +16,9 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.configadmin)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.fileinstall)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid)',\
-	osgi.identity;filter:='(osgi.identity=org.apache.felix.scr)'
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.scr)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.resource.uuid)'
+
 -runbundles: \
 	it.hash.osgi.resource.uuid;version=snapshot,\
 	org.amdatu.mongo;version='[1.1.2,1.1.3)',\

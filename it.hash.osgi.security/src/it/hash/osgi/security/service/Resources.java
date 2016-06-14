@@ -7,12 +7,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("security")
+import org.osgi.service.component.annotations.Component;
+
+import io.swagger.annotations.Api;
+
+@Api
+@Path("/security")
+@Component(service = Resources.class)
 public class Resources {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String satHello() {
+	public String sayHello() {
 		return "Hello";
 	}
 	

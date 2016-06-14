@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.service.CategoryService;
 import it.hash.osgi.business.product.Product;
@@ -12,29 +15,65 @@ import it.hash.osgi.business.product.persistence.api.ProductPersistence;
 import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.utils.StringUtils;
 
+@Component(immediate=true)
 public class ProductServiceImpl implements ProductService{
-	private volatile ProductPersistence _productPersistence;
-	private volatile CategoryService _category;
-	private volatile UuidService _uuid;
-
-	@SuppressWarnings("unused")
-	private volatile UuidService _userSrv;
+	// References
+	// ==========
+	private CategoryService _categoryService;
+	private ProductPersistence _productPersistenceService;
+	private UuidService _uuidService;
    
+	@Reference(service=CategoryService.class)
+	public void setCategoryService(CategoryService service){
+		_categoryService = service;
+		doLog("CategoryService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetCategoryService(CategoryService service){
+		doLog("CategoryService: "+(service==null?"NULL":"released"));
+		_categoryService = null;
+	}
+	
+	@Reference(service=ProductPersistence.class)
+	public void setProductPersistence(ProductPersistence service){
+		_productPersistenceService = service;
+		doLog("ProductPersistenceService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetProductPersistence(ProductPersistence service){
+		doLog("ProductPersistenceService: "+(service==null?"NULL":"released"));
+		_productPersistenceService = null;
+	}
+	
+	@Reference(service=UuidService.class)
+	public void setUuidService(UuidService service){
+		_uuidService = service;
+		doLog("JWTService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUuidService(UuidService service){
+		doLog("JWTService: "+(service==null?"NULL":"released"));
+		_uuidService = null;
+	}
+	
 	@Override
 	public Map<String, Object> getProduct(Map<String, Object> pars) {
-		return _productPersistence.getProduct(pars);
+		return _productPersistenceService.getProduct(pars);
 	}
 
+	
+	
+	// CREATE PRODUCT
 	@Override
 	public Map<String, Object> createProduct(Product item) {
 		Map<String, Object> response = new HashMap<String, Object>();
-		String u = _uuid.createUUID("app/product");
+		String u = _uuidService.createUUID("app/product");
 		if (!StringUtils.isEmptyOrNull(u)) {
 			item.setUuid(u);
 
-			response = _productPersistence.createProduct(item);
+			response = _productPersistenceService.createProduct(item);
 			if ((Boolean) response.get("created") == false) 
-				_uuid.removeUUID(u);
+				_uuidService.removeUUID(u);
 
 		} else {
 			response.put("created", false);
@@ -58,7 +97,7 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Override
 	public Map<String, Object> updateProduct(Product item) {
-		return _productPersistence.updateProduct(item);
+		return _productPersistenceService.updateProduct(item);
 	}
 
 	@Override
@@ -81,36 +120,40 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public List<Product> retrieveProducts(String keyword) {
-		return _productPersistence.retrieveProducts(keyword);
+		return _productPersistenceService.retrieveProducts(keyword);
 	}
 	
 	@Override
 	public List<Product> retrieveProducts(String businessUuid, String keyword) {
-		return _productPersistence.retrieveProducts(businessUuid, keyword);
+		return _productPersistenceService.retrieveProducts(businessUuid, keyword);
 	}
 
 	@Override
 	public Map<String, Object> addPicture(String productUuid, String pictureUuid) {
-		return _productPersistence.addPicture(productUuid, pictureUuid);
+		return _productPersistenceService.addPicture(productUuid, pictureUuid);
 	}
 
 	@Override
 	public List<Category> retrieveProductCategories(String productUuid) {
-		Product item = _productPersistence.getProductByUuid(productUuid);
+		Product item = _productPersistenceService.getProductByUuid(productUuid);
 		if(item!=null && item.getCategories()!=null)
-			return _category.getCategoryByUuid(item.getCategories());
+			return _categoryService.getCategoryByUuid(item.getCategories());
 
 		return null;
 	}
 
 	@Override
 	public List<String> retrieveProductPictures(String productUuid) {
-		Product item = _productPersistence.getProductByUuid(productUuid);
+		Product item = _productPersistenceService.getProductByUuid(productUuid);
 		if(item!=null && item.getPictures()!=null)
 			return item.getPictures();
 
 		// return empty list
 		return new ArrayList<>();
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 
 }

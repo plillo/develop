@@ -17,8 +17,12 @@ import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.jwt.consumer.JwtContext;
 import org.jose4j.lang.JoseException;
+import org.osgi.framework.Constants;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import it.hash.osgi.security.service.SecurityService;
 
@@ -26,22 +30,43 @@ import static it.hash.osgi.utils.StringUtils.*;
 
 import static it.hash.osgi.utils.Parser.*;
 
+@Component(property={Constants.SERVICE_PID+"=it.hash.osgi.security.jwt.service"})
 public class JWTServiceImpl implements JWTService, ManagedService {
 	@SuppressWarnings("rawtypes")
 	private Dictionary properties = new Hashtable();
 	RsaJsonWebKey rsaJsonWebKey;
 	
-	private volatile SecurityService _securityService;
+	private SecurityService _securityService;
+	
+	@Reference(service=SecurityService.class)
+	public void setSecurityService(SecurityService service){
+		_securityService = service;
+		doLog("SecurityService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetSecurityService(SecurityService service){
+		doLog("SecurityService: "+(service==null?"NULL":"released"));
+		_securityService = null;
+	}
+	
+	@Activate
+	void activate() {
+		doLog("JWTService activated");
+	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 	
 	public JWTServiceImpl(){
 		try {
-		    // Generate an RSA key pair, which will be used for signing and verification of the JWT, wrapped in a JWK
+		    // Generate an RSA key pair, which will be used for signing and verification
+			// of the JWT, wrapped in a JWK
 			rsaJsonWebKey = RsaJwkGenerator.generateJwk(2048);
 
 		    // Give the JWK a Key ID (kid), which is just the polite thing to do
 		    rsaJsonWebKey.setKeyId("k1");
 		} catch (JoseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

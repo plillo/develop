@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,6 +21,8 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import io.swagger.annotations.Api;
 import it.hash.osgi.aws.s3.service.S3Service;
@@ -30,10 +33,50 @@ import it.hash.osgi.resource.uuid.api.UuidService;
 
 @Api
 @Path("businesses/1.0/")
+@Component(service = Resources.class)
 public class Resources {
+	// References
+	// ==========
 	private volatile ProductService _productService;
-	private volatile S3Service _S3Service;
 	private volatile UuidService _uuidService;
+	private volatile S3Service _S3Service;
+	
+	@Reference(service=ProductService.class)
+	public void setProductService(ProductService service){
+		_productService = service;
+		doLog("ProductService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetProductService(ProductService service){
+		doLog("ProductService: "+(service==null?"NULL":"released"));
+		_productService = null;
+	}
+	
+	@Reference(service=S3Service.class)
+	public void setS3Service(S3Service service){
+		_S3Service = service;
+		doLog("S3Service: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetS3Service(S3Service service){
+		doLog("S3Service: "+(service==null?"NULL":"released"));
+		_S3Service = null;
+	}
+	
+	@Reference(service=UuidService.class)
+	public void setUuidService(UuidService service){
+		_uuidService = service;
+		doLog("JWTService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUuidService(UuidService service){
+		doLog("JWTService: "+(service==null?"NULL":"released"));
+		_uuidService = null;
+	}
+	// === end references
+	
+	// API
+	// ===
 	
 	@PUT
 	// PUT businesses/1.0/business/{uuid}/product
@@ -134,6 +177,7 @@ public class Resources {
 	
 	// GET businesses/1.0/business/{uuid}/product/by_searchKeyword/{keyword}
 	@GET
+	@RolesAllowed("business.busadmin")
 	@Path("business/{uuid}/product/by_searchKeyword/{keyword}")
 	@Produces(MediaType.APPLICATION_JSON)
     @io.swagger.annotations.ApiOperation(value = "getBusinessProduct by keyword", notes = "...")
@@ -162,4 +206,8 @@ public class Resources {
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(items).build();
 	}
+	
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

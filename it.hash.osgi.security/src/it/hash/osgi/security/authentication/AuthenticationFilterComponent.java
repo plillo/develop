@@ -12,7 +12,36 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AuthenticationFilter implements Filter {
+import org.apache.felix.http.api.ExtHttpService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Reference;
+
+//@Component
+public class AuthenticationFilterComponent implements Filter {
+	
+	private ExtHttpService _httpService;
+	
+	@Reference(service=ExtHttpService.class)
+	public void setExtHttpService(ExtHttpService service){
+		_httpService = service;
+	}
+	
+	public void unsetExtHttpService(ExtHttpService service){
+		_httpService = null;
+	}
+	
+	@Activate
+	void activate() {
+		if(_httpService!=null)
+			try {
+				_httpService.registerFilter(this, "/.*", null, 0, null);
+				doLog("filtro attivato su path: /.*");
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		else
+			doLog("ExtHttpService: NULL");
+	}
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
         throws IOException, ServletException {
@@ -65,15 +94,18 @@ public class AuthenticationFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		doLog("init filter");
 	}
 	
 	@Override
 	public void destroy() {
 	}
 
-    private void doLog(String message) {
+    private void doLog(String message)
+    {
         System.out.println("## [" + this.getClass() + "] " + message);
     }
+
+
+
 
 }

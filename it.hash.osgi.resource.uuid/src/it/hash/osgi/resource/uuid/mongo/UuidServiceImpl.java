@@ -23,12 +23,11 @@ import it.hash.osgi.resource.uuid.api.UuidService;
 public class UuidServiceImpl implements UuidService {
 	private static final String COLLECTION = "UUID";
 	
-	private volatile MongoDBService m_mongoDBService;
+	private MongoDBService m_mongoDBService;
 	private DBCollection uuidCollection;
 
 	@Reference(service=MongoDBService.class)
 	public void setMongoDBService(MongoDBService service){
-	
 		m_mongoDBService = service;
 	}
 	

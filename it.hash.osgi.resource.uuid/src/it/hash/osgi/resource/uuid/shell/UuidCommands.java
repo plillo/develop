@@ -23,8 +23,8 @@ import it.hash.osgi.resource.uuid.api.UuidService;
 		CommandProcessor.COMMAND_FUNCTION+"=get"}
 )
 public class UuidCommands {
-	private volatile UuidService serviceUUID;
-
+	private UuidService serviceUUID;
+	
 	@Reference(service=UuidService.class)
 	public void setUUIDService(UuidService service){
 		serviceUUID = service;
@@ -56,7 +56,7 @@ public class UuidCommands {
 	public void create(String type) {
 		String uuid = serviceUUID.createUUID(type);
 		if (uuid != null) {
-			System.out.println("Created UUID" + uuid);
+			System.out.println("Created UUID: " + uuid);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class UuidCommands {
 		pars.put("uuid", uuid);
 
 		Map<String, Object> ret = serviceUUID.removeUUID(uuid);
-		System.out.println("deleted " + ret.get("deleted"));
+		System.out.println("Deleted UUID: " + ret.get("deleted"));
 	}
 
 }
