@@ -1,3 +1,0 @@
-Private-Package: it.hash.osgi.user.attribute.shell
-Bundle-Version: 1.0.0.${tstamp}
-Bundle-Activator: it.hash.osgi.user.attribute.shell.Activator

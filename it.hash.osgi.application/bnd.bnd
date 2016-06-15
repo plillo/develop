@@ -1,7 +1,7 @@
 -buildpath: \
 	osgi.core,\
 	org.apache.felix.dependencymanager,\
-	it.hash.osgi.user.attribute;version=latest
+	it.hash.osgi.user
 Bundle-Version: 1.0.0.${tstamp}
 Export-Package: it.hash.osgi.application.service
 Bundle-Activator: it.hash.osgi.application.service.Activator

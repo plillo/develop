@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1465918998698" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1465987179742" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.amazon.console"/>
@@ -162,27 +162,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.application"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201604141333"/>
+      <attribute name="version" type="Version" value="1.0.0.201606150854"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="159d2017ea76a2942996382f86041c165b6b87093209920d4b41c2a4b105d339"/>
+      <attribute name="osgi.content" value="b133894b75189750262fbceca3ed41d566fafe47648dde8a79e5b19220613359"/>
       <attribute name="url" value="it.hash.osgi.application/it.hash.osgi.application-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="7409"/>
+      <attribute name="size" type="Long" value="7406"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.application"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604141333"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606150854"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.application"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604141333"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606150854"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.application.service"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.application"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201604141333"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606150854"/>
       <directive name="uses" value="it.hash.osgi.user.attribute,org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -1284,35 +1284,132 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.user"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201606141542"/>
+      <attribute name="version" type="Version" value="1.0.1.201606151039"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="0191e7b49b86f2d7bd1da2a92658aba6cb2706bb0afb9315490e4477ccd55ae9"/>
-      <attribute name="url" value="it.hash.osgi.user/it.hash.osgi.user-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="116419"/>
+      <attribute name="osgi.content" value="089d1147b42b268c9f1f731a38bd8c7f262c9b57a155bf57d0ab1c27ac81e46b"/>
+      <attribute name="url" value="it.hash.osgi.user/it.hash.osgi.user-1.0.1.jar"/>
+      <attribute name="size" type="Long" value="108672"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.user"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606141542"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.user"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606141542"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
+      <directive name="uses" value="javax.xml.bind.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
+      <directive name="uses" value="javax.xml.bind.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.service.api"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
+      <directive name="uses" value="it.hash.osgi.user"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.attribute.service"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
+      <directive name="uses" value="it.hash.osgi.resource.uuid.api,it.hash.osgi.user.attribute"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.user.persistence.api"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.user"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606151039"/>
+      <directive name="uses" value="it.hash.osgi.user"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence"/>
     </capability>
     <capability namespace="osgi.service">
-      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.persistence.api.UserServicePersistence"/>
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.rest.Resources"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.service.AttributeService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.shell.Commands"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.password.Password"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.persistence.api.UserPersistenceService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.persistence.shell.Commands"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.rest.Resources"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.service.api.UserService,org.osgi.service.cm.ManagedService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.shell.Commands"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence"/>
       <directive name="uses" value="it.hash.osgi.user.attribute.persistence.api"/>
     </capability>
     <capability namespace="osgi.service">
-      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.persistence.api.UserServicePersistence"/>
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.rest.Resources"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute.rest"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.service.AttributeService"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute.service"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.attribute.shell.Commands"/>
+      <attribute name="osgi.command.function" type="List&lt;String&gt;" value="create,retrieveByCategories"/>
+      <attribute name="osgi.command.scope" value="userattr"/>
+      <directive name="uses" value="it.hash.osgi.user.attribute.shell"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.password.Password"/>
+      <directive name="uses" value="it.hash.osgi.user.password"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.persistence.api.UserPersistenceService"/>
       <directive name="uses" value="it.hash.osgi.user.persistence.api"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.persistence.shell.Commands"/>
+      <attribute name="osgi.command.function" type="List&lt;String&gt;" value="create,list,validate,retrieveByEMail,delete,login,loginOA,update,retrieve,implementation"/>
+      <attribute name="osgi.command.scope" value="prsuser"/>
+      <directive name="uses" value="it.hash.osgi.user.persistence.shell"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.rest.Resources"/>
+      <directive name="uses" value="it.hash.osgi.user.rest"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.service.api.UserService,org.osgi.service.cm.ManagedService"/>
+      <directive name="uses" value="it.hash.osgi.user.service.api,org.osgi.service.cm"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.user.shell.Commands"/>
+      <attribute name="osgi.command.function" type="List&lt;String&gt;" value="login,create,number,list,identify,chapw,UUID"/>
+      <attribute name="osgi.command.scope" value="user"/>
+      <directive name="uses" value="it.hash.osgi.user.shell"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(osgi.wiring.package=com.mongodb)"/>
@@ -1331,6 +1428,18 @@
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.security.jwt.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.attribute)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.persistence.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -1383,15 +1492,44 @@
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.event)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.application.service.ApplicationManager)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.security.jwt.service.JWTService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.attribute.service.AttributeService)"/>
+      <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=it.hash.osgi.user.password.Password)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.persistence.api.UserPersistenceService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.service.api.UserService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=org.amdatu.mongo.MongoDBService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=org.osgi.service.event.EventAdmin)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.ee">
@@ -1402,11 +1540,71 @@
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.attribute.service.AttributeService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.attribute.persistence.api.AttributeServicePersistence)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.attribute.service.AttributeService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=org.amdatu.mongo.MongoDBService)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=it.hash.osgi.user.password.Password)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.service.api.UserService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.persistence.api.UserPersistenceService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.service.api.UserService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.application.service.ApplicationManager)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.attribute.service.AttributeService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=org.osgi.service.event.EventAdmin)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.security.jwt.service.JWTService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.password.Password)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.persistence.api.UserPersistenceService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.user.service.api.UserService)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">

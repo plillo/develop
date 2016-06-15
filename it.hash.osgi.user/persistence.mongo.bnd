@@ -1,4 +1,0 @@
-Bundle-Version: 1.0.0.${tstamp}
-Bundle-Activator: it.hash.osgi.user.persistence.mongo.Activator
-Private-Package: it.hash.osgi.user.persistence.mongo
-Export-Package: it.hash.osgi.user.attribute.persistence.mongo

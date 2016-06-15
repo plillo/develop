@@ -1,4 +1,0 @@
-Private-Package: it.hash.osgi.user.attribute.service
-Bundle-Version: 1.0.0.${tstamp}
-Bundle-Activator: it.hash.osgi.user.attribute.service.Activator
-Export-Package: it.hash.osgi.user.attribute.service

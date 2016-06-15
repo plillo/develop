@@ -6,8 +6,6 @@
 	org.apache.felix.gogo.runtime,\
 	org.apache.felix.configadmin,\
 	it.hash.osgi.utilities,\
-	it.hash.osgi.user.user,\
-	it.hash.osgi.user.password,\
-	it.hash.osgi.user.persistence,\
-	org.apache.commons.io
+	org.apache.commons.io,\
+	it.hash.osgi.user
 -sub: *.bnd

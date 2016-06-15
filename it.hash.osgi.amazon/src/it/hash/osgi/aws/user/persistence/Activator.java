@@ -10,7 +10,7 @@ import org.osgi.service.log.LogService;
 
 import it.hash.osgi.aws.console.Console;
 import it.hash.osgi.user.password.Password;
-import it.hash.osgi.user.persistence.api.UserServicePersistence;
+import it.hash.osgi.user.persistence.api.UserPersistenceService;
 
 
 public class Activator extends DependencyActivatorBase {
@@ -19,7 +19,7 @@ public class Activator extends DependencyActivatorBase {
     	Properties props = new Properties();
 		props.put(Constants.SERVICE_RANKING, 1);
     	manager.add(createComponent()
-        	.setInterface(UserServicePersistence.class.getName(), props)
+        	.setInterface(UserPersistenceService.class.getName(), props)
             .setImplementation(UserServicePersistenceImpl.class)
             .add(createServiceDependency()
                     .setService(LogService.class)

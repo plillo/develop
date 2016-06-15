@@ -35,19 +35,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.amazon.console)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.amazon.s3)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.utilities)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.persistence)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.rest)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.service)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.attribute.shell)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.password)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.persistence)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.persistence.mock)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.persistence.mongo)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.rest)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.service)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.shell)',\
-	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user.user)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.user)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.product)',\
@@ -73,25 +61,13 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.amazon.console;version=snapshot,\
 	it.hash.osgi.amazon.s3;version=snapshot,\
 	it.hash.osgi.application;version=snapshot,\
+	it.hash.osgi.user;version=snapshot,\
 	it.hash.osgi.business;version=snapshot,\
 	it.hash.osgi.business.product;version=snapshot,\
 	it.hash.osgi.business.category;version=snapshot,\
 	it.hash.osgi.resource.uuid;version=snapshot,\
 	it.hash.osgi.security;version=snapshot,\
 	it.hash.osgi.swagger.ui;version=snapshot,\
-	it.hash.osgi.user.attribute;version=snapshot,\
-	it.hash.osgi.user.attribute.persistence;version=snapshot,\
-	it.hash.osgi.user.attribute.rest;version=snapshot,\
-	it.hash.osgi.user.attribute.service;version=snapshot,\
-	it.hash.osgi.user.attribute.shell;version=snapshot,\
-	it.hash.osgi.user.password;version=snapshot,\
-	it.hash.osgi.user.persistence;version=snapshot,\
-	it.hash.osgi.user.persistence.mock;version=snapshot,\
-	it.hash.osgi.user.persistence.mongo;version=snapshot,\
-	it.hash.osgi.user.rest;version=snapshot,\
-	it.hash.osgi.user.service;version=snapshot,\
-	it.hash.osgi.user.shell;version=snapshot,\
-	it.hash.osgi.user.user;version=snapshot,\
 	it.hash.osgi.utilities;version=snapshot,\
 	jackson-core-asl;version='[1.9.8,1.9.9)',\
 	jackson-mapper-asl;version='[1.9.8,1.9.9)',\

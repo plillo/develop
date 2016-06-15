@@ -1,4 +1,0 @@
-Bundle-Version: 1.0.0.${tstamp}
-Private-Package: it.hash.osgi.user.rest
-Bundle-Activator: it.hash.osgi.user.rest.Activator
-Export-Package: it.hash.osgi.user.rest

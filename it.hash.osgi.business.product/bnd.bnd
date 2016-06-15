@@ -14,8 +14,8 @@
 	it.hash.osgi.amazon.s3,\
 	it.hash.osgi.resource.uuid,\
 	org.osgi.service.component.annotations,\
-	it.hash.osgi.business.category,\
-	com.eclipsesource.jaxrs.swagger-all
+	com.eclipsesource.jaxrs.swagger-all,\
+	it.hash.osgi.business.category
 Bundle-Version: 1.0.1.${tstamp}
 -dsannotations: *
 Private-Package: \

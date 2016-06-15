@@ -1,6 +1,7 @@
 package it.hash.osgi.user.shell;
 
 import static it.hash.osgi.utils.StringUtils.isEON;
+import static it.hash.osgi.utils.StringUtils.defaultIfNullOrEmpty;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -8,17 +9,45 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.felix.service.command.CommandProcessor;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import it.hash.osgi.user.User;
 import it.hash.osgi.user.service.api.Status;
 import it.hash.osgi.user.service.api.UserService;
 
-
+@Component(
+	immediate=true, 
+	service = Commands.class, 
+	property = {
+		CommandProcessor.COMMAND_SCOPE+"=user",
+		CommandProcessor.COMMAND_FUNCTION+"=login",
+		CommandProcessor.COMMAND_FUNCTION+"=create",
+		CommandProcessor.COMMAND_FUNCTION+"=number",
+		CommandProcessor.COMMAND_FUNCTION+"=list",
+		CommandProcessor.COMMAND_FUNCTION+"=identify",
+		CommandProcessor.COMMAND_FUNCTION+"=chapw",	
+		CommandProcessor.COMMAND_FUNCTION+"=UUID"
+	}
+)
 public class Commands {
-	private volatile UserService _userService;
+	// References
+	private UserService _userService;
+	
+	@Reference(service=UserService.class)
+	public void setUserService(UserService service){
+		_userService = service;
+		doLog("UserService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetUserService(UserService service){
+		doLog("UserService: "+(service==null?"NULL":"released"));
+		_userService = null;
+	}
 
 	public void login(String identificator, String password) {
 		Map<String, Object> response = new TreeMap<String, Object>();
@@ -104,7 +133,7 @@ public class Commands {
 		if(users!=null){
 			for(Iterator<User> it = users.iterator();it.hasNext();){
 				User user = it.next();
-				System.out.println(String.format("%-20s%-20s%-20s%-20s", user.getUuid(), user.getLastName(), user.getFirstName(), user.getEmail()));
+				System.out.println(String.format("%-20s|%-20s|%-20s|%-20s", defaultIfNullOrEmpty(user.get_id(),"#"), defaultIfNullOrEmpty(user.getUuid(),"#"), defaultIfNullOrEmpty(user.getLastName(),"#"), defaultIfNullOrEmpty(user.getFirstName(),"#")));
 			}
 		}
 	}
@@ -154,5 +183,8 @@ public class Commands {
 		
 		System.out.println(json);
 	}
-	
+
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }

@@ -1,3 +1,0 @@
-Bundle-Version: 1.0.0.${tstamp}
-Private-Package: it.hash.osgi.user.persistence.mock
-Bundle-Activator: it.hash.osgi.user.persistence.mock.Activator
