@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1465987179742" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1466072102094" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.amazon.console"/>
@@ -202,28 +202,51 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.broker"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201606111600"/>
+      <attribute name="version" type="Version" value="1.0.0.201606161014"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="d2d18d366257bc5a41b69c64cf22a59d9de373ed58eb43b2da746ae49c14de37"/>
+      <attribute name="osgi.content" value="48940767dc156bfd2b33b5292be02d3a6ee6ec4a5061801a8f610d2e2e315534"/>
       <attribute name="url" value="it.hash.osgi.broker/it.hash.osgi.broker-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="13435"/>
+      <attribute name="size" type="Long" value="14314"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.broker"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606111600"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606161014"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.broker"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606111600"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606161014"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.broker"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.broker"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606111600"/>
-      <directive name="uses" value="javax.ws.rs,javax.ws.rs.core,org.apache.felix.dm,org.eclipse.paho.client.mqttv3,org.osgi.framework,org.osgi.service.cm"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606161014"/>
+      <directive name="uses" value="it.hash.osgi.security.jwt.service,javax.ws.rs,javax.ws.rs.core,org.eclipse.paho.client.mqttv3,org.osgi.service.cm"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.broker.BrokerService,org.osgi.service.cm.ManagedService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.broker.Commands"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.broker.Resources"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.broker.BrokerService,org.osgi.service.cm.ManagedService"/>
+      <directive name="uses" value="it.hash.osgi.broker,org.osgi.service.cm"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.broker.Commands"/>
+      <attribute name="osgi.command.function" type="List&lt;String&gt;" value="publish,subscribe"/>
+      <attribute name="osgi.command.scope" value="broker"/>
+      <directive name="uses" value="it.hash.osgi.broker"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.broker.Resources"/>
+      <directive name="uses" value="it.hash.osgi.broker"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.security.jwt.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
@@ -238,19 +261,33 @@
       <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs.core)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.felix.dm)(version&gt;=3.0.0)(!(version&gt;=4.0.0)))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.eclipse.paho.client.mqttv3)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.cm)(version&gt;=1.4.0)(!(version&gt;=2.0.0)))"/>
     </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.broker.BrokerService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.security.jwt.service.JWTService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
     <requirement namespace="osgi.ee">
       <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.broker.BrokerService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.security.jwt.service.JWTService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="effective" value="active"/>
     </requirement>
   </resource>
   <resource>

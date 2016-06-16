@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 	private UserPersistenceService _persistenceService;
 	private UuidService _uuidService;
 	private AttributeService _attributeService;
-	private volatile JWTService _jwtService;
+	private JWTService _jwtService;
 	
 	@Reference(service=EventAdmin.class)
 	public void setEventAdmin(EventAdmin service){
