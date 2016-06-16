@@ -67,6 +67,8 @@ public class CoreMqttClient implements MqttCallback {
 			
 			String uri = brokerUrl + ":" + brokerPort;
 
+			System.out.println("Connecting to broker at: " + uri);
+			
 			// Connect to Broker
 			try {
 				myClient = new MqttClient(uri, clientID);
@@ -75,7 +77,7 @@ public class CoreMqttClient implements MqttCallback {
 				
 				System.out.println("Connected to broker at: " + uri);
 			} catch (MqttException e) {
-				e.printStackTrace();
+				System.out.println(e.toString());
 			}
 		}
 	}

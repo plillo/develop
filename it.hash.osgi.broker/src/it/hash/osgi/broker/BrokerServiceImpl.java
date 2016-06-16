@@ -4,7 +4,9 @@ import java.util.Dictionary;
 
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
+import org.osgi.service.component.annotations.Component;
 
+@Component(immediate=true)
 public class BrokerServiceImpl implements BrokerService, ManagedService {
 	@SuppressWarnings("rawtypes")
 	private Dictionary properties;

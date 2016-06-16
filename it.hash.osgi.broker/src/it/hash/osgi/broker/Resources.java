@@ -11,12 +11,29 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
 import it.hash.osgi.security.jwt.service.JWTService;
 
-
 @Path("broker/1.0")
+@Component(service = Resources.class)
 public class Resources {
-	private volatile JWTService _jwtService;
+	// References
+	private JWTService _jwtService;
+	
+	@Reference(service=JWTService.class)
+	public void setJWTService(JWTService service){
+		_jwtService = service;
+		doLog("JWTService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetJWTService(JWTService service){
+		doLog("JWTService: "+(service==null?"NULL":"released"));
+		_jwtService = null;
+	}
+	// === end references
+	
 	
 	@GET
 	public String version() {
@@ -50,4 +67,7 @@ public class Resources {
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
+    private void doLog(String message) {
+        System.out.println("## [" + this.getClass() + "] " + message);
+    }
 }
