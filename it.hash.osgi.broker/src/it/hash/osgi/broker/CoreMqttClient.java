@@ -100,12 +100,12 @@ public class CoreMqttClient implements MqttCallback {
 		}
 	}
 
-	public void publish(String topic, String message) {
+	public synchronized void publish(String topic, String message) {
 		MqttTopic myTopic = myClient.getTopic(topic);
 		
 		MqttMessage msg = new MqttMessage(message.getBytes());
 		
-   		int pubQoS = 0;
+   		int pubQoS = 1;
 		msg.setQos(pubQoS);
 		msg.setRetained(false);
 

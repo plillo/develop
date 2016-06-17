@@ -1,0 +1,13 @@
+-buildpath: \
+	osgi.core,\
+	com.eclipsesource.jaxrs.swagger-all,\
+	org.osgi.service.component.annotations,\
+	com.eclipsesource.jaxrs.jersey-all,\
+	net.vz.mongodb.jackson.mongo-jackson-mapper,\
+	it.hash.osgi.broker,\
+	it.hash.osgi.utilities
+Bundle-Version: 1.0.1.${tstamp}
+-dsannotations: *
+Private-Package: \
+	it.hash.osgi.games.tris.rest,\
+	it.hash.osgi.games.tris.service

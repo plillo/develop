@@ -41,6 +41,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.product)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.security)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.broker)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.games.tris)',\
 	osgi.identity;filter:='(osgi.identity=runtest.it.hash.osgi.restapi)',\
 	osgi.identity;filter:='(osgi.identity=org.eclipse.paho.client.mqttv3)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.scr)'
@@ -73,6 +74,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.swagger.ui;version=snapshot,\
 	it.hash.osgi.user;version=snapshot,\
 	it.hash.osgi.utilities;version=snapshot,\
+	it.hash.osgi.games.tris;version=snapshot,\
 	jackson-core-asl;version='[1.9.8,1.9.9)',\
 	jackson-mapper-asl;version='[1.9.8,1.9.9)',\
 	json;version='[20160212.0.0,20160212.0.1)',\
