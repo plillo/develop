@@ -39,6 +39,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.category)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.product)',\
+	osgi.identity;filter:='(osgi.identity=it.hash.osgi.business.promotion)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.security)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.broker)',\
 	osgi.identity;filter:='(osgi.identity=it.hash.osgi.games.tris)',\
@@ -69,6 +70,7 @@ Bundle-Version: 1.0.0.${tstamp}
 	it.hash.osgi.business;version=snapshot,\
 	it.hash.osgi.business.category;version=snapshot,\
 	it.hash.osgi.business.product;version=snapshot,\
+	it.hash.osgi.business.promotion;version=snapshot,\
 	it.hash.osgi.resource.uuid;version=snapshot,\
 	it.hash.osgi.security;version=snapshot,\
 	it.hash.osgi.swagger.ui;version=snapshot,\

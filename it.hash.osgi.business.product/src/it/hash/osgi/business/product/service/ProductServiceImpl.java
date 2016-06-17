@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Map<String, Object> createProduct(Product item) {
 		Map<String, Object> response = new HashMap<String, Object>();
-		String u = _uuidService.createUUID("app/product");
+		String u = _uuidService.createUUID("app/business.product");
 		if (!StringUtils.isEmptyOrNull(u)) {
 			item.setUuid(u);
 

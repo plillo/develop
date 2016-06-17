@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1466100729170" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1466156420491" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.amazon.console"/>
@@ -646,6 +646,166 @@
     </requirement>
     <requirement namespace="osgi.service">
       <directive name="filter" value="(objectClass=it.hash.osgi.business.product.service.ProductService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.extender">
+      <directive name="filter" value="(&amp;(osgi.extender=osgi.component)(version&gt;=1.1.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="it.hash.osgi.business.promotion"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" type="Version" value="0.0.0.201606170940"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="osgi.content" value="91897e60df03992edaa6bb877056ff0cb7388bc125ffcd9c0308b34288fcffe7"/>
+      <attribute name="url" value="it.hash.osgi.business.promotion/it.hash.osgi.business.promotion-0.0.0.jar"/>
+      <attribute name="size" type="Long" value="41302"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="osgi.wiring.bundle" value="it.hash.osgi.business.promotion"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201606170940"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="osgi.wiring.host" value="it.hash.osgi.business.promotion"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201606170940"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.business.promotion.persistence.api"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.promotion"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201606170940"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.business.promotion.service"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.promotion"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201606170940"/>
+      <directive name="uses" value="it.hash.osgi.business.promotion.persistence.api,it.hash.osgi.resource.uuid.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.business.promotion.shell"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.promotion"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201606170940"/>
+      <directive name="uses" value="it.hash.osgi.business.promotion.service"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="it.hash.osgi.business.promotion.rest"/>
+      <attribute name="version" type="Version" value="1.0.0"/>
+      <attribute name="bundle-symbolic-name" value="it.hash.osgi.business.promotion"/>
+      <attribute name="bundle-version" type="Version" value="0.0.0.201606170940"/>
+      <directive name="uses" value="io.swagger.annotations,it.hash.osgi.aws.s3.service,it.hash.osgi.business.promotion.service,it.hash.osgi.resource.uuid.api,javax.ws.rs,javax.ws.rs.core,org.glassfish.jersey.media.multipart"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.rest.Resources"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.service.PromotionService"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.shell.Commands"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence"/>
+      <directive name="uses" value="it.hash.osgi.business.promotion.persistence.api"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.rest.Resources"/>
+      <directive name="uses" value="it.hash.osgi.business.promotion.rest"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.service.PromotionService"/>
+      <directive name="uses" value="it.hash.osgi.business.promotion.service"/>
+    </capability>
+    <capability namespace="osgi.service">
+      <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.business.promotion.shell.Commands"/>
+      <attribute name="osgi.command.function" type="List&lt;String&gt;" value="create,delete,list,get"/>
+      <attribute name="osgi.command.scope" value="promotion"/>
+      <directive name="uses" value="it.hash.osgi.business.promotion.shell"/>
+    </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(osgi.wiring.package=com.mongodb)"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=io.swagger.annotations)(version&gt;=1.5.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.aws.s3.service)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.resource.uuid.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.user.service.api)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=it.hash.osgi.utils)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.ws.rs.core)(version&gt;=2.0.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=net.vz.mongodb.jackson)(version&gt;=1.4.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.amdatu.mongo)(version&gt;=1.0.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.glassfish.jersey.media.multipart)(version&gt;=2.22.0)(!(version&gt;=3.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.event)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.osgi.service.log)(version&gt;=1.3.0)(!(version&gt;=2.0.0)))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.business.promotion.service.PromotionService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=org.amdatu.mongo.MongoDBService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.7))"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=org.amdatu.mongo.MongoDBService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.business.promotion.service.PromotionService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.resource.uuid.api.UuidService)"/>
+      <directive name="effective" value="active"/>
+    </requirement>
+    <requirement namespace="osgi.service">
+      <directive name="filter" value="(objectClass=it.hash.osgi.business.promotion.service.PromotionService)"/>
       <directive name="effective" value="active"/>
     </requirement>
     <requirement namespace="osgi.extender">
