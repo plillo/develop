@@ -2,6 +2,7 @@ package it.hash.osgi.business.promotion;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
@@ -13,10 +14,10 @@ public class Promotion implements Comparable<Promotion> {
 	private String _id;
 	private String uuid;
 	private String type;
-	private Long startTime;
-	private Long endTime;
+	private Long fromDate;
+	private Long toDate;
 	private String pictureUuid;
-	// 
+	//
 	private String businessUuid;
 	private String businessName;
 	private String businessPIva;
@@ -122,26 +123,23 @@ public class Promotion implements Comparable<Promotion> {
 		this.type = type;
 	}
 
-	public Long getStartTime() {
-		return startTime;
+	public Long getFromDate() {
+		return fromDate;
 	}
 
-	public void setStartTime(Long startTime) {
-		this.startTime = startTime;
+	public void setFromDate(Long fromDate) {
+		this.fromDate = fromDate;
 	}
 
-	public Long getEndTime() {
-		return endTime;
+	public Long getToDate() {
+		return toDate;
 	}
 
-	public void setEndTime(Long endTime) {
-		this.endTime = endTime;
+	public void setToDate(Long endTime) {
+		this.toDate = endTime;
 	}
 
-	@Override
-	public String toString() {
-		return "Promotion [uuid=" + uuid + ", type=" + type + ", businessName=" + businessName + "]";
-	}
+	
 
 	@Override
 	public int hashCode() {
@@ -175,9 +173,75 @@ public class Promotion implements Comparable<Promotion> {
 	}
 
 	public void setByMap(Map<String, Object> map) {
-		this.setUuid((String) map.get("uuid"));
-		this.setType((String) map.get("type"));
-		this.setBusinessName((String) map.get("businessName"));
+		String attribute = null;
+		Set<String> entry = map.keySet();
+		for (Object elem : entry) {
+			attribute = (String) elem;
+			if (attribute.equals("_id")) {
+				Object o = map.get(attribute).toString();
+				this.set_id(o.toString());
+			} else {
+
+				switch (attribute) {
+				case "uuid":
+					this.setUuid((String) map.get(attribute));
+					break;
+				case "type":
+					this.setType((String) map.get("type"));
+					break;
+			/*	case "fromDate":
+					this.setFromDate(((Double) map.get("fromDate")).longValue());
+					break;*/
+				case "toDate":
+					
+					this.setToDate(((Double) map.get("toDate")).longValue());
+					break;
+				case "pictureUuid":
+					this.setPictureUuid((String) map.get(attribute));
+					break;
+				case "businessUuid":
+					this.setBusinessUuid((String) map.get(attribute));
+					break;
+				case "businessName":
+					this.setBusinessName((String) map.get(attribute));
+					break;
+
+				case "businessPIva":
+					this.setBusinessPIva((String) map.get(attribute));
+					break;
+
+				case "businessFiscalCode":
+					this.setBusinessFiscalCode((String) map.get(attribute));
+					break;
+
+				case "businessAddress":
+					this.setBusinessAddress((String) map.get(attribute));
+					break;
+
+				case "businessCity":
+					this.setBusinessCity((String) map.get(attribute));
+					break;
+
+				case "businessCap":
+					this.setBusinessCap((String) map.get(attribute));
+					break;
+
+				case "businessNation":
+					this.setBusinessUuid((String) map.get(attribute));
+					break;
+
+				}
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Promotion [_id=" + _id + ", uuid=" + uuid + ", type=" + type + ", fromDate=" + fromDate + ", toDate="
+				+ toDate + ", pictureUuid=" + pictureUuid + ", businessUuid=" + businessUuid + ", businessName="
+				+ businessName + ", businessPIva=" + businessPIva + ", businessFiscalCode=" + businessFiscalCode
+				+ ", businessAddress=" + businessAddress + ", businessCity=" + businessCity + ", businessCap="
+				+ businessCap + ", businessNation=" + businessNation + "]";
 	}
 
 	public Map<String, Object> toMap() {
