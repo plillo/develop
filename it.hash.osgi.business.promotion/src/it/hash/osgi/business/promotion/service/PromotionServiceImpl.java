@@ -22,36 +22,28 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@SuppressWarnings("unused")
 	private volatile UserService _userSrv;
-   // TODO non iniettate !!!
+	// TODO non iniettate !!!
 	@SuppressWarnings("unused")
 	private volatile EventAdmin _eventAdminService;
-	
-	@Reference(service=PromotionServicePersistence.class)
-	public void setPromotionServicePersistence(PromotionServicePersistence service){
-	
+
+	@Reference(service = PromotionServicePersistence.class)
+	public void setPromotionServicePersistence(PromotionServicePersistence service) {
+
 		_promotionPersistenceService = service;
 	}
-	
-	public void unsetPromotionServicePersistence(PromotionServicePersistence service){
+
+	public void unsetPromotionServicePersistence(PromotionServicePersistence service) {
 		_promotionPersistenceService = null;
 	}
-	
-	
-	
-	@Reference(service=UuidService.class)
-	public void setUuidService(UuidService service){
-	
+
+	@Reference(service = UuidService.class)
+	public void setUuidService(UuidService service) {
+
 		_uuid = service;
 	}
-	
-	public void unsetUuidService(UuidService service){
+
+	public void unsetUuidService(UuidService service) {
 		_uuid = null;
-	}
-	
-	
-	@Override
-	public Map<String, Object> getPromotion(Map<String, Object> pars) {
-		return _promotionPersistenceService.getPromotion(pars);
 	}
 
 	@Override
@@ -62,7 +54,7 @@ public class PromotionServiceImpl implements PromotionService {
 			promotion.setUuid(uuid);
 
 			response = _promotionPersistenceService.addPromotion(promotion);
-			if ((Boolean) response.get("created") == false) 
+			if ((Boolean) response.get("created") == false)
 				_uuid.removeUUID(uuid);
 
 		} else {
@@ -81,12 +73,11 @@ public class PromotionServiceImpl implements PromotionService {
 			pars.put("uuid", u);
 			response = _promotionPersistenceService.addPromotion(pars);
 
-			if ((Boolean) response.get("created") == false) 
+			if ((Boolean) response.get("created") == false)
 				_uuid.removeUUID(u);
 
-				// TODO INTEGRITA' REFERENZIALE
+			// TODO INTEGRITA' REFERENZIALE
 
-			
 		} else {
 
 			response.put("created", false);
@@ -97,51 +88,50 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Map<String, Object> deletePromotion(String uuid) {
-		Map<String, Object> response = new HashMap<String, Object>();
-
-		if (!StringUtils.isEmptyOrNull(uuid)) {
-			response = _uuid.removeUUID(uuid);
-
-			return _promotionPersistenceService.deletePromotion(uuid);
-		} else {
-			response.put("created", false);
-			response.put("errorUUIDService", true);
-			response.put("returnCode", 630);
-			return response;
-		}
+	public Map<String, Object> getPromotion(Map<String, Object> pars) {
+		return _promotionPersistenceService.getPromotion(pars);
 	}
 
 	@Override
-	public Map<String, Object> updatePromotion(String uuid, Promotion promotion) {
-		return _promotionPersistenceService.updatePromotion(uuid, promotion);
+	public Map<String, Object> deletePromotion(String uuid, String type) {
+		Map<String, Object> response=null ;
+
+		if (!StringUtils.isEmptyOrNull(uuid)) 		
+			response = _uuid.removeUUID(uuid);
+		
+		  if( response!=null ){
+			  if( (Boolean)response.get("deleted"))
+			return _promotionPersistenceService.deletePromotion(uuid, type);
+		 else {
+			response.put("deleted", false);
+			response.put("errorUUIDService", true);
+			response.put("returnCode", 630);
+		
+		}}
+			return response; 
 	}
-	
+
+	@Override
+	public Map<String, Object> updatePromotion(Promotion promotion) {
+		return _promotionPersistenceService.updatePromotion(promotion);
+	}
+
 	@Override
 	public Map<String, Object> updatePromotion(String uuid, Map<String, Object> pars) {
 		return _promotionPersistenceService.updatePromotion(uuid, pars);
 	}
-	
-	/*	@Override
-	public List<Promotion> retrievePromotions(String criterion, String search) {
-		if(_uuid.isUUID(search)){
-			List<Promotion> list = new ArrayList<Promotion>();
-			list.add(_promotionPersistenceService.getPromotionByBusinessUuid(search));
-			return list;
-		}
-		else
-			return _promotionPersistenceService.retrievePromotions(criterion, search);
-	}
-*/
+
+	/*
+	 * @Override public List<Promotion> retrievePromotions(String criterion,
+	 * String search) { if(_uuid.isUUID(search)){ List<Promotion> list = new
+	 * ArrayList<Promotion>();
+	 * list.add(_promotionPersistenceService.getPromotionByBusinessUuid(search))
+	 * ; return list; } else return
+	 * _promotionPersistenceService.retrievePromotions(criterion, search); }
+	 */
 	@Override
 	public List<Promotion> getPromotions() {
 		return _promotionPersistenceService.getPromotions();
-	}
-
-	@Override
-	public Map<String, Object> getBusiness(Map<String, Object> pars) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -158,14 +148,14 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public List<Promotion> retrievepromotions(String criterion, String search) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return _promotionPersistenceService.retrievePromotions(criterion, search);
 	}
 
 	@Override
 	public Promotion getPromotion(String uuid) {
 		// TODO Auto-generated method stub
-		return null;
+		return this._promotionPersistenceService.getPromotionByUuid(uuid);
 	}
 
 	@Override
@@ -175,112 +165,82 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Promotion getPromotionByBusinessFiscalCode(String BusinessFiscalCode) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessPartitaIva(String partitaIva) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessName(String Name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessName(String Name, boolean withLogo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessId(String businessId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessId(String businessId, boolean withLogo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessUuid(String uuid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Promotion getPromotionByBusinessUuid(String uuid, boolean withLogo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Promotion> retrievePromotion(String search) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/*@Override
-	public Business getBusiness(String uuid, boolean withLogo){
-		return _businessPersistenceService.getBusinessByUuid(uuid, withLogo);
-	}
-	
-	@Override
-	public Business getBusiness(String uuid){
-		return _businessPersistenceService.getBusinessByUuid(uuid);
-	}
-	
-	@Override
-	public Map<String, Object> updateFollowersToBusiness(Map<String, Object> pars) {
-		return _businessPersistenceService.updateBusiness("", pars);
+		return _promotionPersistenceService.retrievePromotions(search);
+
 	}
 
 	@Override
-	public Map<String, Object> follow(String businessUuid, String userUuid) {
-		return _businessPersistenceService.follow(businessUuid, userUuid);
+	public List<Promotion> getPromotionsByBusinessUuid(String businessUuid) {
+
+		return _promotionPersistenceService.getPromotionByBusinessUuid(businessUuid);
 	}
 
-	@Override
-	public Map<String, Object> unfollow(String businessUuid, String userUuid) {
-		return _businessPersistenceService.unFollow(businessUuid, userUuid);
-	}
-
-	@Override
-	public List<Business> retrieveFollowedByUser(String uuid) {
-		return _businessPersistenceService.retrieveFollowedByUser(uuid);
-	}
-	
-	@Override
-	public List<Business> retrieveFollowedByUser(String uuid, boolean withLogo) {
-		return _businessPersistenceService.retrieveFollowedByUser(uuid, withLogo);
-	}
-
-	@Override
-	public List<Business> retrieveOwnedByUser(String uuid) {
-		return _businessPersistenceService.retrieveOwnedByUser(uuid);
-	}
-	
-	@Override
-	public List<Business> retrieveOwnedByUser(String uuid, boolean withLogo) {
-		return _businessPersistenceService.retrieveOwnedByUser(uuid, withLogo);
-	}
-
-	@Override
-	public List<Business> retrieveNotFollowedByUser(String uuid, String search) {
-		return _businessPersistenceService.retrieveNotFollowedByUser(uuid, search);
-	}
-	
-	@Override
-	public List<Business> retrieveNotFollowedByUser(String uuid, String search, boolean withLogo) {
-		return _businessPersistenceService.retrieveNotFollowedByUser(uuid, search, withLogo);
-	}
-*/
+	/*
+	 * @Override public Promotion getPromotionByBusinessFiscalCode(String
+	 * BusinessFiscalCode) { // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Promotion getPromotionByBusinessPartitaIva(String
+	 * partitaIva) { // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Promotion getPromotionByBusinessName(String Name) { //
+	 * TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Promotion getPromotionByBusinessName(String Name,
+	 * boolean withLogo) { // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Promotion getPromotionByBusinessId(String businessId) {
+	 * // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Promotion getPromotionByBusinessId(String businessId,
+	 * boolean withLogo) { // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Promotion getPromotionByBusinessUuid(String uuid,
+	 * boolean withLogo) { // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public List<Promotion> retrievePromotion(String search) { //
+	 * TODO Auto-generated method stub return null; }
+	 * 
+	 * /*@Override public Business getBusiness(String uuid, boolean withLogo){
+	 * return _businessPersistenceService.getBusinessByUuid(uuid, withLogo); }
+	 * 
+	 * @Override public Business getBusiness(String uuid){ return
+	 * _businessPersistenceService.getBusinessByUuid(uuid); }
+	 * 
+	 * @Override public Map<String, Object>
+	 * updateFollowersToBusiness(Map<String, Object> pars) { return
+	 * _businessPersistenceService.updateBusiness("", pars); }
+	 * 
+	 * @Override public Map<String, Object> follow(String businessUuid, String
+	 * userUuid) { return _businessPersistenceService.follow(businessUuid,
+	 * userUuid); }
+	 * 
+	 * @Override public Map<String, Object> unfollow(String businessUuid, String
+	 * userUuid) { return _businessPersistenceService.unFollow(businessUuid,
+	 * userUuid); }
+	 * 
+	 * @Override public List<Business> retrieveFollowedByUser(String uuid) {
+	 * return _businessPersistenceService.retrieveFollowedByUser(uuid); }
+	 * 
+	 * @Override public List<Business> retrieveFollowedByUser(String uuid,
+	 * boolean withLogo) { return
+	 * _businessPersistenceService.retrieveFollowedByUser(uuid, withLogo); }
+	 * 
+	 * @Override public List<Business> retrieveOwnedByUser(String uuid) { return
+	 * _businessPersistenceService.retrieveOwnedByUser(uuid); }
+	 * 
+	 * @Override public List<Business> retrieveOwnedByUser(String uuid, boolean
+	 * withLogo) { return _businessPersistenceService.retrieveOwnedByUser(uuid,
+	 * withLogo); }
+	 * 
+	 * @Override public List<Business> retrieveNotFollowedByUser(String uuid,
+	 * String search) { return
+	 * _businessPersistenceService.retrieveNotFollowedByUser(uuid, search); }
+	 * 
+	 * @Override public List<Business> retrieveNotFollowedByUser(String uuid,
+	 * String search, boolean withLogo) { return
+	 * _businessPersistenceService.retrieveNotFollowedByUser(uuid, search,
+	 * withLogo); }
+	 */
 }
