@@ -61,6 +61,7 @@ public class PromotionServiceImpl implements PromotionService {
 			response.put("created", false);
 			response.put("returnCode", 630);
 		}
+
 		return response;
 	}
 

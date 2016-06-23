@@ -16,7 +16,9 @@
 	com.eclipsesource.jaxrs.swagger-all,\
 	it.hash.osgi.amazon.s3,\
 	it.hash.osgi.user,\
-	it.hash.osgi.resource.uuid
+	it.hash.osgi.resource.uuid,\
+	json,\
+	it.hash.osgi.business
 
 -testpath: \
 	${junit}

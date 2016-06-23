@@ -28,7 +28,6 @@ import org.osgi.service.component.annotations.Reference;
 import io.swagger.annotations.Api;
 import it.hash.osgi.aws.s3.service.S3Service;
 import it.hash.osgi.business.Business;
-
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
 import it.hash.osgi.business.promotion.service.PromotionService;

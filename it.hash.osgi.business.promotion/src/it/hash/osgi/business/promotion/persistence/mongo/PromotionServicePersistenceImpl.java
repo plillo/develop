@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.amdatu.mongo.MongoDBService;
+import org.bson.types.ObjectId;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
-import org.amdatu.mongo.MongoDBService;
-import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -24,11 +24,8 @@ import com.mongodb.DBObject;
 //import com.mongodb.WriteResult;
 import com.mongodb.WriteResult;
 
-import it.hash.osgi.business.Business;
-import it.hash.osgi.business.product.Product;
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
-import it.hash.osgi.business.promotion.SpecialOffer;
 import it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence;
 import it.hash.osgi.utils.StringUtils;
 

@@ -14,8 +14,8 @@ public class PromotionFactory {
 			
 			switch (attribute) {
 			
-			case "SpecialPrice":
-				return new SpecialPrice();
+			case "SPO":
+				return new SpecialOffer();
 
 			case "LastMinute":
 				return new LastMinute();
@@ -35,8 +35,8 @@ public class PromotionFactory {
 			
 			switch (type) {
 			
-			case "SpecialPrice":
-				return new SpecialPrice();
+			case "SPO":
+				return new SpecialOffer();
 
 			case "LastMinute":
 				return new LastMinute();

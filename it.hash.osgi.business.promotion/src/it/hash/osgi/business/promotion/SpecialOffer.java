@@ -8,8 +8,6 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import it.hash.osgi.business.product.Product;
-
 public class SpecialOffer extends Promotion {
 
 	private String uuidProduct;
