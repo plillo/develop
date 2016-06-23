@@ -1,0 +1,37 @@
+#%RAML 0.8
+title: Tris Game API
+version: v1
+baseUri: http://example.com
+protocols: [ HTTP ]
+/games: 
+  description: ""
+  /1.0: 
+    description: ""
+    /tris: 
+      description: ""
+      /player: 
+        description: ""
+        /{clientid}: 
+          description: ""
+          /action: 
+            post: 
+              description: |
+                subscribe
+                ...
+              body: 
+                application/json: 
+              responses: 
+                200: 
+                  body: 
+                    application/json: 
+          /subscribe: 
+            post: 
+              description: |
+                subscribe
+                ...
+              body: 
+                application/json: 
+              responses: 
+                200: 
+                  body: 
+                    application/json: 

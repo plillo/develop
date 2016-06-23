@@ -1,5 +1,9 @@
 package it.hash.osgi.broker;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Dictionary;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -100,12 +104,19 @@ public class CoreMqttClient implements MqttCallback {
 		}
 	}
 
-	public synchronized void publish(String topic, String message) {
+	public synchronized void publish(String topic, int pubQoS, String message) {
 		MqttTopic myTopic = myClient.getTopic(topic);
 		
-		MqttMessage msg = new MqttMessage(message.getBytes());
+		byte[] bytes;
+		try {
+			bytes = URLEncoder.encode(message, "UTF-8").getBytes();
+			message = URLDecoder.decode(new String(bytes, StandardCharsets.UTF_8), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			bytes = new byte[]{}; // void bytes array
+		}
+		MqttMessage msg = new MqttMessage(bytes);
 		
-   		int pubQoS = 1;
 		msg.setQos(pubQoS);
 		msg.setRetained(false);
 

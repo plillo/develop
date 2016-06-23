@@ -18,13 +18,23 @@ public class BrokerServiceImpl implements BrokerService, ManagedService {
 	}
 	
 	@Override
+	public void subscribe(String topic, int qos) {
+		mqttClient.subscribe(topic, qos);
+	}
+	
+	@Override
 	public void subscribe(String topic){
 		mqttClient.subscribe(topic, 0);
 	}
 	
 	@Override
+	public void publish(String topic, int qos, String message) {
+		mqttClient.publish(topic, qos, message);
+	}
+
+	@Override
 	public void publish(String topic, String message){
-		mqttClient.publish(topic, message);
+		mqttClient.publish(topic, 0, message);
 	}
 
 	@Override

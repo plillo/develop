@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1466156420491" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1466487967373" name="Hash" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.amazon.console"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="version" type="Version" value="1.0.0.201606160600"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="a22ddeb866c307394e215dc4f4675ab3bcb2c2270c0ada32835309a87e3ea566"/>
+      <attribute name="osgi.content" value="d94bfd0626858f2eff8347b5ef6d6462b4acaa8cdfc052247939f3df9393fa3b"/>
       <attribute name="url" value="it.hash.osgi.amazon.console/it.hash.osgi.amazon.console-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="23854"/>
+      <attribute name="size" type="Long" value="23851"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.amazon.console"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606160600"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.amazon.console"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606160600"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.aws.console"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.amazon.console"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606160600"/>
       <directive name="uses" value="com.amazonaws.auth,org.apache.felix.dm,org.osgi.framework,org.osgi.service.cm"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -107,27 +107,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.amazon.s3"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="version" type="Version" value="1.0.0.201606160600"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="88509fcc238ed3c06b42b426b9b6dfe60e804a3b79bcc9cd635342eecc067874"/>
+      <attribute name="osgi.content" value="44257cbadb7a80af31324a4039f00908f00e5d593307a13bb105deb339a16858"/>
       <attribute name="url" value="it.hash.osgi.amazon.s3/it.hash.osgi.amazon.s3-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="9333"/>
+      <attribute name="size" type="Long" value="9312"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.amazon.s3"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606160600"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.amazon.s3"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606160600"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.aws.s3.service"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.amazon.s3"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201605291751"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606160600"/>
       <directive name="uses" value="com.amazonaws.services.s3,com.amazonaws.services.s3.model,com.amazonaws.services.s3.transfer,org.apache.felix.dm,org.osgi.framework"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
@@ -202,27 +202,27 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.broker"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.0.201606161811"/>
+      <attribute name="version" type="Version" value="1.0.0.201606190838"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="1480118c1a6009a72eefe463314f51bacee653f36fff1f2ebe7de314569b7350"/>
+      <attribute name="osgi.content" value="650231e26c7f360aa61c3986b0fe7aee20d01ea1001c04f5ef15bd5fd1811868"/>
       <attribute name="url" value="it.hash.osgi.broker/it.hash.osgi.broker-1.0.0.jar"/>
-      <attribute name="size" type="Long" value="14315"/>
+      <attribute name="size" type="Long" value="14837"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.broker"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606161811"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606190838"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.broker"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606161811"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606190838"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="it.hash.osgi.broker"/>
       <attribute name="version" type="Version" value="1.0.0"/>
       <attribute name="bundle-symbolic-name" value="it.hash.osgi.broker"/>
-      <attribute name="bundle-version" type="Version" value="1.0.0.201606161811"/>
+      <attribute name="bundle-version" type="Version" value="1.0.0.201606190838"/>
       <directive name="uses" value="it.hash.osgi.security.jwt.service,javax.ws.rs,javax.ws.rs.core,org.eclipse.paho.client.mqttv3,org.osgi.service.cm"/>
     </capability>
     <capability namespace="osgi.service">
@@ -1127,21 +1127,21 @@
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="it.hash.osgi.games.tris"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="1.0.1.201606161739"/>
+      <attribute name="version" type="Version" value="1.0.1.201606200714"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="c473a6766cf24edf73e11b1b4707f57ef9ad8b7eaf880524f7e1f1e9cd38322e"/>
+      <attribute name="osgi.content" value="f18406ae55a2f02a38cfb1f117e6d5e39181a43d1f4e2f48a472fa91c0d2fb0a"/>
       <attribute name="url" value="it.hash.osgi.games.tris/it.hash.osgi.games.tris-1.0.1.jar"/>
-      <attribute name="size" type="Long" value="12616"/>
+      <attribute name="size" type="Long" value="14992"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
       <attribute name="osgi.wiring.bundle" value="it.hash.osgi.games.tris"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606161739"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606200714"/>
     </capability>
     <capability namespace="osgi.wiring.host">
       <attribute name="osgi.wiring.host" value="it.hash.osgi.games.tris"/>
-      <attribute name="bundle-version" type="Version" value="1.0.1.201606161739"/>
+      <attribute name="bundle-version" type="Version" value="1.0.1.201606200714"/>
     </capability>
     <capability namespace="osgi.service">
       <attribute name="objectClass" type="List&lt;String&gt;" value="it.hash.osgi.games.tris.rest.Resources"/>
