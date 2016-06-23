@@ -34,9 +34,10 @@ public interface PromotionServicePersistence {
 	
 	List<Promotion> retrievePromotions(Map<String,Object> mapKeywords);
 	List<Promotion> retrievePromotions(String keyword);
-
+	List<Promotion> retrievePromotions(String keyword,String search);
+	List<Promotion> getPromotionByBusinessUuid(String uuid);
 	
-//	List<Promotion> retrievePromotionByBusinessFiscalCode(String BusinessFiscalCode);
+//	List<Promotion> retrievePromotionsByBusinessFiscalCode(String BusinessFiscalCode);
 //	Promotion getPromotionByBusinessFiscalCode(String BusinessFiscalCode, boolean withLogo);
 //	List<Promotion> getPromotionByBusinessPartitaIva(String partitaIva);
 //	Promotion getPromotionByBusinessPartitaIva(String partitaIva, boolean withLogo);
@@ -44,7 +45,7 @@ public interface PromotionServicePersistence {
 	List<Promotion> getPromotionByBusinessName(String Name, boolean withLogo);
 	List<Promotion> getPromotionByBusinessId(String businessId);
 	List<Promotion> getPromotionByBusinessId(String businessId, boolean withLogo);
-	List<Promotion> getPromotionByBusinessUuid(String uuid);
+
 	List<Promotion> getPromotionByBusinessUuid(String uuid, boolean withLogo);
 	List<Promotion> getPromotionByType(String type);*/
 	//elenco delle promozioni scadute, in corso , tra due date ,
@@ -58,11 +59,11 @@ public interface PromotionServicePersistence {
 	
 	
 	// UPDATE
-	Map<String, Object> updatePromotion(String uuid, Promotion promotion);
+	Map<String, Object> updatePromotion(Promotion promotion);
 	Map<String, Object> updatePromotion(String uuid, Map<String, Object> promotion);
 	
 	// DELETE
-	Map<String, Object> deletePromotion(String uuid);
+	Map<String, Object> deletePromotion(String uuid,String type);
 	
 	// IMPLEMENTATION
 	String getImplementation();
