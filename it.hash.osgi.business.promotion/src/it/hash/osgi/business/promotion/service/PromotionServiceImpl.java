@@ -66,7 +66,7 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public Map<String, Object> createPromotion(Map<String, Object> pars) {
-		String u = _uuid.createUUID("app/business");
+		String u = _uuid.createUUID("app/business.promotion");
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		if (!StringUtils.isEmptyOrNull(u)) {
