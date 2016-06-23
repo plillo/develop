@@ -59,7 +59,12 @@ public class ProductPersistenceImpl implements ProductPersistence {
 		// If new product
 		if ((int) result.get("matched") == 0) {
 			// Create product
-			productsCollection.save(new BasicDBObject(Product.toMap(product)));
+			// ATTENZIONE: inserimento di un prodotto con modalità UPSERT
+			// necessaria per potere fare uso di campi $
+			BasicDBObject dbupsert = new BasicDBObject()
+					.append("$currentDate", new BasicDBObject("cdate",true).append("cdate", true))
+					.append("$set", new BasicDBObject(Product.toMap(product)));
+			productsCollection.update(new BasicDBObject()/*void object*/, dbupsert, true, false);
 			
 			// Get created product
 			DBObject created = productsCollection.findOne(new BasicDBObject(Product.toMap(product)));

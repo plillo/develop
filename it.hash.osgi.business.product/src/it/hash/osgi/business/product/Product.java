@@ -2,6 +2,7 @@ package it.hash.osgi.business.product;
 
 import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +27,11 @@ public class Product implements Comparable<Product> {
 	private String _locLongDescription;
 	private List<Double> prices;
 	private String cauthor;
-	private String cdate;
+	private Date cdate;
 	private String mauthor;
-	private String mdate;
+	private Date mdate;
 	private String lauthor;
-	private String ldate;
+	private Date ldate;
 	private Map<String, Object> others;
 	
 	public String get_id() {
@@ -170,11 +171,11 @@ public class Product implements Comparable<Product> {
 		this.cauthor = cauthor;
 	}
 
-	public String getCdate() {
+	public Date getCdate() {
 		return cdate;
 	}
 
-	public void setCdate(String cdate) {
+	public void setCdate(Date cdate) {
 		this.cdate = cdate;
 	}
 
@@ -186,11 +187,11 @@ public class Product implements Comparable<Product> {
 		this.mauthor = mauthor;
 	}
 
-	public String getMdate() {
+	public Date getMdate() {
 		return mdate;
 	}
 
-	public void setMdate(String mdate) {
+	public void setMdate(Date mdate) {
 		this.mdate = mdate;
 	}
 
@@ -202,11 +203,11 @@ public class Product implements Comparable<Product> {
 		this.lauthor = lauthor;
 	}
 
-	public String getLdate() {
+	public Date getLdate() {
 		return ldate;
 	}
 
-	public void setLdate(String ldate) {
+	public void setLdate(Date ldate) {
 		this.ldate = ldate;
 	}
 	
@@ -265,13 +266,13 @@ public class Product implements Comparable<Product> {
 		// Authoring
 		if (!isEmptyOrNull(item.getCauthor()))
 			pars.put("cauthor", item.getCauthor());
-		if (!isEmptyOrNull(item.getCdate()))
+		if (item.getCdate()!=null)
 			pars.put("cdate", item.getCdate());
 		if (!isEmptyOrNull(item.getMauthor()))
 			pars.put("mauthor", item.getMauthor());
-		if (!isEmptyOrNull(item.getMdate()))
+		if (item.getMdate()!=null)
 			pars.put("mdate", item.getMdate());
-		if (!isEmptyOrNull(item.getLdate()))
+		if (item.getLdate()!=null)
 			pars.put("ldate", item.getLdate());
 		
 		// Others
@@ -327,19 +328,19 @@ public class Product implements Comparable<Product> {
 					item.setCauthor((String) map.get(elem));
 					break;
 				case "cdate":
-					item.setCdate((String) map.get(elem));
+					item.setCdate((Date) map.get(elem));
 					break;
 				case "mauthor":
 					item.setMauthor((String) map.get(elem));
 					break;
 				case "mdate":
-					item.setMdate((String) map.get(elem));
+					item.setMdate((Date) map.get(elem));
 					break;
 				case "lauthor":
 					item.setLauthor((String) map.get(elem));
 					break;
 				case "ldate":
-					item.setLdate((String) map.get(elem));
+					item.setLdate((Date) map.get(elem));
 					break;
 				case "others":
 					if (map.get(elem) instanceof Map)
