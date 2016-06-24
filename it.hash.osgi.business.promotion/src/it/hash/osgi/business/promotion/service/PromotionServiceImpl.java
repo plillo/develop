@@ -95,21 +95,22 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public Map<String, Object> deletePromotion(String uuid) {
-		Map<String, Object> response=null ;
+		Map<String, Object> response = null;
 
-		if (!StringUtils.isEmptyOrNull(uuid)) 		
+		if (!StringUtils.isEmptyOrNull(uuid))
 			response = _uuid.removeUUID(uuid);
-		
-		  if( response!=null ){
-			  if( (Boolean)response.get("deleted"))
-			return _promotionPersistenceService.deletePromotion(uuid);
-		 else {
-			response.put("deleted", false);
-			response.put("errorUUIDService", true);
-			response.put("returnCode", 630);
-		
-		}}
-			return response; 
+
+		if (response != null) {
+			if ((Boolean) response.get("deleted"))
+				return _promotionPersistenceService.deletePromotion(uuid);
+			else {
+				response.put("deleted", false);
+				response.put("errorUUIDService", true);
+				response.put("returnCode", 630);
+
+			}
+		}
+		return response;
 	}
 
 	@Override
@@ -149,7 +150,7 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public List<Promotion> retrievepromotions(String criterion, String search) {
-		
+
 		return _promotionPersistenceService.retrievePromotions(criterion, search);
 	}
 
@@ -176,6 +177,12 @@ public class PromotionServiceImpl implements PromotionService {
 	public List<Promotion> getPromotionsByBusinessUuid(String businessUuid) {
 
 		return _promotionPersistenceService.getPromotionByBusinessUuid(businessUuid);
+	}
+
+	@Override
+	public Map<String, Object> updateActivate(String uuid, Boolean activate) {
+		_promotionPersistenceService.updateActivate(uuid, activate);
+		return null;
 	}
 
 	/*
