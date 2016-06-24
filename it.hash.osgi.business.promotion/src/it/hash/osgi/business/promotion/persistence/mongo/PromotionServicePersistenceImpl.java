@@ -769,15 +769,33 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 	}
 
 	@Override
+	public Map<String, Object> updateActivate(String uuid, Boolean activate) {
+		Map<String,Object> response= new HashMap<String,Object>();
+		Promotion promotion = this.getPromotionByUuid(uuid);
+		if (promotion!=null){
+			promotion.setActivate(activate);
+			response.put("promotion", promotion);
+			response.put("updateActivate", true);
+			response.put("returnCode", 200);
+
+		}
+		else{
+			response.put("updateActivate", false);
+			response.put("returnCode", 500);
+		}
+		return response;
+	}
+
+	@Override
 	public Map<String, Object> updatePromotion(Promotion promotion) {
 
 		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
-		
-		if(promotion!=null){
+
+		if (promotion != null) {
 			Map<String, Object> response = new TreeMap<String, Object>();
 			response = getPromotion(promotion);
-			if (response!= null) {
-				if ((int) response.get("matched") == 1){
+			if (response != null) {
+				if ((int) response.get("matched") == 1) {
 					// UNSET _ID
 					promotion.set_id(null);
 					BasicDBObject updateDocument = new BasicDBObject().append("$set",
@@ -795,18 +813,14 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 						responseUpdate.put("update", "OK");
 						responseUpdate.put("returnCode", 200);
 						return responseUpdate;
-					} 
+					}
 				}
 			}
 		}
-		
-			responseUpdate.put("update", "ERROR");
-			responseUpdate.put("returnCode", 610);
-			return responseUpdate;
-	
-				
-				
-	
+
+		responseUpdate.put("update", "ERROR");
+		responseUpdate.put("returnCode", 610);
+		return responseUpdate;
 
 	}
 
