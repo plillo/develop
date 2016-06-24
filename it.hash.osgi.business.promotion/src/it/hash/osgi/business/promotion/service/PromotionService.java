@@ -27,7 +27,7 @@ public interface PromotionService {
 	Map<String, Object> updatePromotionLogo(String uuid, String type, InputStream istream);
 	
 	
-	Map<String, Object> deletePromotion(String uuid,String type);
+	Map<String, Object> deletePromotion(String uuid);
 	
 	
 //	Promotion getPromotionByBusinessFiscalCode(String BusinessFiscalCode);
