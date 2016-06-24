@@ -540,8 +540,8 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 			 * BasicDBObject("logo", false));
 			 */
 			if (found != null) {
-				String type=(String) found.get("type");
-		
+				String type = (String) found.get("type");
+
 				found_promotion = PromotionFactory.getInstance(type);
 				found_promotion.setByMap(found.toMap());
 
@@ -562,7 +562,8 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 			// business.get("_id")), new BasicDBObject("logo", false));
 
 			if (found != null) {
-				found_promotion = PromotionFactory.getInstance(promotion);
+				String type = (String) found.get("type");
+				found_promotion = PromotionFactory.getInstance(type);
 				found_promotion.setByMap(found.toMap());
 				TreeSet<String> list = matchs.get(found_promotion);
 				if (list == null)
@@ -581,7 +582,8 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 			// business.get("_id")), new BasicDBObject("logo", false));
 
 			if (found != null) {
-				found_promotion = PromotionFactory.getInstance(promotion);
+				String type = (String) found.get("type");
+				found_promotion = PromotionFactory.getInstance(type);
 				found_promotion.setByMap(found.toMap());
 				TreeSet<String> list = matchs.get(found_promotion);
 				if (list == null)
@@ -646,16 +648,14 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		BasicDBObject businessQuery = null;
 
 		DBCursor cursor = null;
-		
-		
+
 		businessQuery = new BasicDBObject("businessName", businessName);
-	
-				
+
 		// GET CURSOR
 		cursor = promotionCollection.find(businessQuery);
-		
+
 		// Product list construction
-		promotionList=getList(cursor);
+		promotionList = getList(cursor);
 		return promotionList;
 
 	}
@@ -713,146 +713,140 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 
 	@Override
 	public List<Promotion> retrievePromotions(String keyword) {
-		
-		
+
 		return retrievePromotions(null, keyword);
-		
+
 	}
 
 	public List<Promotion> retrievePromotions(String criterion, String keyword) {
 		List<Promotion> promotionList = null;
-	
-		if (StringUtils.isNotEON(criterion)&&criterion.equals("businessName"))
-			 promotionList = this.getPromotionByBusinessName(keyword);
-		else{
+
+		if (StringUtils.isNotEON(criterion) && criterion.equals("businessName"))
+			promotionList = this.getPromotionByBusinessName(keyword);
+		else {
 			BasicDBObject uuidQuery = null;
 			BasicDBObject regexQuery = null;
 			BasicDBObject query = null;
 			DBCursor cursor = null;
-			
-			if(StringUtils.isNotEON(criterion)){
+
+			if (StringUtils.isNotEON(criterion)) {
 				uuidQuery = new BasicDBObject("businessUuid", criterion);
 			}
 
-			if(StringUtils.isNotEON(keyword)){
+			if (StringUtils.isNotEON(keyword)) {
 				regexQuery = new BasicDBObject();
 				List<BasicDBObject> objs = new ArrayList<BasicDBObject>();
 				objs.add(new BasicDBObject("uuid", new BasicDBObject("$regex", keyword).append("$options", "$i")));
 				objs.add(new BasicDBObject("_id", new BasicDBObject("$regex", keyword).append("$options", "$i")));
 				objs.add(new BasicDBObject("type", new BasicDBObject("$regex", keyword).append("$options", "$i")));
-				
+
 				regexQuery.put("$or", objs);
 			}
-			
-			if(uuidQuery!=null && regexQuery!=null){
+
+			if (uuidQuery != null && regexQuery != null) {
 				query = new BasicDBObject();
-				
+
 				List<BasicDBObject> objs = new ArrayList<BasicDBObject>();
 				objs.add(uuidQuery);
 				objs.add(regexQuery);
 
 				query.put("$and", objs);
-			}
-			else if(uuidQuery!=null)
+			} else if (uuidQuery != null)
 				query = uuidQuery;
-			else if(regexQuery!=null)
+			else if (regexQuery != null)
 				query = regexQuery;
-			
+
 			// GET CURSOR
-			cursor = query==null ? promotionCollection.find() : promotionCollection.find(query);
-			
+			cursor = query == null ? promotionCollection.find() : promotionCollection.find(query);
+
 			// Product list construction
-			promotionList=getList(cursor);
-			
-			
-		
+			promotionList = getList(cursor);
+
 		}
-		
-		
-		return promotionList;		
+
+		return promotionList;
 
 	}
 
 	@Override
 	public Map<String, Object> updatePromotion(Promotion promotion) {
-		Map<String, Object> response = new TreeMap<String, Object>();
+
 		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
-		response = getPromotion(promotion);
-		if (response == null) {
-			responseUpdate.put("update", "ERROR");
-			responseUpdate.put("returnCode", 610);
-		} else if ((int) response.get("matched") == 1) {
-			// UNSET _ID
-			promotion.set_id(null);
-			BasicDBObject updateDocument = new BasicDBObject().append("$set", new BasicDBObject(promotion.toMap()));
-			BasicDBObject searchQuery = new BasicDBObject().append("uuid", promotion.getUuid());
-			
-			promotionCollection.update(searchQuery, updateDocument);
+		
+		if(promotion!=null){
+			Map<String, Object> response = new TreeMap<String, Object>();
+			response = getPromotion(promotion);
+			if (response!= null) {
+				if ((int) response.get("matched") == 1){
+					// UNSET _ID
+					promotion.set_id(null);
+					BasicDBObject updateDocument = new BasicDBObject().append("$set",
+							new BasicDBObject(promotion.toMap()));
+					BasicDBObject searchQuery = new BasicDBObject().append("uuid", promotion.getUuid());
 
-			// Retrieve updated product
-			DBObject updated = promotionCollection.findOne(new BasicDBObject("uuid", promotion.getUuid()));
-			
-			@SuppressWarnings("unchecked")
-			
-			Promotion updatedPromotion = PromotionFactory.getInstance(updated.toMap());
-			updatedPromotion.setByMap(updated.toMap());
-			if (updatedPromotion != null) {
-				responseUpdate.put("product", updatedPromotion);
-				responseUpdate.put("update", "OK");
-				responseUpdate.put("returnCode", 200);
+					promotionCollection.update(searchQuery, updateDocument);
 
-			} else {
-				responseUpdate.put("update", "ERROR");
-				responseUpdate.put("returnCode", 610);
+					// Retrieve updated product
+					DBObject updated = promotionCollection.findOne(new BasicDBObject("uuid", promotion.getUuid()));
+					Promotion updatedPromotion = PromotionFactory.getInstance(updated.toMap());
+					updatedPromotion.setByMap(updated.toMap());
+					if (updatedPromotion != null) {
+						responseUpdate.put("product", updatedPromotion);
+						responseUpdate.put("update", "OK");
+						responseUpdate.put("returnCode", 200);
+						return responseUpdate;
+					} 
+				}
 			}
-		} else {
+		}
+		
 			responseUpdate.put("update", "ERROR");
 			responseUpdate.put("returnCode", 610);
-		}
-
-		return responseUpdate;
-	}
-
+			return responseUpdate;
 	
+				
+				
+	
+
+	}
 
 	@Override
 	public Map<String, Object> updatePromotion(String uuid, Map<String, Object> promotion) {
-		// TODO Auto-generated method stub
-		return null;
+		String type = null;
+		Promotion found_promotion = null;
+		if (promotion.containsKey("type")) {
+			type = (String) promotion.get("type");
+			found_promotion = PromotionFactory.getInstance(type);
+		}
+		return this.updatePromotion(found_promotion);
 	}
 
-	@Override
-	public Map<String, Object> deletePromotion(String uuid, String type) {
-		
-		Promotion promotion = PromotionFactory.getInstance(type);	
-		promotion.setUuid(uuid);
-		return deletePromotion(promotion);
-	}
+	public synchronized Map<String, Object> deletePromotion(String uuid) {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		Map<String, Object> responseDelete = new TreeMap<String, Object>();
+		Map<String, Object> delete = new TreeMap<String, Object>();
+		delete.put("uuid", uuid);
+		response = this.getPromotion(delete);
+		if ((int) response.get("matched") == 1) {
+			String _id = ((Promotion) response.get("promotion")).get_id();
 
-	private synchronized Map<String, Object> deletePromotion(Promotion promotion) {
-			Map<String, Object> response = new TreeMap<String, Object>();
-			Map<String, Object> responseDelete = new TreeMap<String, Object>();
-			response = this.getPromotion(promotion);
-			if ((int) response.get("matched") == 1) {
-				String _id = ((Promotion) response.get("promotion")).get_id();
-				
-				WriteResult wr = promotionCollection.remove(new BasicDBObject("_id", new ObjectId(_id)));
-				if (wr.getN() == 1) {
-					responseDelete.put("promotion", promotion);
-					responseDelete.put("delete", true);
-					responseDelete.put("returnCode", 200);
-				} else {
-					
-					responseDelete.put("delete", false);
-					responseDelete.put("returnCode", 620);
-				}
+			WriteResult wr = promotionCollection.remove(new BasicDBObject("_id", new ObjectId(_id)));
+			if (wr.getN() == 1) {
+				responseDelete.put("promotion", (Promotion) response.get("promotion"));
+				responseDelete.put("delete", true);
+				responseDelete.put("returnCode", 200);
 			} else {
-				responseDelete.put("delete", false);
-				responseDelete.put("returnCode", 680);
 
+				responseDelete.put("delete", false);
+				responseDelete.put("returnCode", 620);
 			}
-			return responseDelete;
-			}
+		} else {
+			responseDelete.put("delete", false);
+			responseDelete.put("returnCode", 680);
+
+		}
+		return responseDelete;
+	}
 
 	@Override
 	public String getImplementation() {
