@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import it.hash.osgi.utils.StringUtils;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
@@ -16,6 +17,7 @@ public class Promotion implements Comparable<Promotion> {
 	private String type;
 	private Long fromDate;
 	private Long toDate;
+	private Boolean activate = false;
 	private String pictureUuid;
 	//
 	private String businessUuid;
@@ -139,7 +141,13 @@ public class Promotion implements Comparable<Promotion> {
 		this.toDate = endTime;
 	}
 
-	
+	public Boolean getActivate() {
+		return activate;
+	}
+
+	public void setActivate(Boolean activate) {
+		this.activate = activate;
+	}
 
 	@Override
 	public int hashCode() {
@@ -187,15 +195,18 @@ public class Promotion implements Comparable<Promotion> {
 					this.setUuid((String) map.get(attribute));
 					break;
 				case "type":
-					this.setType((String) map.get("type"));
+					this.setType((String) map.get(attribute));
 					break;
-			/*	case "fromDate":
-					this.setFromDate(((Double) map.get("fromDate")).longValue());
-					break;*/
+				/*
+				 * case "fromDate": this.setFromDate(((Double)
+				 * map.get(attribute)).longValue()); break;
+				 */
 				case "toDate":
-					
-					this.setToDate(((Double) map.get("toDate")).longValue());
+
+					this.setToDate(((Double) map.get(attribute)).longValue());
 					break;
+				case "activate":
+					this.setActivate((Boolean) map.get(attribute));
 				case "pictureUuid":
 					this.setPictureUuid((String) map.get(attribute));
 					break;
@@ -238,21 +249,39 @@ public class Promotion implements Comparable<Promotion> {
 	@Override
 	public String toString() {
 		return "Promotion [_id=" + _id + ", uuid=" + uuid + ", type=" + type + ", fromDate=" + fromDate + ", toDate="
-				+ toDate + ", pictureUuid=" + pictureUuid + ", businessUuid=" + businessUuid + ", businessName="
-				+ businessName + ", businessPIva=" + businessPIva + ", businessFiscalCode=" + businessFiscalCode
-				+ ", businessAddress=" + businessAddress + ", businessCity=" + businessCity + ", businessCap="
-				+ businessCap + ", businessNation=" + businessNation + "]";
+				+ toDate + ", activate=" + activate + ", pictureUuid=" + pictureUuid + ", businessUuid=" + businessUuid
+				+ ", businessName=" + businessName + ", businessPIva=" + businessPIva + ", businessFiscalCode="
+				+ businessFiscalCode + ", businessAddress=" + businessAddress + ", businessCity=" + businessCity
+				+ ", businessCap=" + businessCap + ", businessNation=" + businessNation + "]";
 	}
 
 	public Map<String, Object> toMap() {
+		// TODO continuare :-(
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("uuid", this.getUuid());
-		map.put("type", this.getType());
-		map.put("businessName", this.getBusinessName());
+		if (!StringUtils.isEON(this.getUuid()))
+			map.put("uuid", this.getUuid());
+		if (!StringUtils.isEON(this.getType()))
+			map.put("type", this.getType());
+		if (!StringUtils.isEON(this.getBusinessName()))
+			map.put("businessName", this.getBusinessName());
+		if (!StringUtils.isEON(this.get_id()))
+			map.put("_id", this.get_id());
+
+		if (this.getFromDate() != null)
+			map.put("fromDate", this.getFromDate());
+		if (this.toDate != null)
+			map.put("toDate", this.getToDate());
+
+		map.put("activate", this.activate);
+
+		if (!StringUtils.isEON(this.getPictureUuid()))
+			map.put("uuidPictureUuid", this.getPictureUuid());
+
 		return map;
 	}
 
 	@Override
+	
 	public int compareTo(Promotion p) {
 		// TODO Auto-generated method stub
 		if (this.getUuid().equals(p.getUuid()))
