@@ -8,6 +8,7 @@ import java.util.TreeMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -33,6 +34,7 @@ import it.hash.osgi.business.promotion.PromotionFactory;
 import it.hash.osgi.business.promotion.service.PromotionService;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.resource.uuid.api.UuidService;
+import it.hash.osgi.utils.StringUtils;
 
 @Component(service = Resources.class)
 @Api
@@ -102,15 +104,22 @@ public class Resources {
 			return Response.serverError().build();
 
 		Promotion promotion = PromotionFactory.getInstance(map);
-
-		map.put("businessUuid", business.getUuid());
-		map.put("businessName", business.getName());
-		map.put("businessPIva", business.getPIva());
-		map.put("businessFiscalCode", business.getFiscalCode());
-		map.put("businessAddress", business.getAddress());
-		map.put("businessCity", business.getCity());
-		map.put("businessCap", business.getCap());
-		map.put("businessNation", business.getNation());
+		if (!StringUtils.isEON(business.getUuid()))
+			map.put("businessUuid", business.getUuid());
+		if (!StringUtils.isEON(business.getName()))
+			map.put("businessName", business.getName());
+		if (!StringUtils.isEON(business.getPIva()))
+			map.put("businessPIva", business.getPIva());
+		if (!StringUtils.isEON(business.getFiscalCode()))
+			map.put("businessFiscalCode", business.getFiscalCode());
+		if (!StringUtils.isEON(business.getAddress()))
+			map.put("businessAddress", business.getAddress());
+		if (!StringUtils.isEON(business.getCity()))
+			map.put("businessCity", business.getCity());
+		if (!StringUtils.isEON(business.getCap()))
+			map.put("businessCap", business.getCap());
+		if (!StringUtils.isEON(business.getNation()))
+			map.put("businessNation", business.getNation());
 
 		promotion.setByMap(map);
 
@@ -128,7 +137,7 @@ public class Resources {
 	public Response update(Promotion item) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
-		 response = _promotionService.updatePromotion(item);
+		response = _promotionService.updatePromotion(item);
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
@@ -162,22 +171,26 @@ public class Resources {
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
-	// DELETE businesses/1.0/promotion/{uuid}/{type}
-		@Path("promotion/{uuid}/{type}")
-		@DELETE
-		@Produces(MediaType.APPLICATION_JSON)
-	    @io.swagger.annotations.ApiOperation(value = "delete", notes = "...")
-		public Response delete(@PathParam("uuid") String uuid, @PathParam("type") String type) {
-			
-			Map<String, Object> response = this._promotionService.deletePromotion(uuid,type);
-			System.out.println("Delete  " + response.get("promotion") + "returnCode " + response.get("returnCode"));
 
-			return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
+	// DELETE businesses/1.0/promotions
+	@Path("promotions")
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	@io.swagger.annotations.ApiOperation(value = "delete", notes = "...")
+	public Response delete(@FormParam("listUuid") List<String> listUuid) {
+
+		Map<String, Object> responseAll = new TreeMap<String, Object>();
+
+		for (String uuid : listUuid) {
+			Map<String, Object> response = this._promotionService.deletePromotion(uuid);
+			System.out.println("Delete  " + response.get("promotion") + "returnCode " + response.get("returnCode"));
+			responseAll.put(uuid, response);
 		}
-		
-	
-	
-	
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(responseAll).build();
+	}
+
+	// DELETE businesses/1.0/promotion/{uuid}
+
 	// GET businesses/1.0/promotion/by_searchKeyword/{keyword}
 	@GET
 	@Path("promotion/by_searchKeyword/{keyword}")
@@ -222,18 +235,16 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	@io.swagger.annotations.ApiOperation(value = "getBusinesspromotion by keyword", notes = "...")
 	public Response getBusinesspromotions(@PathParam("uuid") PathSegment uuid) {
-		
+
 		String businessUuid = uuid.getPath();
-	
+
 		List<Promotion> items = _promotionService.getPromotionsByBusinessUuid(businessUuid);
 		if (items == null)
 			return Response.serverError().build();
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(items).build();
 	}
-	
-	
-	
+
 	// GET businesses/1.0/business/{uuid}/promotion/by_searchKeyword/{keyword}
 	@GET
 	@Path("business/{uuid}/promotion/by_searchKeyword/{keyword}")
