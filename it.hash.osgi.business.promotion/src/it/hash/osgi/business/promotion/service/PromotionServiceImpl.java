@@ -94,7 +94,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Map<String, Object> deletePromotion(String uuid, String type) {
+	public Map<String, Object> deletePromotion(String uuid) {
 		Map<String, Object> response=null ;
 
 		if (!StringUtils.isEmptyOrNull(uuid)) 		
@@ -102,7 +102,7 @@ public class PromotionServiceImpl implements PromotionService {
 		
 		  if( response!=null ){
 			  if( (Boolean)response.get("deleted"))
-			return _promotionPersistenceService.deletePromotion(uuid, type);
+			return _promotionPersistenceService.deletePromotion(uuid);
 		 else {
 			response.put("deleted", false);
 			response.put("errorUUIDService", true);
