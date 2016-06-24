@@ -63,7 +63,7 @@ public interface PromotionServicePersistence {
 	Map<String, Object> updatePromotion(String uuid, Map<String, Object> promotion);
 	
 	// DELETE
-	Map<String, Object> deletePromotion(String uuid,String type);
+	Map<String, Object> deletePromotion(String uuid);
 	
 	// IMPLEMENTATION
 	String getImplementation();
