@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
+import javax.ws.rs.core.Response;
 
 import org.apache.felix.service.command.CommandProcessor;
 import org.osgi.service.component.annotations.Activate;
@@ -11,9 +14,11 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
+import it.hash.osgi.business.Business;
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
 import it.hash.osgi.business.promotion.service.PromotionService;
+import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.utils.StringUtils;
 
 @Component(	immediate = true, 
@@ -26,6 +31,7 @@ import it.hash.osgi.utils.StringUtils;
 			CommandProcessor.COMMAND_FUNCTION + "=get" })
 public class Commands {
 	private volatile PromotionService _promotion;
+	private volatile BusinessService _businessService;
 
 	@Reference(service = PromotionService.class)
 	public void setPromotionService(PromotionService service) {
@@ -36,6 +42,16 @@ public class Commands {
 	public void unsetPromotionService(PromotionService service) {
 		_promotion = null;
 	}
+	
+	@Reference(service = BusinessService.class)
+	public void setBusinessService(BusinessService service) {
+		_businessService = service;
+		System.out.println("Referenced BusinessService: " + (service == null ? "NULL" : "ok"));
+	}
+
+	public void unsetBusinessService(BusinessService service) {
+		_businessService = null;
+	}
 
 	@Activate
 	@Modified
@@ -43,27 +59,55 @@ public class Commands {
 		System.out.println("Activate Commands Promotions");
 	}
 
-	public void create(String type, String businessUuid, String businessName) {
+	public void create(String type, String businessUuid) {
+		Map<String,Object> map = new TreeMap<String,Object>();
 		Promotion promotion = PromotionFactory.getInstance(type);
 		promotion.setType(type);
-		promotion.setBusinessUuid(businessUuid);
+
 		// promotion.setStartData(start);
 		// promotion.setEndData(end);
-		promotion.setBusinessName(businessName);
+		
+		
+		// Retrieve
+				Business business = _businessService.getBusiness(businessUuid);
+
+				
+
+				
+				if (!StringUtils.isEON(business.getUuid()))
+					map.put("businessUuid", business.getUuid());
+				if (!StringUtils.isEON(business.getName()))
+					map.put("businessName", business.getName());
+				if (!StringUtils.isEON(business.getPIva()))
+					map.put("businessPIva", business.getPIva());
+				if (!StringUtils.isEON(business.getFiscalCode()))
+					map.put("businessFiscalCode", business.getFiscalCode());
+				if (!StringUtils.isEON(business.getAddress()))
+					map.put("businessAddress", business.getAddress());
+				if (!StringUtils.isEON(business.getCity()))
+					map.put("businessCity", business.getCity());
+				if (!StringUtils.isEON(business.getCap()))
+					map.put("businessCap", business.getCap());
+				if (!StringUtils.isEON(business.getNation()))
+					map.put("businessNation", business.getNation());
+
+				promotion.setByMap(map);
+
+
 		Map<String, Object> response = _promotion.createPromotion(promotion);
 
 		System.out.println(response.toString());
 	}
 
-	public void delete(String uuid, String type) {
-		Map<String, Object> list = _promotion.deletePromotion(uuid, type);
+	public void delete(String uuid) {
+		Map<String, Object> list = _promotion.deletePromotion(uuid);
 		System.out.println(list.get("delete"));
 	}
 
 	public void list(String criterion, String search) {
 		// Keyword == businessUuid or businessUuid
 		List<Promotion> list = null;
-		if (StringUtils.isEON(criterion) && StringUtils.isEON(search))
+		if (!StringUtils.isEON(criterion) && !StringUtils.isEON(search))
 			list = _promotion.getPromotions();
 		else
 			list = _promotion.retrievepromotions(criterion, search);
