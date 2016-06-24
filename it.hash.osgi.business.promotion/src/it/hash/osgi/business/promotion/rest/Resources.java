@@ -128,6 +128,34 @@ public class Resources {
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
+	// POST businesses/1.0/promotion/{uuid}/setActivate
+	@Path("promotion/{uuid}/setActivate")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@io.swagger.annotations.ApiOperation(value = "update", notes = "...")
+	public Response setActivate(@PathParam("uuid") PathSegment uuid) {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		String uuidPromotion = uuid.getPath();
+		Boolean activate = true;
+		response = _promotionService.updateActivate(uuidPromotion, activate);
+
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
+	}
+
+	// POST businesses/1.0/promotion/{uuid}/unSetActivate
+	@Path("promotion/{uuid}/unSetActivate")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@io.swagger.annotations.ApiOperation(value = "update", notes = "...")
+	public Response unSetActivate(@PathParam("uuid") PathSegment uuid) {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		String uuidPromotion = uuid.getPath();
+		Boolean activate = false;
+		response = _promotionService.updateActivate(uuidPromotion, activate);
+
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
+	}
+
 	// POST businesses/1.0/promotion
 	@POST
 	@Path("promotion")
