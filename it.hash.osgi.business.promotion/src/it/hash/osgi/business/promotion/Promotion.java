@@ -17,7 +17,7 @@ public class Promotion implements Comparable<Promotion> {
 	private String type;
 	private Long fromDate;
 	private Long toDate;
-	private Boolean activate = false;
+	private Boolean activate;
 	private String pictureUuid;
 	//
 	private String businessUuid;
@@ -197,10 +197,11 @@ public class Promotion implements Comparable<Promotion> {
 				case "type":
 					this.setType((String) map.get(attribute));
 					break;
-				/*
-				 * case "fromDate": this.setFromDate(((Double)
-				 * map.get(attribute)).longValue()); break;
-				 */
+
+				case "fromDate":
+					this.setFromDate(((Double) map.get(attribute)).longValue());
+					break;
+
 				case "toDate":
 
 					this.setToDate(((Double) map.get(attribute)).longValue());
@@ -271,9 +272,8 @@ public class Promotion implements Comparable<Promotion> {
 			map.put("fromDate", this.getFromDate());
 		if (this.toDate != null)
 			map.put("toDate", this.getToDate());
-
-		map.put("activate", this.activate);
-
+		if (this.activate != null)
+			map.put("activate", this.activate);
 		if (!StringUtils.isEON(this.getPictureUuid()))
 			map.put("uuidPictureUuid", this.getPictureUuid());
 
@@ -281,7 +281,7 @@ public class Promotion implements Comparable<Promotion> {
 	}
 
 	@Override
-	
+
 	public int compareTo(Promotion p) {
 		// TODO Auto-generated method stub
 		if (this.getUuid().equals(p.getUuid()))
