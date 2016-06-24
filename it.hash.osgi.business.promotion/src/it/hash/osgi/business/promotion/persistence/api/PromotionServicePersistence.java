@@ -61,12 +61,14 @@ public interface PromotionServicePersistence {
 	// UPDATE
 	Map<String, Object> updatePromotion(Promotion promotion);
 	Map<String, Object> updatePromotion(String uuid, Map<String, Object> promotion);
-	
+
+	Map<String, Object> updateActivate(String uuid, Boolean activate);
+
 	// DELETE
 	Map<String, Object> deletePromotion(String uuid);
 	
 	// IMPLEMENTATION
 	String getImplementation();
-
+	
 
 }
