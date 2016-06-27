@@ -145,7 +145,11 @@ public class SpecialOffer extends Promotion {
 			switch (attribute) {
 
 			case "price":
-				this.setPrice(Double.valueOf((String) map.get(attribute)));
+				Object o=map.get(attribute);
+				if (o instanceof Double )
+				this.setPrice((Double) map.get(attribute));
+				else 
+					this.setPrice((Double.parseDouble((String)map.get(attribute))));
 				break;
 			case "quantity":
 				this.setMinimumQuantity((Double) map.get(attribute));

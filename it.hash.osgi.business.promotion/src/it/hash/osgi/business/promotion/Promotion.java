@@ -19,7 +19,6 @@ public class Promotion implements Comparable<Promotion> {
 	private Long toDate;
 	private Boolean activate;
 	private String pictureUuid;
-	
 
 	// Business
 	private String businessUuid;
@@ -201,12 +200,22 @@ public class Promotion implements Comparable<Promotion> {
 					break;
 
 				case "fromDate":
-					this.setFromDate(((Double) map.get(attribute)).longValue());
+					Object fromDate = map.get(attribute);
+					if (fromDate instanceof Double)
+						this.setFromDate(((Double) map.get(attribute)).longValue());
+					else
+						this.setFromDate(((Long) map.get(attribute)));
+
 					break;
 
 				case "toDate":
-Object toDate=map.get(attribute);
-				//	this.setToDate(((Double) map.get(attribute)).longValue());
+
+					Object toDate = map.get(attribute);
+					if (toDate instanceof Double)
+						this.setToDate(((Double) map.get(attribute)).longValue());
+					else
+						this.setToDate(((Long) map.get(attribute)));
+
 					break;
 				case "activate":
 					this.setActivate((Boolean) map.get(attribute));
@@ -262,7 +271,7 @@ Object toDate=map.get(attribute);
 	public Map<String, Object> toMap() {
 		// TODO continuare :-(
 		Map<String, Object> map = new HashMap<String, Object>();
-	
+
 		if (!StringUtils.isEON(this.get_id()))
 			map.put("_id", this.get_id());
 		if (!StringUtils.isEON(this.getUuid()))
@@ -278,7 +287,6 @@ Object toDate=map.get(attribute);
 		if (!StringUtils.isEON(this.getPictureUuid()))
 			map.put("uuidPictureUuid", this.getPictureUuid());
 
-
 		// Business
 		if (!StringUtils.isEON(this.getBusinessUuid()))
 			map.put("businessUuid", this.getBusinessUuid());
@@ -287,7 +295,7 @@ Object toDate=map.get(attribute);
 		if (!StringUtils.isEON(this.getBusinessPIva()))
 			map.put("businessPIva", this.getBusinessPIva());
 		if (!StringUtils.isEON(this.getBusinessFiscalCode()))
-			map.put("businessFiscalCode", this.getBusinessFiscalCode());	
+			map.put("businessFiscalCode", this.getBusinessFiscalCode());
 		if (!StringUtils.isEON(this.getBusinessAddress()))
 			map.put("businessAddress", this.getBusinessAddress());
 		if (!StringUtils.isEON(this.getBusinessCity()))
@@ -296,7 +304,7 @@ Object toDate=map.get(attribute);
 			map.put("businessCap", this.getBusinessCap());
 		if (!StringUtils.isEON(this.getBusinessNation()))
 			map.put("businessNation", this.getBusinessNation());
-	
+
 		return map;
 	}
 
