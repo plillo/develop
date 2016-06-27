@@ -1,12 +1,14 @@
 package it.hash.osgi.business.promotion;
 
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import it.hash.osgi.utils.StringUtils;
 
 public class SpecialOffer extends Promotion {
 
@@ -59,13 +61,71 @@ public class SpecialOffer extends Promotion {
 		this.uuidProduct = uuidProduct;
 	}
 
+	
+	
+	public List<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
+	}
+
+	public List<String> getStores() {
+		return stores;
+	}
+
+	public void setStores(List<String> stores) {
+		this.stores = stores;
+	}
+
+	public List<String> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<String> pictures) {
+		this.pictures = pictures;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+	public String get_locDescription() {
+		return _locDescription;
+	}
+
+	public void set_locDescription(String _locDescription) {
+		this._locDescription = _locDescription;
+	}
+
+	public String get_locLongDescription() {
+		return _locLongDescription;
+	}
+
+	public void set_locLongDescription(String _locLongDescription) {
+		this._locLongDescription = _locLongDescription;
+	}
+
 	@Override
 	public void setByMap(Map<String, Object> map) {
 
 		super.setByMap(map);
 		if (map.containsKey("products")) {
 			JSONObject obj = new JSONObject(map);
-
+//TODO fare due casi: uno se è già in una semplice mappa...oppure se è in formato json
 			if (obj != null) {
 				JSONArray items = obj.optJSONArray("products");
 				if (items != null) {
@@ -110,11 +170,33 @@ public class SpecialOffer extends Promotion {
 
 	@Override
 	public Map<String, Object> toMap() {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("uuid", this.getUuid());
-		map.put("type", this.getType());
-		map.put("businessName", this.getBusinessName());
+
+		Map<String, Object> map = super.toMap();
+	
+		if (!StringUtils.isEON(this.getUuidProduct()))
+			map.put("uuidProduct", this.getUuidProduct());
+		if (this.getPrice()!=null)
+			map.put("price", this.getPrice());
+		if (this.getMinimumQuantity()!=null)
+			map.put("minimumQuantity", this.getMinimumQuantity());
+		if (this.getAvailability()!=null)
+			map.put("availability", this.getAvailability());
+		if (this.getCategories()!=null)
+			map.put("categories", this.getCategories());
+		if (this.getStores()!=null)
+			map.put("stores", this.getStores());
+		if (this.getPictures()!=null)
+			map.put("pictures", this.getPictures());
+		if (!StringUtils.isEON(this.getCode()))
+			map.put("code", this.getCode());
+		if (!StringUtils.isEON(this.getBarcode()))
+			map.put("barcode", this.getBarcode());
+		if (!StringUtils.isEON(this._locDescription))
+			map.put("locDescription", this._locDescription);
+		if (!StringUtils.isEON(this._locLongDescription))
+			map.put("locLongDescription", this._locLongDescription);
+			
+		
 		return map;
 	}
 
