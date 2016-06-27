@@ -205,11 +205,12 @@ public class Promotion implements Comparable<Promotion> {
 					break;
 
 				case "toDate":
-
-					this.setToDate(((Double) map.get(attribute)).longValue());
+Object toDate=map.get(attribute);
+				//	this.setToDate(((Double) map.get(attribute)).longValue());
 					break;
 				case "activate":
 					this.setActivate((Boolean) map.get(attribute));
+					break;
 				case "pictureUuid":
 					this.setPictureUuid((String) map.get(attribute));
 					break;
