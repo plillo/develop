@@ -19,7 +19,9 @@ public class Promotion implements Comparable<Promotion> {
 	private Long toDate;
 	private Boolean activate;
 	private String pictureUuid;
-	//
+	
+
+	// Business
 	private String businessUuid;
 	private String businessName;
 	private String businessPIva;
@@ -259,15 +261,13 @@ public class Promotion implements Comparable<Promotion> {
 	public Map<String, Object> toMap() {
 		// TODO continuare :-(
 		Map<String, Object> map = new HashMap<String, Object>();
+	
+		if (!StringUtils.isEON(this.get_id()))
+			map.put("_id", this.get_id());
 		if (!StringUtils.isEON(this.getUuid()))
 			map.put("uuid", this.getUuid());
 		if (!StringUtils.isEON(this.getType()))
 			map.put("type", this.getType());
-		if (!StringUtils.isEON(this.getBusinessName()))
-			map.put("businessName", this.getBusinessName());
-		if (!StringUtils.isEON(this.get_id()))
-			map.put("_id", this.get_id());
-
 		if (this.getFromDate() != null)
 			map.put("fromDate", this.getFromDate());
 		if (this.toDate != null)
@@ -277,6 +277,25 @@ public class Promotion implements Comparable<Promotion> {
 		if (!StringUtils.isEON(this.getPictureUuid()))
 			map.put("uuidPictureUuid", this.getPictureUuid());
 
+
+		// Business
+		if (!StringUtils.isEON(this.getBusinessUuid()))
+			map.put("businessUuid", this.getBusinessUuid());
+		if (!StringUtils.isEON(this.getBusinessName()))
+			map.put("businessName", this.getBusinessName());
+		if (!StringUtils.isEON(this.getBusinessPIva()))
+			map.put("businessPIva", this.getBusinessPIva());
+		if (!StringUtils.isEON(this.getBusinessFiscalCode()))
+			map.put("businessFiscalCode", this.getBusinessFiscalCode());	
+		if (!StringUtils.isEON(this.getBusinessAddress()))
+			map.put("businessAddress", this.getBusinessAddress());
+		if (!StringUtils.isEON(this.getBusinessCity()))
+			map.put("businessCity", this.getBusinessCity());
+		if (!StringUtils.isEON(this.getBusinessCap()))
+			map.put("businessCap", this.getBusinessCap());
+		if (!StringUtils.isEON(this.getBusinessNation()))
+			map.put("businessNation", this.getBusinessNation());
+	
 		return map;
 	}
 
