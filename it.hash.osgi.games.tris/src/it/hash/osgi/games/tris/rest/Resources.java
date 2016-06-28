@@ -87,6 +87,13 @@ public class Resources {
 				_brokerService.publish(playerTopic, 2, "{\"command\":\"ready\",\"gameSessionTopic\":\""+gameSessionTopic+"\",\"playerId\":"+(++counter)+"}");
 			}
 			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			// >> gameSessionTopic (deliverd to all players): send "setup" command
 			_brokerService.publish(gameSessionTopic, 2, "{\"command\":\"setup\",\"playersNumber\":"+players.size()+"}");
 			

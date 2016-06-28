@@ -16,6 +16,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 import it.hash.osgi.utils.Parser;
+import static it.hash.osgi.utils.StringUtils.*;
 
 public class CoreMqttClient implements MqttCallback {
 	MqttClient myClient = null;
@@ -32,22 +33,40 @@ public class CoreMqttClient implements MqttCallback {
 	public CoreMqttClient(@SuppressWarnings("rawtypes") Dictionary properties) {
 		cleanSession = Parser.parseBoolean((String)properties.get("clean-session"), true);
 		keepAliveInterval = Parser.parseInt((String)properties.get("keep-alive-interval"), 30);
-		username = (String)properties.get("username");
-		password = (String)properties.get("password");
-		brokerUrl = (String)properties.get("broker-url");
-		brokerPort = (String)properties.get("broker-port");
+		brokerPort = defaultIfNullOrEmpty((String)properties.get("broker-port"),"1883");
+		username = defaultIfNullOrEmpty((String)properties.get("username"),"admin");
+		password = defaultIfNullOrEmpty((String)properties.get("password"),"admin");
+		brokerUrl = defaultIfNullOrEmpty((String)properties.get("broker-url"),"tcp://localhost");
 	}
 
 	@Override
 	public void connectionLost(Throwable arg0) {
-		// TODO Auto-generated method stub
+		System.out.println("-------------------------------------------------");
+		System.out.println("| Broker connection lost");
+		System.out.println("-------------------------------------------------");
+		
+		/*
+		do {
+			try {
+				SECONDS.sleep(1);
+			} catch (InterruptedException e1) {
+				Thread.currentThread().interrupt();
+			}
+			try {
+				logger.info("Trying to reconnect");
+				listenToMqtt();
+			} catch (Exception e) {
+				logger.warn("Reconnect failed", e);
+			}
+		} while (!MqttClient.this.client.isConnected());
+		logger.info("Successfully reconnected");
+		*/
 		
 	}
 
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
