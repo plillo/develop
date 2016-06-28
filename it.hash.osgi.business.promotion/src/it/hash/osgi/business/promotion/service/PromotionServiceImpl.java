@@ -58,6 +58,8 @@ public class PromotionServiceImpl implements PromotionService {
 				_uuid.removeUUID(uuid);
 
 		} else {
+			response.put("status", Status.CREATED);
+			response.put("message", Status.FOUND);
 			response.put("created", false);
 			response.put("returnCode", 630);
 		}

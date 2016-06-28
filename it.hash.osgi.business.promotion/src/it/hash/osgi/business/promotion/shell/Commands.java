@@ -1,6 +1,7 @@
 package it.hash.osgi.business.promotion.shell;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +22,9 @@ import it.hash.osgi.business.promotion.service.PromotionService;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.utils.StringUtils;
 
-@Component(	immediate = true, 
-			service = Commands.class, 
-			property = { 
-			CommandProcessor.COMMAND_SCOPE + "=promotion",
-			CommandProcessor.COMMAND_FUNCTION + "=create", 
-			CommandProcessor.COMMAND_FUNCTION + "=delete",
-			CommandProcessor.COMMAND_FUNCTION + "=list", 
-			CommandProcessor.COMMAND_FUNCTION + "=get" })
+@Component(immediate = true, service = Commands.class, property = { CommandProcessor.COMMAND_SCOPE + "=promotion",
+		CommandProcessor.COMMAND_FUNCTION + "=create", CommandProcessor.COMMAND_FUNCTION + "=delete",
+		CommandProcessor.COMMAND_FUNCTION + "=list", CommandProcessor.COMMAND_FUNCTION + "=get" })
 public class Commands {
 	private volatile PromotionService _promotion;
 	private volatile BusinessService _businessService;
@@ -42,7 +38,7 @@ public class Commands {
 	public void unsetPromotionService(PromotionService service) {
 		_promotion = null;
 	}
-	
+
 	@Reference(service = BusinessService.class)
 	public void setBusinessService(BusinessService service) {
 		_businessService = service;
@@ -60,39 +56,38 @@ public class Commands {
 	}
 
 	public void create(String type, String businessUuid) {
-		Map<String,Object> map = new TreeMap<String,Object>();
+		Map<String, Object> map = new TreeMap<String, Object>();
 		Promotion promotion = PromotionFactory.getInstance(type);
 		promotion.setType(type);
+		promotion.setFromDate(new Date());
 
-		// promotion.setStartData(start);
-		// promotion.setEndData(end);
-		
-		
+		GregorianCalendar data = new GregorianCalendar();
+		promotion.setToDate(data.getTime());
+		data.add(GregorianCalendar.DATE, +1); // Aggiungo 1 giorni
+
+		promotion.setToDate(data.getTime());
+
 		// Retrieve
-				Business business = _businessService.getBusiness(businessUuid);
+		Business business = _businessService.getBusiness(businessUuid);
 
-				
+		if (!StringUtils.isEON(business.getUuid()))
+			map.put("businessUuid", business.getUuid());
+		if (!StringUtils.isEON(business.getName()))
+			map.put("businessName", business.getName());
+		if (!StringUtils.isEON(business.getPIva()))
+			map.put("businessPIva", business.getPIva());
+		if (!StringUtils.isEON(business.getFiscalCode()))
+			map.put("businessFiscalCode", business.getFiscalCode());
+		if (!StringUtils.isEON(business.getAddress()))
+			map.put("businessAddress", business.getAddress());
+		if (!StringUtils.isEON(business.getCity()))
+			map.put("businessCity", business.getCity());
+		if (!StringUtils.isEON(business.getCap()))
+			map.put("businessCap", business.getCap());
+		if (!StringUtils.isEON(business.getNation()))
+			map.put("businessNation", business.getNation());
 
-				
-				if (!StringUtils.isEON(business.getUuid()))
-					map.put("businessUuid", business.getUuid());
-				if (!StringUtils.isEON(business.getName()))
-					map.put("businessName", business.getName());
-				if (!StringUtils.isEON(business.getPIva()))
-					map.put("businessPIva", business.getPIva());
-				if (!StringUtils.isEON(business.getFiscalCode()))
-					map.put("businessFiscalCode", business.getFiscalCode());
-				if (!StringUtils.isEON(business.getAddress()))
-					map.put("businessAddress", business.getAddress());
-				if (!StringUtils.isEON(business.getCity()))
-					map.put("businessCity", business.getCity());
-				if (!StringUtils.isEON(business.getCap()))
-					map.put("businessCap", business.getCap());
-				if (!StringUtils.isEON(business.getNation()))
-					map.put("businessNation", business.getNation());
-
-				promotion.setByMap(map);
-
+		promotion.setByMap(map);
 
 		Map<String, Object> response = _promotion.createPromotion(promotion);
 

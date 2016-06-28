@@ -1,5 +1,6 @@
 package it.hash.osgi.business.promotion;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -15,8 +16,8 @@ public class Promotion implements Comparable<Promotion> {
 	private String _id;
 	private String uuid;
 	private String type;
-	private Long fromDate;
-	private Long toDate;
+	private Date fromDate;
+	private Date toDate;
 	private Boolean activate;
 	private String pictureUuid;
 
@@ -126,19 +127,19 @@ public class Promotion implements Comparable<Promotion> {
 		this.type = type;
 	}
 
-	public Long getFromDate() {
+	public Date getFromDate() {
 		return fromDate;
 	}
 
-	public void setFromDate(Long fromDate) {
+	public void setFromDate(Date fromDate) {
 		this.fromDate = fromDate;
 	}
 
-	public Long getToDate() {
+	public Date getToDate() {
 		return toDate;
 	}
 
-	public void setToDate(Long endTime) {
+	public void setToDate(Date endTime) {
 		this.toDate = endTime;
 	}
 
@@ -201,22 +202,40 @@ public class Promotion implements Comparable<Promotion> {
 
 				case "fromDate":
 					Object fromDate = map.get(attribute);
+					Date tmpFrom = null;
+					Long lFrom = null;
+					if (fromDate instanceof Date) {
+						this.setFromDate((Date) fromDate);
+						break;
+					}
 					if (fromDate instanceof Double)
-						this.setFromDate(((Double) map.get(attribute)).longValue());
-					else
-						this.setFromDate(((Long) map.get(attribute)));
+						lFrom = ((Double) map.get(attribute)).longValue();
 
+					else if (fromDate instanceof Long) {
+						lFrom = ((Long) map.get(attribute));
+					}
+					tmpFrom = new Date(lFrom);
+					this.setFromDate(tmpFrom);
 					break;
 
 				case "toDate":
-
 					Object toDate = map.get(attribute);
+					Date tmp = null;
+					Long l = null;
+					if (toDate instanceof Date) {
+						this.setFromDate((Date) toDate);
+						break;
+					}
 					if (toDate instanceof Double)
-						this.setToDate(((Double) map.get(attribute)).longValue());
-					else
-						this.setToDate(((Long) map.get(attribute)));
+						l = ((Double) map.get(attribute)).longValue();
 
+					else if (toDate instanceof Long) {
+						l = ((Long) map.get(attribute));
+					}
+					tmp = new Date(l);
+					this.setToDate(tmp);
 					break;
+
 				case "activate":
 					this.setActivate((Boolean) map.get(attribute));
 					break;
