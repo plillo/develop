@@ -54,14 +54,14 @@ public class PromotionServiceImpl implements PromotionService {
 			promotion.setUuid(uuid);
 
 			response = _promotionPersistenceService.addPromotion(promotion);
+			
 			if ((Boolean) response.get("created") == false)
 				_uuid.removeUUID(uuid);
 
 		} else {
-			response.put("status", Status.CREATED);
-			response.put("message", Status.FOUND);
-			response.put("created", false);
-			response.put("returnCode", 630);
+			response.put("status", Status.ERROR_GENERATING_UUID.getCode());
+			response.put("message", Status.ERROR_GENERATING_UUID.getMessage());
+			
 		}
 
 		return response;

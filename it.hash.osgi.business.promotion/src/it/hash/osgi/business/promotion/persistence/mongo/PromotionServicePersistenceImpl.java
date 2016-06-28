@@ -27,6 +27,7 @@ import com.mongodb.WriteResult;
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
 import it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence;
+import it.hash.osgi.business.promotion.service.Status;
 import it.hash.osgi.utils.StringUtils;
 
 ;
@@ -97,16 +98,17 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 				Promotion created_promotion = PromotionFactory.getInstance(created.toMap());
 
 				created_promotion.setByMap(created.toMap());
-				response.put("business", created_promotion);
-				response.put("created", true);
-				response.put("returnCode", 200);
+
+				response.put("status", Status.CREATED.getCode());
+				response.put("message", Status.CREATED.getMessage());
+				response.put("promotion", created_promotion);
 			} else {
-				response.put("created", false);
-				response.put("returnCode", 630);
+				response.put("status", Status.EXISTING_NOT_CREATED.getCode());
+				response.put("message", Status.EXISTING_NOT_CREATED.getMessage());
 			}
 		} else {
-			response.put("created", false);
-			response.put("returnCode", 630);
+			response.put("status", Status.EXISTING_MANY_NOT_CREATED.getCode());
+			response.put("message", Status.EXISTING_MANY_NOT_CREATED.getMessage());
 		}
 		return response;
 	}
@@ -600,20 +602,23 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		// Set response details
 		switch (matchs.size()) {
 		case 0:
-			response.put("found", false);
-			response.put("returnCode", 650);
+			response.put("status", Status.NOT_FOUND.getCode());
+			response.put("message", Status.NOT_FOUND.getMessage());
+			
 			break;
 		case 1:
 			Promotion key = (Promotion) matchs.keySet().toArray()[0];
 			response.put("promotion", key);
 			response.put("keys", matchs.get(key));
-			response.put("found", true);
-			response.put("returnCode", 200);
-			break;
+			response.put("status", Status.FOUND.getCode());
+			response.put("message", Status.FOUND.getMessage());
+		break;
 		default:
 			response.put("promotion", matchs);
-			response.put("returnCode", 640);
-		}
+			response.put("status", Status.FOUND_MANY.getCode());
+			response.put("message", Status.FOUND_MANY.getMessage());
+		
+			}
 
 		return response;
 
@@ -770,24 +775,24 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 
 	@Override
 	public Map<String, Object> updateActivate(String uuid, Boolean activate) {
-		Map<String,Object> response= new HashMap<String,Object>();
+		Map<String, Object> response = new HashMap<String, Object>();
 		Promotion promotion = this.getPromotionByUuid(uuid);
-		if (promotion!=null){
+		if (promotion != null) {
 			promotion.setActivate(activate);
 			response.put("promotion", promotion);
-			response.put("updateActivate", true);
-			response.put("returnCode", 200);
+			
+			response.put("status", Status.SETACTIVATE.getCode());
+			response.put("message", Status.SETACTIVATE.getMessage());
 
-		}
-		else{
-			response.put("updateActivate", false);
-			response.put("returnCode", 500);
-		}
+		} else {
+			response.put("status", Status.UNSETACTIVATE.getCode());
+			response.put("message", Status.UNSETACTIVATE.getMessage());
+}
 		return response;
 	}
 
 	@Override
-	public Map<String, Object> updatePromotion(Promotion promotion) {
+	public synchronized Map<String, Object> updatePromotion(Promotion promotion) {
 
 		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
 
@@ -810,16 +815,16 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 					updatedPromotion.setByMap(updated.toMap());
 					if (updatedPromotion != null) {
 						responseUpdate.put("product", updatedPromotion);
-						responseUpdate.put("update", "OK");
-						responseUpdate.put("returnCode", 200);
+						responseUpdate.put("status", Status.UPDATE.getCode());
+						responseUpdate.put("messagge", Status.UPDATE.getMessage());
 						return responseUpdate;
 					}
 				}
 			}
 		}
 
-		responseUpdate.put("update", "ERROR");
-		responseUpdate.put("returnCode", 610);
+		responseUpdate.put("status", Status.PROMOTION_IS_NULL.getCode());
+		responseUpdate.put("message", Status.PROMOTION_IS_NULL.getMessage());
 		return responseUpdate;
 
 	}
@@ -847,16 +852,17 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 			WriteResult wr = promotionCollection.remove(new BasicDBObject("_id", new ObjectId(_id)));
 			if (wr.getN() == 1) {
 				responseDelete.put("promotion", (Promotion) response.get("promotion"));
-				responseDelete.put("delete", true);
-				responseDelete.put("returnCode", 200);
-			} else {
+				responseDelete.put("status", Status.DELETE.getCode());
+				responseDelete.put("message", Status.DELETE.getMessage());
 
-				responseDelete.put("delete", false);
-				responseDelete.put("returnCode", 620);
+			} else {
+				responseDelete.put("status", Status.ERROR_SERVER_DELETE.getCode());
+				responseDelete.put("message", Status.ERROR_SERVER_DELETE.getMessage());
+
 			}
 		} else {
-			responseDelete.put("delete", false);
-			responseDelete.put("returnCode", 680);
+			responseDelete.put("status", Status.ERROR_DELETE.getCode());
+			responseDelete.put("message", Status.ERROR_DELETE.getMessage());
 
 		}
 		return responseDelete;

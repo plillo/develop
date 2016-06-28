@@ -60,11 +60,9 @@ public class Commands {
 		Promotion promotion = PromotionFactory.getInstance(type);
 		promotion.setType(type);
 		promotion.setFromDate(new Date());
-
 		GregorianCalendar data = new GregorianCalendar();
 		promotion.setToDate(data.getTime());
 		data.add(GregorianCalendar.DATE, +1); // Aggiungo 1 giorni
-
 		promotion.setToDate(data.getTime());
 
 		// Retrieve
