@@ -1,5 +1,8 @@
 package it.hash.osgi.broker;
 
+import java.util.Dictionary;
+import java.util.Enumeration;
+
 import org.apache.felix.service.command.CommandProcessor;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -10,7 +13,8 @@ import org.osgi.service.component.annotations.Reference;
 	property = {
 		CommandProcessor.COMMAND_SCOPE+"=broker",
 		CommandProcessor.COMMAND_FUNCTION+"=publish",
-		CommandProcessor.COMMAND_FUNCTION+"=subscribe"
+		CommandProcessor.COMMAND_FUNCTION+"=subscribe",
+		CommandProcessor.COMMAND_FUNCTION+"=props"
 	}
 )
 public class Commands {
@@ -39,6 +43,16 @@ public class Commands {
 		_brokerService.publish(topic, message);
 
 		System.out.println("published topic: " + topic+ " message: "+message);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void props() {
+		Dictionary props = _brokerService.getProperties();
+
+		for(Enumeration e=props.keys();e.hasMoreElements();) {
+			String key = (String)e.nextElement();
+			System.out.println(">>> " + key + " : " + props.get(key));
+		}
 	}
 	
     private void doLog(String message) {
