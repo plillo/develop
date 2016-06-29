@@ -18,7 +18,7 @@ public class Promotion implements Comparable<Promotion> {
 	private String type;
 	private Date fromDate;
 	private Date toDate;
-	private Boolean activate;
+	private Boolean active;
 	private String pictureUuid;
 
 	// Business
@@ -143,12 +143,12 @@ public class Promotion implements Comparable<Promotion> {
 		this.toDate = endTime;
 	}
 
-	public Boolean getActivate() {
-		return activate;
+	public Boolean getActive() {
+		return active;
 	}
 
-	public void setActivate(Boolean activate) {
-		this.activate = activate;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override
@@ -236,8 +236,8 @@ public class Promotion implements Comparable<Promotion> {
 					this.setToDate(tmp);
 					break;
 
-				case "activate":
-					this.setActivate((Boolean) map.get(attribute));
+				case "active":
+					this.setActive((Boolean) map.get(attribute));
 					break;
 				case "pictureUuid":
 					this.setPictureUuid((String) map.get(attribute));
@@ -281,7 +281,7 @@ public class Promotion implements Comparable<Promotion> {
 	@Override
 	public String toString() {
 		return "Promotion [_id=" + _id + ", uuid=" + uuid + ", type=" + type + ", fromDate=" + fromDate + ", toDate="
-				+ toDate + ", activate=" + activate + ", pictureUuid=" + pictureUuid + ", businessUuid=" + businessUuid
+				+ toDate + ", active=" + active + ", pictureUuid=" + pictureUuid + ", businessUuid=" + businessUuid
 				+ ", businessName=" + businessName + ", businessPIva=" + businessPIva + ", businessFiscalCode="
 				+ businessFiscalCode + ", businessAddress=" + businessAddress + ", businessCity=" + businessCity
 				+ ", businessCap=" + businessCap + ", businessNation=" + businessNation + "]";
@@ -301,8 +301,8 @@ public class Promotion implements Comparable<Promotion> {
 			map.put("fromDate", this.getFromDate());
 		if (this.toDate != null)
 			map.put("toDate", this.getToDate());
-		if (this.activate != null)
-			map.put("activate", this.activate);
+		if (this.active != null)
+			map.put("active", this.active);
 		if (!StringUtils.isEON(this.getPictureUuid()))
 			map.put("uuidPictureUuid", this.getPictureUuid());
 

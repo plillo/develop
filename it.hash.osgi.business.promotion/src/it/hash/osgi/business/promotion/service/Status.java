@@ -23,9 +23,9 @@ package it.hash.osgi.business.promotion.service;
 
 		// UPDATE
 		UPDATE(2101,"update"),
-		SETACTIVATE(2102,"setActivate"),
+		SETACTIVE(2102,"setActive"),
 	    // UPDATE ERROR
-		UNSETACTIVATE(4101,"unSetActivate"),
+		UNSETACTIVE(4101,"unSetActive"),
 		ERROR_UPDATE(4102, "errorUpdate"),
 		ERROR_SERVER_UPDATE(4103, "errorUpdate"),
 		

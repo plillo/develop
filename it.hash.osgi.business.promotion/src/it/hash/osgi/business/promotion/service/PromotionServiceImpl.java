@@ -182,9 +182,8 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public Map<String, Object> updateActivate(String uuid, Boolean activate) {
-		_promotionPersistenceService.updateActivate(uuid, activate);
-		return null;
+	public Map<String, Object> updateActive(String uuid, Boolean activate) {
+		return _promotionPersistenceService.updateActivate(uuid, activate);
 	}
 
 	/*

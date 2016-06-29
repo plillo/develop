@@ -15,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
@@ -130,30 +131,30 @@ public class Resources {
 
 	// POST businesses/1.0/promotion/{uuid}/setActivate
 	@POST 
-	@Path("promotion/{uuid}/setActivate")
+	@Path("promotion/{uuid}/setActive")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@io.swagger.annotations.ApiOperation(value = "update", notes = "...")
-	public Response setActivate(@PathParam("uuid") PathSegment uuid) {
+	public Response setActive(@PathParam("uuid") PathSegment uuid) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		String uuidPromotion = uuid.getPath();
-		Boolean activate = true;
-		response = _promotionService.updateActivate(uuidPromotion, activate);
+		Boolean active = true;
+		response = _promotionService.updateActive(uuidPromotion, active);
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
-	// POST businesses/1.0/promotion/{uuid}/unSetActivate
+	// POST businesses/1.0/promotion/{uuid}/unsetActive
 	@POST
-	@Path("promotion/{uuid}/unSetActivate")
+	@Path("promotion/{uuid}/unsetActive")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@io.swagger.annotations.ApiOperation(value = "update", notes = "...")
-	public Response unSetActivate(@PathParam("uuid") PathSegment uuid) {
+	public Response unsetActivate(@PathParam("uuid") PathSegment uuid) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		String uuidPromotion = uuid.getPath();
-		Boolean activate = false;
-		response = _promotionService.updateActivate(uuidPromotion, activate);
+		Boolean active = false;
+		response = _promotionService.updateActive(uuidPromotion, active);
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
@@ -202,12 +203,25 @@ public class Resources {
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
+	// DELETE businesses/1.0/promotions/{uuid}
+	@Path("promotions/{uuid}")
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	@io.swagger.annotations.ApiOperation(value = "delete", notes = "...")
+	public Response delete(@PathParam("uuid") PathSegment uuid) {
+		String puuid = uuid.getPath();
+
+		Map<String, Object> response = this._promotionService.deletePromotion(puuid);
+
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
+	}
+	
 	// DELETE businesses/1.0/promotions
 	@Path("promotions")
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@io.swagger.annotations.ApiOperation(value = "delete", notes = "...")
-	public Response delete(@FormParam("listUuid") List<String> listUuid) {
+	public Response delete(@QueryParam("listUuid") List<String> listUuid) {
 
 		Map<String, Object> responseAll = new TreeMap<String, Object>();
 
@@ -218,8 +232,6 @@ public class Resources {
 		}
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(responseAll).build();
 	}
-
-	// DELETE businesses/1.0/promotion/{uuid}
 
 	// GET businesses/1.0/promotion/by_searchKeyword/{keyword}
 	@GET

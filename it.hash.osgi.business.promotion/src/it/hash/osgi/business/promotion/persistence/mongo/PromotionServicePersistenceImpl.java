@@ -778,19 +778,19 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		Map<String, Object> response = new HashMap<String, Object>();
 		Promotion promotion = this.getPromotionByUuid(uuid);
 		if (promotion != null) {
-			promotion.setActivate(activate);
+			promotion.setActive(activate);
 			// TODO
 			response = this.updatePromotion(promotion);
 			if (response.get("status").equals(Status.UPDATE.getCode())) {
 				response.remove("status");
 				response.remove("message");
-				response.put("status", Status.SETACTIVATE.getCode());
-				response.put("message", Status.SETACTIVATE.getMessage());
+				response.put("status", Status.SETACTIVE.getCode());
+				response.put("message", Status.SETACTIVE.getMessage());
 			} else {
 				response.remove("status");
 				response.remove("message");
-				response.put("status", Status.UNSETACTIVATE.getCode());
-				response.put("message", Status.UNSETACTIVATE.getMessage());
+				response.put("status", Status.UNSETACTIVE.getCode());
+				response.put("message", Status.UNSETACTIVE.getMessage());
 
 			}
 

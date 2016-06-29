@@ -27,7 +27,7 @@ public interface PromotionService {
 	Map<String, Object> updatePromotion(String uuid, Map<String, Object> pars);
 	Map<String, Object> updatePromotionLogo(String uuid, String type, byte[] encodeBase64);
 	Map<String, Object> updatePromotionLogo(String uuid, String type, InputStream istream);
-	Map<String, Object> updateActivate(String uuid, Boolean activate);
+	Map<String, Object> updateActive(String uuid, Boolean activate);
 	
 	Map<String, Object> deletePromotion(String uuid);
 	
