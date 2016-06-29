@@ -604,7 +604,7 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		case 0:
 			response.put("status", Status.NOT_FOUND.getCode());
 			response.put("message", Status.NOT_FOUND.getMessage());
-			
+
 			break;
 		case 1:
 			Promotion key = (Promotion) matchs.keySet().toArray()[0];
@@ -612,13 +612,13 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 			response.put("keys", matchs.get(key));
 			response.put("status", Status.FOUND.getCode());
 			response.put("message", Status.FOUND.getMessage());
-		break;
+			break;
 		default:
 			response.put("promotion", matchs);
 			response.put("status", Status.FOUND_MANY.getCode());
 			response.put("message", Status.FOUND_MANY.getMessage());
-		
-			}
+
+		}
 
 		return response;
 
@@ -779,15 +779,25 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		Promotion promotion = this.getPromotionByUuid(uuid);
 		if (promotion != null) {
 			promotion.setActivate(activate);
-			response.put("promotion", promotion);
-			
-			response.put("status", Status.SETACTIVATE.getCode());
-			response.put("message", Status.SETACTIVATE.getMessage());
+			// TODO
+			response = this.updatePromotion(promotion);
+			if (response.get("status").equals(Status.UPDATE.getCode())) {
+				response.remove("status");
+				response.remove("message");
+				response.put("status", Status.SETACTIVATE.getCode());
+				response.put("message", Status.SETACTIVATE.getMessage());
+			} else {
+				response.remove("status");
+				response.remove("message");
+				response.put("status", Status.UNSETACTIVATE.getCode());
+				response.put("message", Status.UNSETACTIVATE.getMessage());
+
+			}
 
 		} else {
-			response.put("status", Status.UNSETACTIVATE.getCode());
-			response.put("message", Status.UNSETACTIVATE.getMessage());
-}
+			response.put("status", Status.PROMOTION_IS_NULL.getCode());
+			response.put("message", Status.PROMOTION_IS_NULL.getMessage());
+		}
 		return response;
 	}
 
@@ -819,6 +829,7 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 						responseUpdate.put("messagge", Status.UPDATE.getMessage());
 						return responseUpdate;
 					}
+					
 				}
 			}
 		}

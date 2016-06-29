@@ -129,6 +129,7 @@ public class Resources {
 	}
 
 	// POST businesses/1.0/promotion/{uuid}/setActivate
+	@POST 
 	@Path("promotion/{uuid}/setActivate")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -143,6 +144,7 @@ public class Resources {
 	}
 
 	// POST businesses/1.0/promotion/{uuid}/unSetActivate
+	@POST
 	@Path("promotion/{uuid}/unSetActivate")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
