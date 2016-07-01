@@ -1,6 +1,7 @@
 package it.hash.osgi.business.promotion;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,8 +11,12 @@ import org.json.JSONObject;
 
 import it.hash.osgi.utils.StringUtils;
 
-public class SpecialOffer extends Promotion {
+public class SpecialOffer extends Promotion implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String uuidProduct;
 	private Double price;
 	private Double minimumQuantity;

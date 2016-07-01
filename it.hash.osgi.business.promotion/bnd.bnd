@@ -20,7 +20,8 @@
 	json,\
 	it.hash.osgi.business,\
 	it.hash.osgi.business.product,\
-	it.hash.osgi.business.category
+	it.hash.osgi.business.category,\
+	com.google.gson
 
 -testpath: \
 	${junit}

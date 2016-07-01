@@ -2,6 +2,7 @@ package it.hash.osgi.business.promotion.persistence.mongo;
 
 import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -23,6 +25,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import com.mongodb.WriteResult;
+import com.mongodb.util.JSON;
 
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
@@ -72,15 +75,15 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		Promotion promotion_obj = PromotionFactory.getInstance((String) promotion.get("type"));
 		if (promotion_obj != null) {
 
-			promotion_obj.setByMap(promotion);
-
+				promotion_obj.setByMap(promotion);
+				promotion_obj.setActive(true);
 			return addPromotion(promotion_obj);
 		}
 		return null;
 	}
 
 	@Override
-	public Map<String, Object> addPromotion(Promotion promotion) {
+	public Map<String, Object> addPromotion(Promotion promotion)  {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
 		// Match business
@@ -99,8 +102,8 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 			if (created != null) {
 
 				Promotion created_promotion = PromotionFactory.getInstance(created.toMap());
-
-				created_promotion.setByMap(created.toMap());
+Map <String,Object> c=created.toMap();
+				created_promotion.setByMap(c);
 
 				response.put("status", Status.CREATED.getCode());
 				response.put("message", Status.CREATED.getMessage());
@@ -507,10 +510,13 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 	 * search, false); }
 	 */
 	private DBObject promotionToDBObject(Promotion promotion) {
-
+		Gson gson = new Gson();
+		BasicDBObject obj = (BasicDBObject)JSON.parse(gson.toJson(promotion));
+	
+		
 		DBObject db = new BasicDBObject(promotion.toMap());
 
-		return db;
+		return obj;
 	}
 
 	@Override

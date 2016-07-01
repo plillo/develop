@@ -2,6 +2,7 @@ package it.hash.osgi.business.product;
 
 import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Vector;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
-public class Product implements Comparable<Product> {
+public class Product implements Comparable<Product>, Serializable {
 	 
 	@ObjectId @Id
 	private String _id;

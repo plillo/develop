@@ -1,15 +1,19 @@
 package it.hash.osgi.business.promotion;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Locale;
 
 import it.hash.osgi.utils.StringUtils;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
-public class Promotion implements Comparable<Promotion> {
+public class Promotion implements Comparable<Promotion> ,Serializable{
 
 	@ObjectId
 	@Id
@@ -223,6 +227,25 @@ public class Promotion implements Comparable<Promotion> {
 					else if (fromDate instanceof Long) {
 						lFrom = ((Long) map.get(attribute));
 					}
+					if (fromDate instanceof String){
+						SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a", Locale.ENGLISH );
+					
+
+							Date date=null;
+							String f= (String)fromDate;
+							try {
+								date= formatter.parse(f);
+								this.setFromDate(date);
+								break;
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+
+						
+				
+					}
 					tmpFrom = new Date(lFrom);
 					this.setFromDate(tmpFrom);
 					break;
@@ -231,6 +254,26 @@ public class Promotion implements Comparable<Promotion> {
 					Object toDate = map.get(attribute);
 					Date tmp = null;
 					Long l = null;
+					if (toDate instanceof String){
+						SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss a", Locale.ENGLISH );
+					
+
+							Date date=null;
+							String f= (String)toDate;
+							try {
+								date= formatter.parse(f);
+								this.setToDate(date);
+								break;
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+
+						
+						System.out.println(toDate);
+					}
+
 					if (toDate instanceof Date) {
 						this.setFromDate((Date) toDate);
 						break;

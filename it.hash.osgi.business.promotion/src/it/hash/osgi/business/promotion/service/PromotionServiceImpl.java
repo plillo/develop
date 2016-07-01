@@ -1,6 +1,7 @@
 package it.hash.osgi.business.promotion.service;
 
 import java.io.InputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,7 +98,12 @@ public class PromotionServiceImpl implements PromotionService {
 		if (!StringUtils.isEmptyOrNull(uuid)) {
 			promotion.setUuid(uuid);
 
-			response = _promotionPersistenceService.addPromotion(promotion);
+			try {
+				response = _promotionPersistenceService.addPromotion(promotion);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			if (!(Boolean) response.get("status").equals(Status.CREATED.getCode()))
 				_uuid.removeUUID(uuid);
@@ -143,6 +149,7 @@ public class PromotionServiceImpl implements PromotionService {
 		JSONObject obj = new JSONObject(map);
 		if (obj != null) {
 			JSONArray items = obj.optJSONArray("products");
+
 			if (items != null) {
 				for (int i = 0; i < items.length(); i++) {
 					String current = items.optString(i);
@@ -186,15 +193,16 @@ public class PromotionServiceImpl implements PromotionService {
 		}
 
 		pars.putAll(business);
-
+		pars.put("active", true);
 		if (pars.get("type").equals(typeOffer.LastMinute.getMessage())) {
 
 			List<Product> products = this.retrieveDetailsProducts(pars);
-			if (!products.isEmpty())
+			if (!products.isEmpty()) {
+				pars.remove("products");
 				pars.put("products", products);
-			else
+			} else
 				pars.put("products", null);
-			
+
 			List<Category> categories = this.retrieveDetailsCategories(pars);
 			if (!categories.isEmpty())
 				pars.put("categories", categories);

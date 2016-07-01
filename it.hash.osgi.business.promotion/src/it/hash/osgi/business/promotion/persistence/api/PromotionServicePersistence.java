@@ -4,6 +4,7 @@
  */
 package it.hash.osgi.business.promotion.persistence.api;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ import it.hash.osgi.business.promotion.Promotion;
 public interface PromotionServicePersistence {
 	// CREATE
 	Map<String, Object> addPromotion(Map<String, Object> promotion);
-	Map<String, Object> addPromotion(Promotion promotion);
+	Map<String, Object> addPromotion(Promotion promotion) throws ParseException;
 	             
 	// READ
 	Map<String, Object> getPromotion(Promotion promotion);
