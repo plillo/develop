@@ -17,10 +17,10 @@ public class PromotionFactory {
 			case "SPO":
 				return new SpecialOffer();
 
-			case "LastMinute":
+			case "LMT":
 				return new LastMinute();
 		
-			case "Three4two":
+			case "3X2":
 				return new Three4two();
 
 			}
@@ -38,10 +38,10 @@ public class PromotionFactory {
 			case "SPO":
 				return new SpecialOffer();
 
-			case "LastMinute":
+			case "LMT":
 				return new LastMinute();
 		
-			case "Three4two":
+			case "3X2":
 				return new Three4two();
 
 			}

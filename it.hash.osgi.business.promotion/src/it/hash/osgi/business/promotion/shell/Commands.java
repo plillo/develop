@@ -57,37 +57,15 @@ public class Commands {
 
 	public void create(String type, String businessUuid) {
 		Map<String, Object> map = new TreeMap<String, Object>();
-		Promotion promotion = PromotionFactory.getInstance(type);
-		promotion.setType(type);
-		promotion.setFromDate(new Date());
 		GregorianCalendar data = new GregorianCalendar();
-		promotion.setToDate(data.getTime());
 		data.add(GregorianCalendar.DATE, +1); // Aggiungo 1 giorni
-		promotion.setToDate(data.getTime());
+	
+		map.put("fromDate", new Date());
+		map.put("toDate", data.getTime());
+		map.put("type", type);
 
-		// Retrieve
-		Business business = _businessService.getBusiness(businessUuid);
-
-		if (!StringUtils.isEON(business.getUuid()))
-			map.put("businessUuid", business.getUuid());
-		if (!StringUtils.isEON(business.getName()))
-			map.put("businessName", business.getName());
-		if (!StringUtils.isEON(business.getPIva()))
-			map.put("businessPIva", business.getPIva());
-		if (!StringUtils.isEON(business.getFiscalCode()))
-			map.put("businessFiscalCode", business.getFiscalCode());
-		if (!StringUtils.isEON(business.getAddress()))
-			map.put("businessAddress", business.getAddress());
-		if (!StringUtils.isEON(business.getCity()))
-			map.put("businessCity", business.getCity());
-		if (!StringUtils.isEON(business.getCap()))
-			map.put("businessCap", business.getCap());
-		if (!StringUtils.isEON(business.getNation()))
-			map.put("businessNation", business.getNation());
-
-		promotion.setByMap(map);
-
-		Map<String, Object> response = _promotion.createPromotion(promotion);
+	
+		Map<String, Object> response = _promotion.createPromotion(businessUuid, map);
 
 		System.out.println(response.toString());
 	}

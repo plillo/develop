@@ -19,9 +19,9 @@ import org.osgi.service.log.LogService;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-//import com.mongodb.DBCursor;
+
 import com.mongodb.DBObject;
-//import com.mongodb.WriteResult;
+
 import com.mongodb.WriteResult;
 
 import it.hash.osgi.business.promotion.Promotion;
@@ -69,11 +69,14 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 	@Override
 	public Map<String, Object> addPromotion(Map<String, Object> promotion) {
 
-		Promotion promotion_obj = PromotionFactory.getInstance(promotion);
-		promotion_obj.setByMap(promotion);
+		Promotion promotion_obj = PromotionFactory.getInstance((String) promotion.get("type"));
+		if (promotion_obj != null) {
 
-		return addPromotion(promotion_obj);
+			promotion_obj.setByMap(promotion);
 
+			return addPromotion(promotion_obj);
+		}
+		return null;
 	}
 
 	@Override
@@ -83,8 +86,8 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		// Match business
 		Map<String, Object> result = getPromotion(promotion);
 		// If new business
-		if ((int) result.get("matched") == 0) {
-			// Create business
+		if (result.get("status").equals(Status.NOT_FOUND.getCode())) {
+			// Create promotion
 
 			promotionCollection.save(promotionToDBObject(promotion));
 
@@ -774,23 +777,20 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 	}
 
 	@Override
-	public Map<String, Object> updateActivate(String uuid, Boolean activate) {
+	public Map<String, Object> updateActivate(String uuid, Boolean activated) {
 		Map<String, Object> response = new HashMap<String, Object>();
 		Promotion promotion = this.getPromotionByUuid(uuid);
 		if (promotion != null) {
-			promotion.setActive(activate);
+			promotion.setActive(activated);
 			// TODO
 			response = this.updatePromotion(promotion);
 			if (response.get("status").equals(Status.UPDATE.getCode())) {
-				response.remove("status");
-				response.remove("message");
 				response.put("status", Status.SETACTIVE.getCode());
 				response.put("message", Status.SETACTIVE.getMessage());
 			} else {
-				response.remove("status");
-				response.remove("message");
-				response.put("status", Status.UNSETACTIVE.getCode());
-				response.put("message", Status.UNSETACTIVE.getMessage());
+
+				response.put("status", Status.ERROR_SERVER_UPDATE.getCode());
+				response.put("message", Status.ERROR_SERVER_UPDATE.getMessage());
 
 			}
 
@@ -807,31 +807,27 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
 
 		if (promotion != null) {
-			Map<String, Object> response = new TreeMap<String, Object>();
-			response = getPromotion(promotion);
-			if (response != null) {
-				if ((int) response.get("matched") == 1) {
-					// UNSET _ID
-					promotion.set_id(null);
-					BasicDBObject updateDocument = new BasicDBObject().append("$set",
-							new BasicDBObject(promotion.toMap()));
-					BasicDBObject searchQuery = new BasicDBObject().append("uuid", promotion.getUuid());
+			promotion.set_id(null);
+			BasicDBObject updateDocument = new BasicDBObject().append("$set", new BasicDBObject(promotion.toMap()));
+			BasicDBObject searchQuery = new BasicDBObject().append("uuid", promotion.getUuid());
 
-					promotionCollection.update(searchQuery, updateDocument);
+			promotionCollection.update(searchQuery, updateDocument);
 
-					// Retrieve updated product
-					DBObject updated = promotionCollection.findOne(new BasicDBObject("uuid", promotion.getUuid()));
-					Promotion updatedPromotion = PromotionFactory.getInstance(updated.toMap());
-					updatedPromotion.setByMap(updated.toMap());
-					if (updatedPromotion != null) {
-						responseUpdate.put("product", updatedPromotion);
-						responseUpdate.put("status", Status.UPDATE.getCode());
-						responseUpdate.put("messagge", Status.UPDATE.getMessage());
-						return responseUpdate;
-					}
-					
-				}
+			// Retrieve updated product
+			DBObject updated = promotionCollection.findOne(new BasicDBObject("uuid", promotion.getUuid()));
+			Promotion updatedPromotion = PromotionFactory.getInstance(updated.toMap());
+			updatedPromotion.setByMap(updated.toMap());
+			if (updatedPromotion != null) {
+				responseUpdate.put("product", updatedPromotion);
+				responseUpdate.put("status", Status.UPDATE.getCode());
+				responseUpdate.put("message", Status.UPDATE.getMessage());
+				return responseUpdate;
 			}
+
+			responseUpdate.put("status", Status.ERROR_SERVER_UPDATE.getCode());
+			responseUpdate.put("message", Status.ERROR_SERVER_UPDATE.getMessage());
+			return responseUpdate;
+
 		}
 
 		responseUpdate.put("status", Status.PROMOTION_IS_NULL.getCode());

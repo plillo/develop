@@ -18,7 +18,9 @@
 	it.hash.osgi.user,\
 	it.hash.osgi.resource.uuid,\
 	json,\
-	it.hash.osgi.business
+	it.hash.osgi.business,\
+	it.hash.osgi.business.product,\
+	it.hash.osgi.business.category
 
 -testpath: \
 	${junit}

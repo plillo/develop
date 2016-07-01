@@ -84,14 +84,15 @@ public class ProductServiceImpl implements ProductService{
 	
 
 	@Override
-	public Product getProduct(Product item) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Product getProduct(String uuid) {
+		return  _productPersistenceService.getProductByUuid(uuid);
+		
+			}
 
 	@Override
-	public List<Product> getProduct(String search) {
-		// TODO Auto-generated method stub
+	public List<Product> getProducts(String search) {
+		
+		
 		return null;
 	}
 	

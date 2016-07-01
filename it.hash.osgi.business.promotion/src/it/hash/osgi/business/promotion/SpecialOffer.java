@@ -125,7 +125,6 @@ public class SpecialOffer extends Promotion {
 		super.setByMap(map);
 		if (map.containsKey("products")) {
 			JSONObject obj = new JSONObject(map);
-//TODO fare due casi: uno se è già in una semplice mappa...oppure se è in formato json
 			if (obj != null) {
 				JSONArray items = obj.optJSONArray("products");
 				if (items != null) {

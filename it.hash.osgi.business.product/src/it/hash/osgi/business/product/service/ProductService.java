@@ -7,8 +7,8 @@ import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.product.Product;
 
 public interface ProductService {
-	Product getProduct(Product item);
-	List<Product> getProduct(String search);
+	Product getProduct( String uuid );
+	List<Product> getProducts(String search);
 	Map<String, Object> getProduct(Map<String, Object> pars);
 	Map<String, Object> createProduct(Product item);
 	Map<String, Object> updateProduct(Product item);

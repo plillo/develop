@@ -20,6 +20,7 @@ public class Promotion implements Comparable<Promotion> {
 	private Date toDate;
 	private Boolean active;
 	private String pictureUuid;
+	private String _locLongDescription;
 
 	// Business
 	private String businessUuid;
@@ -117,6 +118,14 @@ public class Promotion implements Comparable<Promotion> {
 
 	public void setPictureUuid(String pictureUuid) {
 		this.pictureUuid = pictureUuid;
+	}
+
+	public String get_locLongDescription() {
+		return _locLongDescription;
+	}
+
+	public void set_locLongDescription(String _locLongDescription) {
+		this._locLongDescription = _locLongDescription;
 	}
 
 	public String getType() {
@@ -235,12 +244,14 @@ public class Promotion implements Comparable<Promotion> {
 					tmp = new Date(l);
 					this.setToDate(tmp);
 					break;
-
 				case "active":
 					this.setActive((Boolean) map.get(attribute));
 					break;
 				case "pictureUuid":
 					this.setPictureUuid((String) map.get(attribute));
+					break;
+				case "_locLongDescription":
+					this.set_locLongDescription((String) map.get(attribute));
 					break;
 				case "businessUuid":
 					this.setBusinessUuid((String) map.get(attribute));
@@ -305,6 +316,8 @@ public class Promotion implements Comparable<Promotion> {
 			map.put("active", this.active);
 		if (!StringUtils.isEON(this.getPictureUuid()))
 			map.put("uuidPictureUuid", this.getPictureUuid());
+		if (!StringUtils.isEON(this.get_locLongDescription()))
+			map.put("uuidPictureUuid", this.get_locLongDescription());
 
 		// Business
 		if (!StringUtils.isEON(this.getBusinessUuid()))

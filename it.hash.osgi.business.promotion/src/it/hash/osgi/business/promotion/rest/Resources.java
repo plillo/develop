@@ -33,6 +33,7 @@ import it.hash.osgi.business.Business;
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
 import it.hash.osgi.business.promotion.service.PromotionService;
+import it.hash.osgi.business.promotion.service.Status;
 import it.hash.osgi.business.service.BusinessService;
 import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.utils.StringUtils;
@@ -95,42 +96,17 @@ public class Resources {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@io.swagger.annotations.ApiOperation(value = "create", notes = "...")
-	public Response create(@PathParam("uuid") PathSegment uuid, TreeMap<String, Object> map) {
+	public Response create(@PathParam("uuid") PathSegment uuidBusiness, TreeMap<String, Object> map) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
-		// Retrieve
-		Business business = _businessService.getBusiness(uuid.getPath());
-
-		if (business == null)
-			return Response.serverError().build();
-
-		Promotion promotion = PromotionFactory.getInstance(map);
-		if (!StringUtils.isEON(business.getUuid()))
-			map.put("businessUuid", business.getUuid());
-		if (!StringUtils.isEON(business.getName()))
-			map.put("businessName", business.getName());
-		if (!StringUtils.isEON(business.getPIva()))
-			map.put("businessPIva", business.getPIva());
-		if (!StringUtils.isEON(business.getFiscalCode()))
-			map.put("businessFiscalCode", business.getFiscalCode());
-		if (!StringUtils.isEON(business.getAddress()))
-			map.put("businessAddress", business.getAddress());
-		if (!StringUtils.isEON(business.getCity()))
-			map.put("businessCity", business.getCity());
-		if (!StringUtils.isEON(business.getCap()))
-			map.put("businessCap", business.getCap());
-		if (!StringUtils.isEON(business.getNation()))
-			map.put("businessNation", business.getNation());
-
-		promotion.setByMap(map);
-
-		response = _promotionService.createPromotion(promotion);
+	
+		response = _promotionService.createPromotion(uuidBusiness.getPath(), map);
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
 
 	// POST businesses/1.0/promotion/{uuid}/setActivate
-	@POST 
+	@POST
 	@Path("promotion/{uuid}/setActive")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -184,7 +160,7 @@ public class Resources {
 			@FormDataParam("picture") FormDataContentDisposition fileDetail) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
-		String promotiontUuid = puuid.getPath();
+		String promotionUuid = puuid.getPath();
 
 		if (inputStream != null) {
 			try {
@@ -192,9 +168,7 @@ public class Resources {
 				String contentType = body.getMediaType().getType() + "/" + body.getMediaType().getSubtype();
 
 				if (_S3Service.createBucket("reporetail", pictureUuid, contentType, inputStream))
-					response = null;
-				// response = _promotionService.addPicture(productUuid,
-				// pictureUuid);
+				 response = _promotionService.addPicture(promotionUuid,	 pictureUuid);
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
@@ -215,7 +189,7 @@ public class Resources {
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
-	
+
 	// DELETE businesses/1.0/promotions
 	@Path("promotions")
 	@DELETE
@@ -227,8 +201,11 @@ public class Resources {
 
 		for (String uuid : listUuid) {
 			Map<String, Object> response = this._promotionService.deletePromotion(uuid);
-			System.out.println("Delete  " + response.get("promotion") + "returnCode " + response.get("returnCode"));
-			responseAll.put(uuid, response);
+			// System.out.println("Delete " + response.get("promotion") +
+			// "returnCode " + response.get("returnCode"));
+
+			responseAll.put(uuid, response.get("status"));
+
 		}
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(responseAll).build();
 	}

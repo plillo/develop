@@ -11,8 +11,9 @@ import it.hash.osgi.business.promotion.Promotion;
 
 public interface PromotionService {
 	
-	Map<String, Object> createPromotion(Promotion promotion);
-	Map<String, Object> createPromotion(Map<String, Object> pars);
+	
+	Map<String, Object> createPromotion(String businessUuid, Promotion promotion);
+	Map<String, Object> createPromotion(String businessUuid,Map<String, Object> pars);
 	
 
 	List<Promotion> retrievePromotion(String search);
@@ -31,6 +32,7 @@ public interface PromotionService {
 	
 	Map<String, Object> deletePromotion(String uuid);
 	
+	Map<String, Object>addPicture(String promotionUuid,	 String pictureUuid);
 	
 //	Promotion getPromotionByBusinessFiscalCode(String BusinessFiscalCode);
 //	Promotion getPromotionByBusinessFiscalCode(String BusinessFiscalCode, boolean withLogo);

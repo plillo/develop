@@ -17,6 +17,7 @@ package it.hash.osgi.business.promotion.service;
 		
 		// CLIENT ERROR
 		ERROR_UNMATCHED_PROMOTION(4004, "errorUnmatchedPromotion"),
+		ERROR_UNMATCHED_BUSINESS(4005, "errorUnmatchedBusiness"),
 		
 		// SERVER ERROR
 		ERROR_GENERATING_UUID(5002, "errorGeneratingUuid"),
@@ -24,8 +25,9 @@ package it.hash.osgi.business.promotion.service;
 		// UPDATE
 		UPDATE(2101,"update"),
 		SETACTIVE(2102,"setActive"),
-	    // UPDATE ERROR
-		UNSETACTIVE(4101,"unSetActive"),
+		UNSETACTIVE(2102,"unsetActive"),
+		
+		// UPDATE ERROR
 		ERROR_UPDATE(4102, "errorUpdate"),
 		ERROR_SERVER_UPDATE(4103, "errorUpdate"),
 		

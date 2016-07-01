@@ -19,9 +19,10 @@
 Bundle-Version: 1.0.1.${tstamp}
 -dsannotations: *
 Private-Package: \
-	it.hash.osgi.business.product,\
 	it.hash.osgi.business.product.persistence.api,\
 	it.hash.osgi.business.product.persistence.mongo,\
 	it.hash.osgi.business.product.rest,\
-	it.hash.osgi.business.product.shell,\
+	it.hash.osgi.business.product.shell
+Export-Package: \
+	it.hash.osgi.business.product,\
 	it.hash.osgi.business.product.service
