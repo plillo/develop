@@ -70,10 +70,10 @@ public class LastMinute extends Promotion {
 		Map<String, Object> map = super.toMap();
 
 		if (this.getProducts() != null)
-			// map.put("products", this.getProducts());
+			 map.put("products", this.getProducts());
 			map.put("products", null);
 		if (this.getCategories() != null)
-			// map.put("categories", this.getCategories());
+			 map.put("categories", this.getCategories());
 			map.put("categories", null);
 		if (this.discount != null)
 			map.put("discount", this.getDiscount());
