@@ -33,4 +33,6 @@ public interface BusinessService {
 	List<Business> retrieveOwnedByUser(String uuid, boolean withLogo);
 	List<Business> retrieveNotFollowedByUser(String user, String search);
 	List<Business> retrieveNotFollowedByUser(String user, String search, boolean withLogo);
+
+	Map<String, Object> retrieveSubscriptionRules(String uuid, String uuid2);
 }

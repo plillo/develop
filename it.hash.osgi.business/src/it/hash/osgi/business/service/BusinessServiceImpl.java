@@ -229,4 +229,9 @@ public class BusinessServiceImpl implements BusinessService {
         System.out.println("## [" + this.getClass() + "] " + message);
     }
 
+	@Override
+	public Map<String, Object> retrieveSubscriptionRules(String businessUuid, String userUuid) {
+		return _businessPersistenceService.retrieveSubscriptionRules(businessUuid, userUuid);
+	}
+
 }

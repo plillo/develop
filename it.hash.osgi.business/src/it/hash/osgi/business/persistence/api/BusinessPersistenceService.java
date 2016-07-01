@@ -47,6 +47,8 @@ public interface BusinessPersistenceService {
 	List<Business> retrieveNotFollowedByUser(String userUuid, String search);
 	List<Business> retrieveNotFollowedByUser(String userUuid, String search, boolean withLogo);
 	
+	Map<String, Object> retrieveSubscriptionRules(String businessUuid, String userUuid);
+
 	// UPDATE
 	Map<String, Object> updateBusiness(String uuid, Business business);
 	Map<String, Object> updateBusiness(String uuid, Map<String, Object> business);

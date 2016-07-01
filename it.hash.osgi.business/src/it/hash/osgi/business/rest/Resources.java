@@ -128,6 +128,20 @@ public class Resources {
 			return Response.ok().header("Access-Control-Allow-Origin", "*").build();
 	}
 	
+	@GET
+	@Path("/{uuid}/rules")
+	@Produces(MediaType.WILDCARD)
+    @io.swagger.annotations.ApiOperation(value = "getLogo", notes = "get business logo")
+	public Response getSubscriptionRules(@PathParam("uuid") String uuid) throws Exception {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		
+		Map<String, Object> rules = _businessService.retrieveSubscriptionRules(uuid, _userService.getUUID());
+
+		response.put("rules", rules);
+		
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
+	}
+	
 	// GET businesses/1.0/businesses/by_selfOwned/positions
 	@Path("/by_selfOwned/positions")
 	@GET

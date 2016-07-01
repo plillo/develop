@@ -5,6 +5,7 @@ import static it.hash.osgi.utils.StringUtils.isNotEmptyOrNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,6 +18,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBList;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -363,6 +365,26 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 
 		return list;
 	}
+	
+	@Override
+	public Map<String, Object> retrieveSubscriptionRules(String businessUuid, String userUuid) {
+		
+		BasicDBObject query = new BasicDBObject("uuid", businessUuid).append("followers.user", userUuid);
+		DBCursor cursor = businessCollection.find(query/*new BasicDBObject("followers.user", userUuid)*/, new BasicDBObject("logo", false));
+		BasicDBObject db = null;
+		if (cursor.hasNext()) {
+			db = (BasicDBObject) cursor.next();
+		}
+		BasicDBList followers = (BasicDBList)db.get("followers");
+		for( Iterator<Object> it = followers.iterator(); it.hasNext(); ){
+			BasicDBObject dbo = (BasicDBObject) it.next();
+			String user = (String)dbo.get("user");
+			if(userUuid.equals(user))
+				return ((BasicDBObject)dbo.get("rules")).toMap();
+		}
+		
+		return new BasicDBObject().toMap();
+	}
 
 	@SuppressWarnings("unused")
 	@Override
@@ -500,7 +522,7 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		BasicDBObject updatedDocument = new BasicDBObject().append("$addToSet",
-				new BasicDBObject().append("followers", userUuid));
+				new BasicDBObject().append("followers", new BasicDBObject().append("user", userUuid).append("rules", new BasicDBObject().append("active", true).append("pushChannel", true).append("mailChannel", true).append("smsChannel", false))));
 		BasicDBObject searchQuery = new BasicDBObject().append("uuid", businessUuid);
 
 		WriteResult wr = businessCollection.update(searchQuery, updatedDocument);
@@ -517,7 +539,7 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 	public Map<String, Object> unFollow(String businessUuid, String actual_user_uuid) {
 		Map<String, Object> response = new HashMap<String, Object>();
 		BasicDBObject searchQuery = new BasicDBObject().append("uuid", businessUuid);
-		BasicDBObject update = new BasicDBObject("followers", actual_user_uuid);
+		BasicDBObject update = new BasicDBObject("followers", new BasicDBObject("user", actual_user_uuid));
 
 		WriteResult wr = businessCollection.update(searchQuery, new BasicDBObject("$pull", update));
 		if (wr.getN() == 0)
@@ -557,9 +579,9 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 		if (uuid != null) {
 			DBCursor cursor;
 			if(withLogo)
-				cursor = businessCollection.find(new BasicDBObject("followers", uuid));
+				cursor = businessCollection.find(new BasicDBObject("followers.user", uuid));
 			else
-				cursor = businessCollection.find(new BasicDBObject("followers", uuid), new BasicDBObject("logo", false));
+				cursor = businessCollection.find(new BasicDBObject("followers.user", uuid), new BasicDBObject("logo", false));
 
 			List<Business> list = new ArrayList<Business>();
 			while (cursor.hasNext()) {
