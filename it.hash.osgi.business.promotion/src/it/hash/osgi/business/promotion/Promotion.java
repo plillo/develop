@@ -24,7 +24,7 @@ public class Promotion implements Comparable<Promotion> ,Serializable{
 	private Date toDate;
 	private Boolean active;
 	private String pictureUuid;
-	private String _locLongDescription;
+	private String Description;
 
 	// Business
 	private String businessUuid;
@@ -124,12 +124,12 @@ public class Promotion implements Comparable<Promotion> ,Serializable{
 		this.pictureUuid = pictureUuid;
 	}
 
-	public String get_locLongDescription() {
-		return _locLongDescription;
+	public String getDescription() {
+		return Description;
 	}
 
-	public void set_locLongDescription(String _locLongDescription) {
-		this._locLongDescription = _locLongDescription;
+	public void setDescription(String Description) {
+		this.Description = Description;
 	}
 
 	public String getType() {
@@ -293,8 +293,8 @@ public class Promotion implements Comparable<Promotion> ,Serializable{
 				case "pictureUuid":
 					this.setPictureUuid((String) map.get(attribute));
 					break;
-				case "_locLongDescription":
-					this.set_locLongDescription((String) map.get(attribute));
+				case "Description":
+					this.setDescription((String) map.get(attribute));
 					break;
 				case "businessUuid":
 					this.setBusinessUuid((String) map.get(attribute));
@@ -359,8 +359,8 @@ public class Promotion implements Comparable<Promotion> ,Serializable{
 			map.put("active", this.active);
 		if (!StringUtils.isEON(this.getPictureUuid()))
 			map.put("uuidPictureUuid", this.getPictureUuid());
-		if (!StringUtils.isEON(this.get_locLongDescription()))
-			map.put("uuidPictureUuid", this.get_locLongDescription());
+		if (!StringUtils.isEON(this.getDescription()))
+			map.put("uuidPictureUuid", this.getDescription());
 
 		// Business
 		if (!StringUtils.isEON(this.getBusinessUuid()))
