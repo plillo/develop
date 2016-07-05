@@ -27,6 +27,7 @@ import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 import com.mongodb.util.JSON;
 
+import it.hash.osgi.business.product.Product;
 import it.hash.osgi.business.promotion.Promotion;
 import it.hash.osgi.business.promotion.PromotionFactory;
 import it.hash.osgi.business.promotion.persistence.api.PromotionServicePersistence;
@@ -86,13 +87,19 @@ public class PromotionServicePersistenceImpl implements PromotionServicePersiste
 	public Map<String, Object> addPromotion(Promotion promotion)  {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
-		// Match business
+		// Match promotion
 		Map<String, Object> result = getPromotion(promotion);
-		// If new business
+		// If new promotion
 		if (result.get("status").equals(Status.NOT_FOUND.getCode())) {
 			// Create promotion
-
-			promotionCollection.save(promotionToDBObject(promotion));
+			
+			BasicDBObject dbupsert = new BasicDBObject()
+					.append("$currentDate", new BasicDBObject("cdate",true).append("cdate", true))
+					.append("$set", new BasicDBObject(promotion.toMap()));
+			promotionCollection.update(new BasicDBObject()/*void object*/, dbupsert, true, false);
+			
+			
+	//		promotionCollection.save(promotionToDBObject(promotion));
 
 			// Get created business without logo
 			DBObject created = promotionCollection.findOne(promotionToDBObject(promotion),
@@ -811,10 +818,12 @@ Map <String,Object> c=created.toMap();
 	public synchronized Map<String, Object> updatePromotion(Promotion promotion) {
 
 		Map<String, Object> responseUpdate = new TreeMap<String, Object>();
-
+		
 		if (promotion != null) {
 			promotion.set_id(null);
-			BasicDBObject updateDocument = new BasicDBObject().append("$set", new BasicDBObject(promotion.toMap()));
+			BasicDBObject updateDocument = new BasicDBObject()
+					.append("$currentDate", new BasicDBObject("mdate",true).append("mdate", true))
+					.append("$set", new BasicDBObject(promotion.toMap()));
 			BasicDBObject searchQuery = new BasicDBObject().append("uuid", promotion.getUuid());
 
 			promotionCollection.update(searchQuery, updateDocument);

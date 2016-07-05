@@ -198,7 +198,6 @@ public class PromotionServiceImpl implements PromotionService {
 
 			List<Product> products = this.retrieveDetailsProducts(pars);
 			if (!products.isEmpty()) {
-				pars.remove("products");
 				pars.put("products", products);
 			} else
 				pars.put("products", null);
