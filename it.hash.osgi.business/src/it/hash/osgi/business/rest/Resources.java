@@ -135,9 +135,45 @@ public class Resources {
 	public Response getSubscriptionRules(@PathParam("uuid") String uuid) throws Exception {
 		Map<String, Object> response = new TreeMap<String, Object>();
 		
-		Map<String, Object> rules = _businessService.retrieveSubscriptionRules(uuid, _userService.getUUID());
+		Map<String, Object> retrieve = _businessService.retrieveSubscriptionRules(uuid, _userService.getUUID());
 
-		response.put("rules", rules);
+		if((boolean)retrieve.get("matched")){
+			response.put("matched", true);
+			response.put("rules", retrieve.get("rules"));
+			response.put("name", retrieve.get("name"));
+		}
+		else
+			response.put("matched", false);
+		
+		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
+	}
+	
+	@PUT
+	@Path("/{uuid}/rules/{rule}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+    @io.swagger.annotations.ApiOperation(value = "getLogo", notes = "get business logo")
+	public Response setSubscriptionRule(@PathParam("uuid") String uuid, @PathParam("rule") String rule, Map<String,Object> map) throws Exception {
+		Map<String, Object> response = new TreeMap<String, Object>();
+		String action = (String)map.get("action");
+		Boolean set = null;
+		if("set".equalsIgnoreCase(action))
+			set = true;
+		else if("unset".equalsIgnoreCase(action))
+			set = false;
+
+		if(set==null)
+			response.put("executed", false);
+		else {
+			response.put("executed", true);
+			Map<String, Object> serviceResponse = _businessService.setSubscriptionRule(uuid, _userService.getUUID(), rule, set);
+			boolean setted = (boolean)serviceResponse.get("setted");
+			response.put("setted", setted);
+			if(setted) {
+				response.put("rule", (String)serviceResponse.get("rule"));
+				response.put("status", (boolean)serviceResponse.get("status"));
+			}
+		}
 		
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
 	}
