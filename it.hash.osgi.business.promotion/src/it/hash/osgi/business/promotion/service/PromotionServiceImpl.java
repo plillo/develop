@@ -37,8 +37,7 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@SuppressWarnings("unused")
 	private volatile UserService _userSrv;
-	// TODO non iniettate !!!
-	@SuppressWarnings("unused")
+	
 	private volatile EventAdmin _eventAdminService;
 
 	@Reference(service = PromotionServicePersistence.class)
@@ -90,7 +89,21 @@ public class PromotionServiceImpl implements PromotionService {
 	public void unsetCategoryService(CategoryService service) {
 		_categoryService = null;
 	}
+	
+	@Reference(service=EventAdmin.class)
+	public void setEventAdmin(EventAdmin service){
+		_eventAdminService = service;
+		doLog("eventAdminService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetEventAdmin(EventAdmin service){
+		_eventAdminService =null;
+		doLog("eventAdminService: "+(service==null?"NULL":"released"));
+	}
+	
 
+	
+	
 	@Override
 	public Map<String, Object> createPromotion(String businessUuid, Promotion promotion) {
 		Map<String, Object> response = new HashMap<String, Object>();
@@ -329,5 +342,7 @@ public class PromotionServiceImpl implements PromotionService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	   private void doLog(String message) {
+	        System.out.println("## [" + this.getClass() + "] " + message);
+	    }
 }

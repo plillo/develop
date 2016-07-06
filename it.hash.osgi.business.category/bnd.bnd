@@ -13,7 +13,8 @@
 	com.eclipsesource.jaxrs.swagger-all,\
 	it.hash.osgi.resource.uuid;version=latest,\
 	org.osgi.service.component.annotations,\
-	it.hash.osgi.user
+	it.hash.osgi.user,\
+	org.apache.felix.eventadmin
 
 -runfw: org.apache.felix.framework;version='[5.2.0,5.2.0]'
 -runee: JavaSE-1.7

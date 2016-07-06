@@ -7,12 +7,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.Event;
+//import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.osgi.service.event.EventConstants;
 
 import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.persistence.api.CategoryPersistence;
@@ -27,6 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 	private volatile CategoryPersistence _categoryPersistenceService;
 	private volatile AttributeService _attributeService;
 	private volatile UuidService _uuidService;
+	private volatile EventAdmin _eventAdminService;
+
 	
 	@Reference(service=CategoryPersistence.class)
 	public void setCategoryPersistence(CategoryPersistence service){
@@ -60,6 +69,18 @@ public class CategoryServiceImpl implements CategoryService {
 		doLog("UuidService: "+(service==null?"NULL":"released"));
 		_uuidService = null;
 	}
+	
+	@Reference(service=EventAdmin.class)
+	public void setEventAdmin(EventAdmin service){
+		_eventAdminService = service;
+		doLog("eventAdminService: "+(service==null?"NULL":"got"));
+	}
+	
+	public void unsetEventAdmin(EventAdmin service){
+		_eventAdminService =null;
+		doLog("eventAdminService: "+(service==null?"NULL":"released"));
+	}
+	
 	// === end references
 
 
@@ -115,9 +136,19 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Map<String, Object> deleteCategory(String uuid) {
-		return _categoryPersistenceService.deleteCategory(uuid);
+		Dictionary props = new Properties();
+		props.put(  EventConstants.EVENT_TOPIC, 
+		   "org/eclipse/equinox/events/MemoryEvent/CRITICAL");	
+		props.put("uuidCategory", uuid);
+		Event event= new Event("delete",props);
+		_eventAdminService.postEvent(event);
+		
+		Map<String,Object> tmp= new HashMap<String,Object>();
+		return tmp;
+//	return _categoryPersistenceService.deleteCategory(uuid);
 	}
 
 	@Override
