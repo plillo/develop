@@ -575,102 +575,106 @@ public class Business implements Comparable<Business> {
 				Object o = mapBusiness.get(attribute).toString();
 				business.set_id(o.toString());
 			} else {
-				switch (attribute) {
-				case "uuid":
-					business.setUuid((String) mapBusiness.get(attribute));
-					break;
-				case "name":
-					business.setName((String) mapBusiness.get(attribute));
-					break;
-				case "pIva":
-					business.setPIva((String) mapBusiness.get(attribute));
-					break;
-				case "fiscalCode":
-					business.setFiscalCode((String) mapBusiness.get(attribute));
-					break;
-				case "address":
-					business.setAddress((String) mapBusiness.get(attribute));
-					break;
-				case "city":
-					business.setCity((String) mapBusiness.get(attribute));
-					break;
-				case "cap":
-					business.setCap((String) mapBusiness.get(attribute));
-					break;
-				case "nation":
-					business.setNation((String) mapBusiness.get(attribute));
-					break;
-				case "logoType":
-					business.setLogoType((String) mapBusiness.get(attribute));
-					break;
-				case "logo":
-					business.setLogo((byte[]) mapBusiness.get(attribute));
-					break;
-				case "_description":
-					business.set__Description((String) mapBusiness.get(elem));
-					break;
-				case "_longDescription":
-					business.set__longDescription((String) mapBusiness.get(elem));
-					break;
-				case "category":
-					business.addCategory((String) mapBusiness.get(elem));
-					break;
-				case "categories":
-					business.setCategories((List<String>) mapBusiness.get(elem));
-					break;
-				case "followers":
-					business.setFollower((List<String>) mapBusiness.get(elem));
-					break;
-				case "position":
-					Map<String, Object> position = (Map<String, Object>)mapBusiness.get("position");
-					Map<String, Object> coordinates = (Map<String, Object>)position.get("coordinates");
-					business.setPosition(new Point((double)coordinates.get("lat"), (double)coordinates.get("lng")));
-				    break;
-				case "email":
-					business.setEmail((String) mapBusiness.get(elem));
-					break;
-				case "owner":
-					business.setOwner((String) mapBusiness.get(elem));
-					break;
-				case "mobile":
-					business.setMobile((String) mapBusiness.get(elem));
-					break;
-				case "published":
-					business.setPublished((String) mapBusiness.get(elem));
-					break;
-				case "trusted_email":
-					business.setTrusted_email((String) mapBusiness.get(elem));
-					break;
-				case "trusted_mobile":
-					business.setTrusted_mobile((String) mapBusiness.get(elem));
-					break;
-				case "cauthor":
-					business.setCauthor((String) mapBusiness.get(elem));
-					break;
-				case "cdate":
-					business.setCdate((String) mapBusiness.get(elem));
-					break;
-				case "mauthor":
-					business.setMauthor((String) mapBusiness.get(elem));
-					break;
-				case "mdate":
-					business.setMdate((String) mapBusiness.get(elem));
-					break;
-				case "lauthor":
-					business.setLauthor((String) mapBusiness.get(elem));
-					break;
-				case "ldate":
-					business.setLdate((String) mapBusiness.get(elem));
-					break;
-				case "others":
-					if (mapBusiness.get(elem) instanceof Map)
-						business.setOthers((Map<String, Object>) mapBusiness.get(elem));
-					break;
-				default:
-					if (business.getOthers() == null)
-						business.setOthers(new HashMap<String, Object>());
-					if (!business.getOthers().containsKey(attribute))
-						business.getOthers().put(attribute, mapBusiness.get(elem));
+				try {
+					switch (attribute) {
+					case "uuid":
+						business.setUuid((String) mapBusiness.get(attribute));
+						break;
+					case "name":
+						business.setName((String) mapBusiness.get(attribute));
+						break;
+					case "pIva":
+						business.setPIva((String) mapBusiness.get(attribute));
+						break;
+					case "fiscalCode":
+						business.setFiscalCode((String) mapBusiness.get(attribute));
+						break;
+					case "address":
+						business.setAddress((String) mapBusiness.get(attribute));
+						break;
+					case "city":
+						business.setCity((String) mapBusiness.get(attribute));
+						break;
+					case "cap":
+						business.setCap((String) mapBusiness.get(attribute));
+						break;
+					case "nation":
+						business.setNation((String) mapBusiness.get(attribute));
+						break;
+					case "logoType":
+						business.setLogoType((String) mapBusiness.get(attribute));
+						break;
+					case "logo":
+						business.setLogo((byte[]) mapBusiness.get(attribute));
+						break;
+					case "_description":
+						business.set__Description((String) mapBusiness.get(elem));
+						break;
+					case "_longDescription":
+						business.set__longDescription((String) mapBusiness.get(elem));
+						break;
+					case "category":
+						business.addCategory((String) mapBusiness.get(elem));
+						break;
+					case "categories":
+						business.setCategories((List<String>) mapBusiness.get(elem));
+						break;
+					case "followers":
+						business.setFollower((List<String>) mapBusiness.get(elem));
+						break;
+					case "position":
+						Map<String, Object> position = (Map<String, Object>)mapBusiness.get("position");
+						Map<String, Object> coordinates = (Map<String, Object>)position.get("coordinates");
+						business.setPosition(new Point((double)coordinates.get("lat"), (double)coordinates.get("lng")));
+					    break;
+					case "email":
+						business.setEmail((String) mapBusiness.get(elem));
+						break;
+					case "owner":
+						business.setOwner((String) mapBusiness.get(elem));
+						break;
+					case "mobile":
+						business.setMobile((String) mapBusiness.get(elem));
+						break;
+					case "published":
+						business.setPublished((String) mapBusiness.get(elem));
+						break;
+					case "trusted_email":
+						business.setTrusted_email((String) mapBusiness.get(elem));
+						break;
+					case "trusted_mobile":
+						business.setTrusted_mobile((String) mapBusiness.get(elem));
+						break;
+					case "cauthor":
+						business.setCauthor((String) mapBusiness.get(elem));
+						break;
+					case "cdate":
+						business.setCdate((String) mapBusiness.get(elem));
+						break;
+					case "mauthor":
+						business.setMauthor((String) mapBusiness.get(elem));
+						break;
+					case "mdate":
+						business.setMdate((String) mapBusiness.get(elem));
+						break;
+					case "lauthor":
+						business.setLauthor((String) mapBusiness.get(elem));
+						break;
+					case "ldate":
+						business.setLdate((String) mapBusiness.get(elem));
+						break;
+					case "others":
+						if (mapBusiness.get(elem) instanceof Map)
+							business.setOthers((Map<String, Object>) mapBusiness.get(elem));
+						break;
+					default:
+						if (business.getOthers() == null)
+							business.setOthers(new HashMap<String, Object>());
+						if (!business.getOthers().containsKey(attribute))
+							business.getOthers().put(attribute, mapBusiness.get(elem));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}

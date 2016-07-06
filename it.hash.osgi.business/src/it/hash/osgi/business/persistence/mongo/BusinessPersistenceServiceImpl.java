@@ -17,8 +17,8 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -368,22 +368,48 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 	
 	@Override
 	public Map<String, Object> retrieveSubscriptionRules(String businessUuid, String userUuid) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("matched", false);
 		
 		BasicDBObject query = new BasicDBObject("uuid", businessUuid).append("followers.user", userUuid);
-		DBCursor cursor = businessCollection.find(query/*new BasicDBObject("followers.user", userUuid)*/, new BasicDBObject("logo", false));
-		BasicDBObject db = null;
-		if (cursor.hasNext()) {
-			db = (BasicDBObject) cursor.next();
+		DBObject business = businessCollection.findOne(query, new BasicDBObject("logo", false));
+		if (business!=null) {
+			response.put("matched", true);
+			response.put("name", (String)business.get("name"));
+			BasicDBList followers = (BasicDBList)business.get("followers");
+			for( Iterator<Object> it = followers.iterator(); it.hasNext(); ){
+				BasicDBObject dbo = (BasicDBObject) it.next();
+				String user = (String)dbo.get("user");
+				if(userUuid.equals(user))
+					response.put("rules", ((BasicDBObject)dbo.get("rules")).toMap());
+			}
 		}
-		BasicDBList followers = (BasicDBList)db.get("followers");
-		for( Iterator<Object> it = followers.iterator(); it.hasNext(); ){
-			BasicDBObject dbo = (BasicDBObject) it.next();
-			String user = (String)dbo.get("user");
-			if(userUuid.equals(user))
-				return ((BasicDBObject)dbo.get("rules")).toMap();
+
+		return response;
+	}
+
+	@Override
+	public Map<String, Object> setSubscriptionRule(String businessUuid, String userUuid, String rule, Boolean set) {
+		Map<String, Object> response = new HashMap<String, Object>();
+
+		// condizione in AND: uuid='' AND ...
+		BasicDBObject searchQuery = new BasicDBObject().append("uuid", businessUuid).append("followers.user", userUuid);
+
+		BasicDBObject updatedDocument = new BasicDBObject().append("$set",
+				new BasicDBObject().append("followers.$.rules."+rule, set));
+
+		WriteResult wr = businessCollection.update(searchQuery, updatedDocument);
+
+		if (wr.getN() == 0)
+			response.put("setted", false);
+		else{
+			response.put("setted", true);
+			response.put("rule", rule);
+			response.put("status", set);
 		}
-		
-		return new BasicDBObject().toMap();
+
+
+		return response;
 	}
 
 	@SuppressWarnings("unused")
@@ -522,7 +548,7 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		BasicDBObject updatedDocument = new BasicDBObject().append("$addToSet",
-				new BasicDBObject().append("followers", new BasicDBObject().append("user", userUuid).append("rules", new BasicDBObject().append("active", true).append("pushChannel", true).append("mailChannel", true).append("smsChannel", false))));
+				new BasicDBObject().append("followers", new BasicDBObject().append("user", userUuid).append("rules", new BasicDBObject().append("active", true))));
 		BasicDBObject searchQuery = new BasicDBObject().append("uuid", businessUuid);
 
 		WriteResult wr = businessCollection.update(searchQuery, updatedDocument);
@@ -585,7 +611,11 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 
 			List<Business> list = new ArrayList<Business>();
 			while (cursor.hasNext()) {
-				list.add(Business.toBusiness(cursor.next().toMap()));
+				try {
+					list.add(Business.toBusiness(cursor.next().toMap()));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			return list;
 		}
@@ -645,5 +675,4 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
     private void doLog(String message) {
         System.out.println("## [" + this.getClass() + "] " + message);
     }
-
 }

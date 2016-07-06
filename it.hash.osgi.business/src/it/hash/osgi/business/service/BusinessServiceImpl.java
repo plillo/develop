@@ -234,4 +234,9 @@ public class BusinessServiceImpl implements BusinessService {
 		return _businessPersistenceService.retrieveSubscriptionRules(businessUuid, userUuid);
 	}
 
+	@Override
+	public Map<String, Object> setSubscriptionRule(String businessUuid, String userUuid, String rule, Boolean set) {
+		return _businessPersistenceService.setSubscriptionRule(businessUuid, userUuid, rule, set);
+	}
+
 }
