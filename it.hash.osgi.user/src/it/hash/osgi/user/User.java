@@ -10,6 +10,11 @@ import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import com.mongodb.util.JSON;
+
+import it.hash.osgi.geojson.Point;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
@@ -28,6 +33,8 @@ public class User implements Comparable<User> {
 	private String mobile;
 	private List<String> groups;
 	private List<AttributeValue> attributes;
+	private Point position;
+	private Double radius;
 
 	private Map<String, Object> extra;
 	private String published;
@@ -306,6 +313,22 @@ public class User implements Comparable<User> {
 			return false;
 	}
 
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+
+	public Double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Double radius) {
+		this.radius = radius;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -339,11 +362,51 @@ public class User implements Comparable<User> {
 		return this.uuid.compareTo(obj.uuid);
 	}
 	
-	public Map<String, Object> toMap(){
+	public static Map<String, Object> toMap(User entity){
 		Map<String, Object> map = new TreeMap<String, Object>();
+		if(entity==null)
+			return null;
+
+		if(entity.getUuid()!=null)
+			map.put("uuid",entity.getUuid());
+		if(entity.getUsername()!=null)
+			map.put("username",entity.getUsername());
+		if(entity.getFirstName()!=null)
+			map.put("firstName",entity.getFirstName());
+		if(entity.getLastName()!=null)
+			map.put("lastName",entity.getLastName());
+		if(entity.getEmail()!=null)
+			map.put("email",entity.getEmail());
+		if(entity.getMobile()!=null)
+			map.put("mobile",entity.getMobile());
+		if(entity.getPassword()!=null)
+			map.put("password",entity.getPassword());
+		if(entity.getSalted_hash_password()!=null)
+			map.put("salted_hash_password",entity.getSalted_hash_password());
 		
-		// TODO
-		
+		if(entity.getAttributes()!=null) {
+			ArrayList<Map<String, Object>> dbl = new ArrayList<Map<String, Object>>();
+			// Insert user's attributes into ArrayList
+			for(AttributeValue attr: entity.getAttributes()){
+				Map<String, Object> obj = new TreeMap<String, Object>();
+				String uuid = attr.getAttributeUuid();
+				Map<String, Object> jso = attr.getValue();
+				try {
+					String json = new ObjectMapper().writeValueAsString(jso);
+					obj.put("attributeUuid", uuid);
+					obj.put("value", JSON.parse(json));
+					dbl.add(obj);
+				} catch (Exception e) {
+				}
+			}
+			// Put ArrayList
+			map.put("attributes", dbl);
+		}
+		if (entity.getPosition()!=null)
+			map.put("position", entity.getPosition().toMap());
+		if (entity.getRadius()!=null)
+			map.put("radius", entity.getRadius());
+
 		return map;
 	}
 	
@@ -389,6 +452,18 @@ public class User implements Comparable<User> {
 				break;
 			case "attributes":
 				user.setAttributes((List<AttributeValue>) mapUser.get(elem));
+				break;
+			case "position":
+				if(mapUser.get("position") instanceof Point)
+					user.setPosition((Point) mapUser.get("position"));
+				else if(mapUser.get("position") instanceof Map){
+					Map<String, Object> position = (Map<String, Object>)mapUser.get("position");
+					Map<String, Object> coordinates = (Map<String, Object>)position.get("coordinates");
+					user.setPosition(new Point((double)coordinates.get("lat"), (double)coordinates.get("lng")));
+				}
+				break;
+			case "radius":
+				user.setRadius((double) mapUser.get(elem));
 				break;
 			case "published":
 				user.setPublished((String) mapUser.get(elem));

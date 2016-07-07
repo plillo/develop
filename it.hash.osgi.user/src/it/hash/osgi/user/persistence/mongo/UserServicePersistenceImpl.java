@@ -350,8 +350,9 @@ public class UserServicePersistenceImpl implements UserPersistenceService {
 	// ======
 
 	@Override
-	public Map<String, Object> updateUser(Map<String, Object> user) {
-		return null;
+	public Map<String, Object> updateUser(Map<String, Object> mapUser) {
+		
+		return updateUser(User.toUser(mapUser));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -383,17 +384,21 @@ public class UserServicePersistenceImpl implements UserPersistenceService {
 			String userId = ((User) result.get("user")).get_id();
 			//users.updateById(userId, user);
 			
-			BasicDBObject updateDocument = new BasicDBObject().append("$set", toBasicDBObject(user));
+			
+			
+			BasicDBObject updateDocument = new BasicDBObject().append("$set", new BasicDBObject(User.toMap(user)));
+			
+			//BasicDBObject updateDocument = new BasicDBObject().append("$set", toBasicDBObject(user));
 			BasicDBObject searchQuery = new BasicDBObject().append("_id", new ObjectId(userId));
            
 			@SuppressWarnings("unused")
 			WriteResult wr = userCollection.update(searchQuery, updateDocument);
 			//TODO verificare l'esito dell'update da 'wr' ed effettuare azioni se esito negativo
+
+			//found_user = users.findOne(new BasicDBObject("_id", new ObjectId(userId)));
 			
-			found_user = users.findOne(new BasicDBObject("_id", new ObjectId(userId)));
-			
-			//DBObject updated_user = userCollection.findOne(new BasicDBObject("_id", new ObjectId(userId)));
-			//found_user = User.toUser(updated_user.toMap());
+			DBObject updated_user = userCollection.findOne(new BasicDBObject("_id", new ObjectId(userId)));
+			found_user = User.toUser(updated_user.toMap());
 			
 			response.put("user", found_user);
 			response.put("updated", true);

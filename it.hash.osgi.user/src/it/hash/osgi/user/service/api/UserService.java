@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import it.hash.osgi.geojson.Point;
 import it.hash.osgi.user.User;
 
 public interface UserService {
@@ -77,6 +78,9 @@ public interface UserService {
 	boolean isUserInRole(User user, List<String> roles);
 
 	boolean isUserInRole(String... roles);
+
+	Map<String, Object> setUserArea(String uuid, Point point, double radius);
+	Map<String, Object> getUserArea(String uuid);
 
 	// ...
 

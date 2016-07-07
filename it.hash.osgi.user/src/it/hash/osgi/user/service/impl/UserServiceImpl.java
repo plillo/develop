@@ -22,6 +22,7 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
 import it.hash.osgi.application.service.ApplicationManager;
+import it.hash.osgi.geojson.Point;
 import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.security.jwt.service.JWTService;
 import it.hash.osgi.user.User;
@@ -605,8 +606,44 @@ public class UserServiceImpl implements UserService, ManagedService {
 	public Map<String, Object> updateAttributes(Map<String, Object> pars) {
 		Map<String, Object> response = new HashMap<String, Object>();
    
+		response = _persistenceService.updateAttribute(pars);
 		
-		response=_persistenceService.updateAttribute(pars);
+		return response;
+	}
+	
+	@Override
+	public Map<String, Object> getUserArea(String uuid) {
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("lat", (double)0);
+		response.put("lng", (double)0);
+		response.put("radius", (double)0);
+		
+		Map<String, Object> userMap = getUserByUuid(uuid);
+		 
+		if((boolean)userMap.get("found")){
+			User user = (User)userMap.get("user");
+			Point position = user.getPosition();
+			if(position!=null) {
+				response.put("lat", position.getCoordinates().getLatitude());
+				response.put("lng", position.getCoordinates().getLongitude());
+			}
+			if(user.getRadius()!=null) {
+				response.put("radius", user.getRadius());
+			}
+		}
+
+		return response;
+	}
+	
+	@Override
+	public Map<String, Object> setUserArea(String uuid, Point position, double radius) {
+		Map<String, Object> userMap = new HashMap<String, Object>();
+		
+		userMap.put("uuid", uuid);
+		userMap.put("position", position);
+		userMap.put("radius", radius);
+		
+		Map<String, Object> response = _persistenceService.updateUser(userMap);
 		
 		return response;
 	}
