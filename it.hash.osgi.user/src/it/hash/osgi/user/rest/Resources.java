@@ -142,7 +142,8 @@ public class Resources {
 		double radius = (double) area.get("radius");
 
 		Map<String, Object> update = _userService.setUserArea(uuid, new Point(lat, lng), radius);
-
+		response.put("setted", (boolean)update.get("updated"));
+		
 		return Response.ok().header("Access-Control-Allow-Origin", "*")
 				.entity(response)
 				.build();
