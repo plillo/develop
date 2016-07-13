@@ -209,9 +209,7 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
 
 	@Override
 	public List<Category> retrieveCategories(String criterion, String search) {
-
-		JacksonDBCollection<Category, Object> categoryMap = JacksonDBCollection.wrap(categoriesCollection,
-				Category.class);
+		JacksonDBCollection<Category, Object> categoryMap = JacksonDBCollection.wrap(categoriesCollection, Category.class);
 		List<Category> list = new ArrayList<Category>();
 		Category cat = null;
 		BasicDBObject regexQuery = null;
@@ -272,5 +270,4 @@ public class CategoryPersistenceImpl implements CategoryPersistence {
     private void doLog(String message) {
         System.out.println("## [" + this.getClass() + "] " + message);
     }
-
 }

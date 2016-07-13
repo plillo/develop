@@ -18,7 +18,7 @@ import it.hash.osgi.business.category.Category;
 import it.hash.osgi.business.category.service.CategoryService;
 
 @Api
-@Path("businesses/1.0/category")
+@Path("businesses/1.0/categories")
 @Component(service = Resources.class)
 public class Resources {
 	// References

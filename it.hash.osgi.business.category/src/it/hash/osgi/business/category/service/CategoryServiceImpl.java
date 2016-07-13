@@ -178,10 +178,8 @@ public class CategoryServiceImpl implements CategoryService {
 			
 			 return _categoryPersistenceService.retrieveCategories(criterion,search);
 		}
-		
-	    
 	}
-
+	
 	// ATTRIBUTES
 	// ==========
 	@Override

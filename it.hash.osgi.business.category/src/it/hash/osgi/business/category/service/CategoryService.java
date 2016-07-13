@@ -19,7 +19,7 @@ public interface CategoryService {
 	Map<String, Object> updateCategory(Map<String, Object> pars);
 
 	List<Category> retrieveCategories(String type,String criterion);
-	 
+	
 	List<Attribute> getAttributes(String ctgUuid);
 	Map<String, Object> createAttribute(String ctgUuid, Attribute attribute);
 	Map<String, Object> updateAttribute(String ctgUuid, Attribute attribute);
