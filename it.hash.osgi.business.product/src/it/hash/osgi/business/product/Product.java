@@ -14,7 +14,8 @@ import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.ObjectId;
 
 public class Product implements Comparable<Product>, Serializable {
-	 
+	private static final long serialVersionUID = -7635932676660701706L;
+
 	@ObjectId @Id
 	private String _id;
 	private String uuid;
