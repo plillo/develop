@@ -1,6 +1,7 @@
 package it.hash.osgi.business.service;
 
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,9 @@ public interface BusinessService {
 	List<Business> retrieveNotFollowedByUser(String user, String search);
 	List<Business> retrieveNotFollowedByUser(String user, String search, boolean withLogo);
 
+	Collection<String> retrieveBusinessesCategoriesUuids(List<String> uuids);
+	Collection<String> retrieveUserBusinessesCategoriesUuids(String uuid);
+	
 	Map<String, Object> retrieveSubscriptionRules(String businessUuid, String userUuid);
 	Map<String, Object> setSubscriptionRule(String businessUuid, String userUuid, String rule, Boolean set);
 }

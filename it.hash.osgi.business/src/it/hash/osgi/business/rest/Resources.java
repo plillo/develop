@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -364,11 +367,12 @@ public class Resources {
 			@Context HttpServletRequest request,
 			@FormDataParam("name") String name,
 			@FormDataParam("address") String address,
-			@FormDataParam("_description") String _description,
+			@FormDataParam("description") String description,
 			@FormDataParam("city") String city,
 			@FormDataParam("cap") String cap,
 			@FormDataParam("pIva") String pIva,
 			@FormDataParam("fiscalCode") String fiscalCode,
+			@FormDataParam("categories") String categories,
 			@FormDataParam("logo") InputStream inputStream,
 			@FormDataParam("logo") FormDataBodyPart body,
 			@FormDataParam("logo") FormDataContentDisposition fileDetail) {
@@ -378,11 +382,15 @@ public class Resources {
 		business.setOwner(_userService.getUUID());
 		business.setName(name);
 		business.setAddress(address);
-		business.set__Description(_description);
+		business.set__Description(description);
 		business.setCity(city);
 		business.setCap(cap);
 		business.setPIva(pIva);
 		business.setFiscalCode(fiscalCode);
+		
+		for(String category:categories.split(",")) 
+			business.addCategory(category);
+		
 		try {
 			if(inputStream!=null){
 				// Cloning the inputStream

@@ -4,8 +4,10 @@
  */
 package it.hash.osgi.business.persistence.api;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import it.hash.osgi.business.Business;
 
@@ -63,4 +65,8 @@ public interface BusinessPersistenceService {
 	
 	// IMPLEMENTATION
 	String getImplementation();
+	Collection<String> retrieveFollowerBusinessesUuids(String uuid);
+	Collection<String> retrieveFollowerBusinessesCategoriesUuids(String uuid);
+	Collection<String> retrieveBusinessesCategoriesUuids(Collection<String> uuids);
+
 }

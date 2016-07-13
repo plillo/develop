@@ -3,6 +3,7 @@ package it.hash.osgi.business.service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,6 +238,22 @@ public class BusinessServiceImpl implements BusinessService {
 	@Override
 	public Map<String, Object> setSubscriptionRule(String businessUuid, String userUuid, String rule, Boolean set) {
 		return _businessPersistenceService.setSubscriptionRule(businessUuid, userUuid, rule, set);
+	}
+	
+	@Override
+	public Collection<String> retrieveBusinessesCategoriesUuids(List<String> uuids) {
+		if(uuids==null || uuids.size()==0)
+			return new ArrayList<String>();
+		
+		return _businessPersistenceService.retrieveBusinessesCategoriesUuids(uuids);
+	}
+	
+	@Override
+	public Collection<String> retrieveUserBusinessesCategoriesUuids(String uuid) {
+		if(uuid==null)
+			return new ArrayList<String>();
+		
+		return _businessPersistenceService.retrieveFollowerBusinessesCategoriesUuids(uuid);
 	}
 
 }

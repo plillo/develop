@@ -4,10 +4,12 @@ import static it.hash.osgi.utils.StringUtils.isEmptyOrNull;
 import static it.hash.osgi.utils.StringUtils.isNotEmptyOrNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -666,6 +668,44 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
 		return retrieveNotFollowedByUser(userUuid, search, false);
 	}
 	
+	@Override
+	public Collection<String> retrieveFollowerBusinessesUuids(String uuid) {
+		BasicDBObject query = new BasicDBObject ("followers.user", uuid);
+		DBCursor cursor = businessCollection.find(query);
+		
+		Set<String> list = new TreeSet<String>();
+		if (cursor!=null){
+			while (cursor.hasNext()) {
+				list.add((String)cursor.next().get("uuid"));
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public Collection<String> retrieveFollowerBusinessesCategoriesUuids(String uuid) {
+		return retrieveBusinessesCategoriesUuids(retrieveFollowerBusinessesUuids(uuid));
+	}
+
+	@Override
+	public Collection<String> retrieveBusinessesCategoriesUuids(Collection<String> uuids) {
+		BasicDBObject query = new BasicDBObject ("uuid", new BasicDBObject("$in", uuids));
+		DBCursor cursor = businessCollection.find(query);
+		
+		Set<String> list = new TreeSet<String>();
+		if (cursor!=null){
+			while (cursor.hasNext()) {
+				List<String> ctgs = new ArrayList<String>();
+				ctgs = (List<String>) cursor.next().get("categories");
+				if(ctgs!=null && !ctgs.isEmpty())
+					list.addAll(ctgs);
+			}
+		}
+		
+		return list;
+	}
+	
 	private DBObject businessToDBObject(Business business) {
 		DBObject db = new BasicDBObject(Business.toMap(business));
 
@@ -675,4 +715,5 @@ public class BusinessPersistenceServiceImpl implements BusinessPersistenceServic
     private void doLog(String message) {
         System.out.println("## [" + this.getClass() + "] " + message);
     }
+
 }

@@ -3,6 +3,7 @@ package it.hash.osgi.business.shell;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +34,9 @@ import it.hash.osgi.utils.StringUtils;
 		CommandProcessor.COMMAND_FUNCTION+"=get",
 		CommandProcessor.COMMAND_FUNCTION+"=getByFiscalCode",
 		CommandProcessor.COMMAND_FUNCTION+"=notFollowed",
-		CommandProcessor.COMMAND_FUNCTION+"=updateBusinessLogo"
+		CommandProcessor.COMMAND_FUNCTION+"=updateBusinessLogo",
+		CommandProcessor.COMMAND_FUNCTION+"=followedBusinesses",
+		CommandProcessor.COMMAND_FUNCTION+"=followedBusinessesCategories"
 	}
 )
 public class Commands {
@@ -154,7 +157,21 @@ public class Commands {
 			System.out.println(String.format("%-20s%-20s", business.getName(), business.getUuid()));
 		}
 	}
+	
+	// followedBusinesses
+	public void followedBusinesses(String uuid) {
+		Collection<String> followed = _businessPersistenceService.retrieveFollowerBusinessesUuids(uuid);
+		for(String fuuid:followed)
+			System.out.println(">> " + fuuid);
+	}
 
+	// followedBusinessesCategories
+	public void followedBusinessesCategories(String uuid) {
+		Collection<String> followed = _businessPersistenceService.retrieveFollowerBusinessesCategoriesUuids(uuid);
+		for(String cuuid:followed)
+			System.out.println(">> " + cuuid);
+	}
+	
 	public void updateBusinessLogo(String uuid, String urlLogo) throws Exception {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
