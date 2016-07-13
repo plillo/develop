@@ -99,7 +99,6 @@ public class Resources {
 	public Response create(@PathParam("uuid") PathSegment uuidBusiness, TreeMap<String, Object> map) {
 		Map<String, Object> response = new TreeMap<String, Object>();
 
-	
 		response = _promotionService.createPromotion(uuidBusiness.getPath(), map);
 
 		return Response.ok().header("Access-Control-Allow-Origin", "*").entity(response).build();
