@@ -5,5 +5,5 @@ import java.util.List;
 import it.hash.osgi.user.attribute.Attribute;
 
 public interface ApplicationManager {
-	public void filterAttributes(String appCode, List<Attribute> attributes);
+	public List<Attribute> filterAttributes(String appCode, List<Attribute> attributes);
 }

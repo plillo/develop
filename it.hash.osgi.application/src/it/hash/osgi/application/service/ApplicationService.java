@@ -6,5 +6,5 @@ import it.hash.osgi.user.attribute.Attribute;
 
 public interface ApplicationService {
 	String getCode();
-	void filterAttributes(List<Attribute> attributes);
+	List<Attribute> filterAttributes(List<Attribute> attributes);
 }
