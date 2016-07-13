@@ -212,6 +212,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 				map.put("mobile", user.getMobile());
 				map.put("firstName", user.getFirstName());
 				map.put("lastName", user.getLastName());
+				map.put("attributeValues", user.getAttributes());
 				
 				// Setting APPCODE
 				if(appcode!=null)
@@ -220,7 +221,7 @@ public class UserServiceImpl implements UserService, ManagedService {
 				map.put("roles", roles);
 				// Setting body
 				map.put("body", "this is an access token");
-				
+
 				// Setting user's ATTRIBUTE TYPES
 				// --- START
 				List<JSONObject> attribute_types = new ArrayList<JSONObject>();
@@ -232,25 +233,44 @@ public class UserServiceImpl implements UserService, ManagedService {
 				List<Attribute> application_attributes = _attributeService.getApplicationAttributes(appcode);
 				
 				// Filtering of application user attributes
-				_applicationManager.filterAttributes(appcode, application_attributes);
+				application_attributes = _applicationManager.filterAttributes(appcode, application_attributes);
 
 				// merge user attributes
 				attributes.addAll(application_attributes);
 				
 				for(Attribute attribute: attributes){
 					Map<String, Object> mapobj = new TreeMap<String, Object>();
-					mapobj.put("type", attribute.getUItype());
-					mapobj.put("name", attribute.getName());
-					mapobj.put("label", attribute.getLabel());
+					// Mandatory fields
+					// ----------------
+					// UUID
+					mapobj.put("uuid", attribute.getUuid());
+					// UI Type (text/textarea/select/radio/check)
+					mapobj.put("type", StringUtils.defaultIfNullOrEmpty(attribute.getUItype(),"text"));
+					// Name
+					mapobj.put("name", StringUtils.defaultIfNullOrEmpty(attribute.getName(),"#missing name#"));
+					// Label
+					mapobj.put("label", StringUtils.defaultIfNullOrEmpty(attribute.getLabel(),"#missing label#"));
+
+					// Not mandatory fields
+					// --------------------
+					// Mandatory
+					if(attribute.isMandatory())
+						mapobj.put("mandatory", attribute.isMandatory());
+					// Multivalued
+					if(attribute.isMultiValued())
+						mapobj.put("multivalued", attribute.isMultiValued());
+					// Validator
+					if(StringUtils.isNotEmptyOrNull(attribute.getValidator()))
+						mapobj.put("validator", StringUtils.emptyIfNull(attribute.getValidator()));
+					// Values for UI types radio/check/select
 					if(attribute.getValues()!=null) {
 						JSONArray jsa = new JSONArray();
 						for(Map<String, Object> value_map: attribute.getValues()) {
 							JSONObject jso = new JSONObject();
-							
 							Object value = value_map.get("value")!=null?value_map.get("value"):"#missing value#";
 							jso.put("value", value);
 							jso.put("label", value_map.get("label")!=null?value_map.get("label"):value);
-					
+							// Add to array
 							jsa.add(jso);
 						}
 						mapobj.put("values", jsa);
@@ -259,6 +279,11 @@ public class UserServiceImpl implements UserService, ManagedService {
 				}
 
 				map.put("attributeTypes", attribute_types.toArray(new JSONObject[]{}));
+				
+				//TODO: recuperare i VALORI ATTUALI degli ATTRIBUTI UTENTE
+				//map.put("attributeValues", ...));
+				
+				
 				// --- END
 				
 				// CREATE JWT

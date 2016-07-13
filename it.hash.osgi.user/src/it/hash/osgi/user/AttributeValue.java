@@ -1,10 +1,10 @@
 package it.hash.osgi.user;
 
-import java.util.Map;
+import com.google.gson.JsonElement;
 
 public class AttributeValue {
 	private String attributeUuid;
-	private Map<String, Object> value;
+	private JsonElement value;
 	
 	public String getAttributeUuid() {
 		return attributeUuid;
@@ -12,10 +12,10 @@ public class AttributeValue {
 	public void setAttributeUuid(String attributeUuid) {
 		this.attributeUuid = attributeUuid;
 	}
-	public Map<String, Object> getValue() {
+	public JsonElement getValue() {
 		return value;
 	}
-	public void setValue(Map<String, Object> value) {
+	public void setValue(JsonElement value) {
 		this.value = value;
 	}
 

@@ -1,6 +1,7 @@
 package it.hash.osgi.user;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.google.gson.JsonElement;
 import com.mongodb.util.JSON;
 
 import it.hash.osgi.geojson.Point;
@@ -28,7 +30,7 @@ public class User implements Comparable<User> {
 	private String salted_hash_password;
 	private String firstName;
 	private String lastName;
-	private String password_mdate;
+	private Date password_mdate;
 	private String email;
 	private String mobile;
 	private List<String> groups;
@@ -38,16 +40,16 @@ public class User implements Comparable<User> {
 
 	private Map<String, Object> extra;
 	private String published;
-	private String last_login_date;
+	private Date last_login_date;
 	private String last_login_ip;
 	private String trusted_email;
 	private String trusted_mobile;
 	private String cauthor;
-	private String cdate;
+	private Date cdate;
 	private String mauthor;
-	private String mdate;
+	private Date mdate;
 	private String lauthor;
-	private String ldate;
+	private Date ldate;
 	private String user_data;
 
 	public String get_id() {
@@ -90,11 +92,11 @@ public class User implements Comparable<User> {
 		this.salted_hash_password = salted_hash_password;
 	}
 
-	public String getPassword_mdate() {
+	public Date getPassword_mdate() {
 		return password_mdate;
 	}
 
-	public void setPassword_mdate(String password_mdate) {
+	public void setPassword_mdate(Date password_mdate) {
 		this.password_mdate = password_mdate;
 	}
 
@@ -144,11 +146,11 @@ public class User implements Comparable<User> {
 		this.published = published;
 	}
 
-	public String getLast_login_date() {
+	public Date getLast_login_date() {
 		return last_login_date;
 	}
 
-	public void setLast_login_date(String last_login_date) {
+	public void setLast_login_date(Date last_login_date) {
 		this.last_login_date = last_login_date;
 	}
 
@@ -184,11 +186,11 @@ public class User implements Comparable<User> {
 		this.cauthor = cauthor;
 	}
 
-	public String getCdate() {
+	public Date getCdate() {
 		return cdate;
 	}
 
-	public void setCdate(String cdate) {
+	public void setCdate(Date cdate) {
 		this.cdate = cdate;
 	}
 
@@ -200,11 +202,11 @@ public class User implements Comparable<User> {
 		this.mauthor = mauthor;
 	}
 
-	public String getMdate() {
+	public Date getMdate() {
 		return mdate;
 	}
 
-	public void setMdate(String mdate) {
+	public void setMdate(Date mdate) {
 		this.mdate = mdate;
 	}
 
@@ -216,11 +218,11 @@ public class User implements Comparable<User> {
 		this.lauthor = lauthor;
 	}
 
-	public String getLdate() {
+	public Date getLdate() {
 		return ldate;
 	}
 
-	public void setLdate(String ldate) {
+	public void setLdate(Date ldate) {
 		this.ldate = ldate;
 	}
 
@@ -390,13 +392,15 @@ public class User implements Comparable<User> {
 			for(AttributeValue attr: entity.getAttributes()){
 				Map<String, Object> obj = new TreeMap<String, Object>();
 				String uuid = attr.getAttributeUuid();
-				Map<String, Object> jso = attr.getValue();
+				//Map<String, Object> jso = attr.getValue();
+				JsonElement jso = attr.getValue();
 				try {
-					String json = new ObjectMapper().writeValueAsString(jso);
+					String json = jso.toString(); //new ObjectMapper().writeValueAsString(jso);
 					obj.put("attributeUuid", uuid);
 					obj.put("value", JSON.parse(json));
 					dbl.add(obj);
 				} catch (Exception e) {
+					System.out.println(e.toString());
 				}
 			}
 			// Put ArrayList
@@ -439,7 +443,7 @@ public class User implements Comparable<User> {
 				user.setLastName((String) mapUser.get(elem));
 				break;
 			case "password_mdate":
-				user.setPassword_mdate((String) mapUser.get(elem));
+				user.setPassword_mdate((Date) mapUser.get(elem));
 				break;
 			case "email":
 				user.setEmail((String) mapUser.get(elem));
@@ -469,7 +473,7 @@ public class User implements Comparable<User> {
 				user.setPublished((String) mapUser.get(elem));
 				break;
 			case "last_login_date":
-				user.setLast_login_date((String) mapUser.get(elem));
+				user.setLast_login_date((Date) mapUser.get(elem));
 				break;
 			case "last_login_ip":
 				user.setLast_login_ip((String) mapUser.get(elem));
@@ -484,19 +488,19 @@ public class User implements Comparable<User> {
 				user.setCauthor((String) mapUser.get(elem));
 				break;
 			case "cdate":
-				user.setCdate((String) mapUser.get(elem));
+				user.setCdate((Date) mapUser.get(elem));
 				break;
 			case "mauthor":
 				user.setMauthor((String) mapUser.get(elem));
 				break;
 			case "mdate":
-				user.setMdate((String) mapUser.get(elem));
+				user.setMdate((Date) mapUser.get(elem));
 				break;
 			case "lauthor":
 				user.setLauthor((String) mapUser.get(elem));
 				break;
 			case "ldate":
-				user.setLdate((String) mapUser.get(elem));
+				user.setLdate((Date) mapUser.get(elem));
 				break;
 			case "user_data":
 				user.setUser_data((String) mapUser.get(elem));

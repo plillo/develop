@@ -14,9 +14,11 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import com.google.gson.JsonElement;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
 import com.mongodb.util.JSON;
@@ -26,7 +28,6 @@ import it.hash.osgi.user.User;
 import it.hash.osgi.user.password.Password;
 import it.hash.osgi.user.persistence.api.UserPersistenceService;
 import it.hash.osgi.user.service.api.Status;
-import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 
 @Component(immediate=true)
@@ -300,12 +301,14 @@ public class UserServicePersistenceImpl implements UserPersistenceService {
 
 	@Override
 	public List<User> getUsers() {
-		JacksonDBCollection<User, Object> users = JacksonDBCollection.wrap(userCollection, User.class);
-		DBCursor<User> cursor = users.find();
-
+		//JacksonDBCollection<User, Object> users = JacksonDBCollection.wrap(userCollection, User.class);
+		//DBCursor<User> cursor = users.find();
+		
+		DBCursor cursor = userCollection.find();
+		
 		List<User> list = new ArrayList<>();
 		while (cursor.hasNext()) {
-			list.add(cursor.next());
+			list.add(User.toUser(cursor.next().toMap()));
 		}
 
 		return list;
@@ -661,7 +664,7 @@ public class UserServicePersistenceImpl implements UserPersistenceService {
 
 	@Override
 	public List<User> getUserDetails(User user) {
-
+		/*
 		JacksonDBCollection<User, Object> users = JacksonDBCollection.wrap(userCollection, User.class);
 		DBCursor<User> cursor = users.find(user);
 
@@ -670,6 +673,9 @@ public class UserServicePersistenceImpl implements UserPersistenceService {
 			list.add(cursor.next());
 		}
 		return list;
+		*/
+
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -713,7 +719,8 @@ public class UserServicePersistenceImpl implements UserPersistenceService {
 			for(AttributeValue attr: user.getAttributes()){
 				BasicDBObject obj = new BasicDBObject();
 				String uuid = attr.getAttributeUuid();
-				Map<String, Object> jso = attr.getValue();
+				//Map<String, Object> jso = attr.getValue();
+				JsonElement jso = attr.getValue();
 				try {
 					String json = new ObjectMapper().writeValueAsString(jso);
 					obj.append("attributeUuid", uuid);

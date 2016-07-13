@@ -61,8 +61,8 @@ public class Resources {
 				.build();
 	}
    
-	// PUT attributes/1.0
-	@PUT
+	// POST attributes/1.0
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response create(Attribute attribute){

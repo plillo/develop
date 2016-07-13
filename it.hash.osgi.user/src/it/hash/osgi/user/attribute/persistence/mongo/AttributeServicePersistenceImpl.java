@@ -251,7 +251,7 @@ public class AttributeServicePersistenceImpl implements AttributeServicePersiste
 			pars.put("validator", attribute.getValidator());
 
 		pars.put("mandatory", attribute.isMandatory());
-		pars.put("multiValued", attribute.isMandatory());
+		pars.put("multiValued", attribute.isMultiValued());
 
 		if (!StringUtils.isEmptyOrNull(attribute.getCauthor()))
 			pars.put("cauthor", attribute.getCauthor());
