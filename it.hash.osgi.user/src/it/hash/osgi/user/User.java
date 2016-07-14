@@ -3,6 +3,7 @@ package it.hash.osgi.user;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,9 +12,11 @@ import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
 import com.mongodb.util.JSON;
 
 import it.hash.osgi.geojson.Point;
@@ -455,7 +458,16 @@ public class User implements Comparable<User> {
 				user.setGroups((List<String>) mapUser.get(elem));
 				break;
 			case "attributes":
-				user.setAttributes((List<AttributeValue>) mapUser.get(elem));
+				List<AttributeValue> lav = new ArrayList<AttributeValue>();
+				BasicDBList dbl = (BasicDBList)mapUser.get(elem);
+				for(Iterator<Object> it = dbl.iterator();it.hasNext();){
+					BasicDBObject obj = (BasicDBObject)it.next();
+					AttributeValue av = new AttributeValue();
+					av.setAttributeUuid((String)obj.get("attributeUuid"));
+					av.setValue( new JsonParser().parse(obj.get("value").toString()));
+					lav.add(av);
+				}
+				user.setAttributes(lav);
 				break;
 			case "position":
 				if(mapUser.get("position") instanceof Point)

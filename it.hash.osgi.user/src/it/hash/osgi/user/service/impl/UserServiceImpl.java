@@ -25,6 +25,7 @@ import it.hash.osgi.application.service.ApplicationManager;
 import it.hash.osgi.geojson.Point;
 import it.hash.osgi.resource.uuid.api.UuidService;
 import it.hash.osgi.security.jwt.service.JWTService;
+import it.hash.osgi.user.AttributeValue;
 import it.hash.osgi.user.User;
 import it.hash.osgi.user.attribute.Attribute;
 import it.hash.osgi.user.attribute.service.AttributeService;
@@ -212,7 +213,18 @@ public class UserServiceImpl implements UserService, ManagedService {
 				map.put("mobile", user.getMobile());
 				map.put("firstName", user.getFirstName());
 				map.put("lastName", user.getLastName());
-				map.put("attributeValues", user.getAttributes());
+				
+				List<JSONObject> attribute_values = new ArrayList<JSONObject>();
+				List<AttributeValue> values = user.getAttributes();
+				for(AttributeValue value : values) {
+					Map<String, Object> mapobj = new TreeMap<String, Object>();
+					mapobj.put("uuid", value.getAttributeUuid());
+					mapobj.put("value", value.getValue());
+					attribute_values.add(new JSONObject(mapobj));
+				}
+				map.put("attributeValues", attribute_values);
+				
+				
 				
 				// Setting APPCODE
 				if(appcode!=null)
