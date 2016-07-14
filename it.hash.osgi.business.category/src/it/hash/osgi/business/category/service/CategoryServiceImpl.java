@@ -133,22 +133,28 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Map<String, Object> updateCategory(Category category) {
 		// TODO Auto-generated method stub
+		Dictionary props = new Properties();
+		props.put("uuidCategory", category.getUuid());
+		Event event= new Event("it/hash/osgi/business/category/UPDATE",props);
+		_eventAdminService.postEvent(event);
+		
+	
 		return null;
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Map<String, Object> deleteCategory(String uuid) {
-		Dictionary props = new Properties();
-		props.put(  EventConstants.EVENT_TOPIC, 
-		   "org/eclipse/equinox/events/MemoryEvent/CRITICAL");	
-		props.put("uuidCategory", uuid);
-		Event event= new Event("delete",props);
-		_eventAdminService.postEvent(event);
-		
 		Map<String,Object> tmp= new HashMap<String,Object>();
+		tmp=_categoryPersistenceService.deleteCategory(uuid);
+
+		if ((boolean) tmp.get("deleted")){
+		Dictionary props = new Properties();
+		props.put("uuidCategory", uuid);
+		Event event= new Event("it/hash/osgi/business/category/DELETE",props);
+		_eventAdminService.postEvent(event);
+		}
 		return tmp;
-//	return _categoryPersistenceService.deleteCategory(uuid);
 	}
 
 	@Override

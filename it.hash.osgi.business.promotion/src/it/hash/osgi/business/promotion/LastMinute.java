@@ -59,6 +59,7 @@ public class LastMinute extends Promotion implements Serializable {
 
 				if (map.get(attribute) instanceof List) {
 					List<Product> list = (List<Product>) (map.get(attribute));
+					
 					this.products = list;
 				} else
 					tmpO = map.get(attribute);

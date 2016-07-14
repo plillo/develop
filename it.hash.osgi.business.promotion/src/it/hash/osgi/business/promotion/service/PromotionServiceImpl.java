@@ -3,9 +3,11 @@ package it.hash.osgi.business.promotion.service;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -110,7 +112,10 @@ public class PromotionServiceImpl implements PromotionService {
 		String uuid = _uuid.createUUID("app/business.promotion");
 		if (!StringUtils.isEmptyOrNull(uuid)) {
 			promotion.setUuid(uuid);
-
+         
+			retrieveDetailsBusiness(businessUuid,promotion);
+			
+			
 			try {
 				response = _promotionPersistenceService.addPromotion(promotion);
 			} catch (ParseException e) {
@@ -130,16 +135,39 @@ public class PromotionServiceImpl implements PromotionService {
 		return response;
 	}
 
-	private Map<String, Object> retrieveDetailsBusiness(String businessUuid) {
-		Map<String, Object> pars = new HashMap<String, Object>();
+	private void retrieveDetailsBusiness(String businessUuid, Promotion promotion) {
 		Business business = _businessService.getBusiness(businessUuid);
 		if (business != null) {
 			if (!StringUtils.isEON(business.getUuid()))
-				pars.put("businessUuid", business.getUuid());
+				promotion.setBusinessUuid(business.getUuid());
 			if (!StringUtils.isEON(business.getName()))
-				pars.put("businessName", business.getName());
+				promotion.setBusinessName(business.getName());
 			if (!StringUtils.isEON(business.getPIva()))
-				pars.put("businessPIva", business.getPIva());
+				promotion.setBusinessPIva(business.getPIva());
+			if (!StringUtils.isEON(business.getFiscalCode()))
+				promotion.setBusinessFiscalCode( business.getFiscalCode());
+			if (!StringUtils.isEON(business.getAddress()))
+				promotion.setBusinessAddress(business.getAddress());
+			if (!StringUtils.isEON(business.getCity()))
+				promotion.setBusinessCity(business.getCity());
+			if (!StringUtils.isEON(business.getCap()))
+				promotion.setBusinessCap(business.getCap());
+			if (!StringUtils.isEON(business.getNation()))
+				promotion.setBusinessNation(business.getNation());
+		}
+	
+	}
+
+	private Map<String,Object> retrieveDetailsBusiness(String businessUuid) {
+		Business business = _businessService.getBusiness(businessUuid);
+		Map<String,Object>pars = new HashMap<String,Object>();
+		if (business != null) {
+			if (!StringUtils.isEON(business.getUuid()))
+				pars.put("businessUuid",business.getUuid());
+			if (!StringUtils.isEON(business.getName()))
+				pars.put("businessName",business.getName());
+			if (!StringUtils.isEON(business.getPIva()))
+				pars.put("businessPIva",business.getPIva());
 			if (!StringUtils.isEON(business.getFiscalCode()))
 				pars.put("businessFiscalCode", business.getFiscalCode());
 			if (!StringUtils.isEON(business.getAddress()))
@@ -207,6 +235,7 @@ public class PromotionServiceImpl implements PromotionService {
 
 		pars.putAll(business);
 		pars.put("active", true);
+		pars.put("cdate", new Date());
 		if (pars.get("type").equals(typeOffer.LastMinute.getMessage())) {
 
 			List<Product> products = this.retrieveDetailsProducts(pars);
@@ -231,7 +260,7 @@ public class PromotionServiceImpl implements PromotionService {
 			if (!(Boolean) response.get("status").equals(Status.CREATED.getCode()))
 				_uuid.removeUUID(u);
 
-			// TODO INTEGRITA' REFERENZIALE
+			
 
 		} else {
 
