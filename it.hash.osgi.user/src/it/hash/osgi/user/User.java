@@ -12,7 +12,6 @@ import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mongodb.BasicDBList;
